@@ -35,11 +35,6 @@
   </properties>
 
   <dependencies>
-          <dependency>  
-            <groupId>org.springframework</groupId>  
-            <artifactId>spring-test</artifactId>  
-            <version>${spring.version}</version>  
-        </dependency>  
               <!--验证码-->
             <dependency>
                 <groupId>com.github.bingoohuang</groupId>
@@ -62,23 +57,27 @@
              <artifactId>mybatis</artifactId>
              <version>${mybatis.version}</version>
         </dependency>
+        <dependency>  
+               <groupId>org.mybatis.generator</groupId>  
+               <artifactId>mybatis-generator-core</artifactId>  
+               <version>${generator.version}</version>  
+        </dependency> 
+        <!-- spring框架 -->
+        <dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-test</artifactId>  
+            <version>${spring.version}</version>  
+        </dependency>  
         <dependency>
-        	<groupId>org.mybatis.generator</groupId>
-        	<artifactId>mybatis-generator-core</artifactId>
-        	<version>${generator.version}</version>
-        	<scope>compile</scope>
-            <optional>true</optional>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
         </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-aspects</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-jdbc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
+        <dependency>
+             <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+           <version>${spring.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -142,11 +141,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-             <artifactId>jackson-databind</artifactId>
-             <version>${jackson.version}</version>
         </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
