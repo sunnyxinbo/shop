@@ -5,12 +5,15 @@ import java.sql.SQLException;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -35,28 +38,34 @@ import com.alibaba.druid.pool.DruidDataSource;
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
 @ComponentScan(basePackageClasses={MyMvcConfig.class})
+@PropertySource("classpath:db.properties")//配置文件
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+	  @Value("${jdbc.driver}")
+	  private String driver;
+	  @Value("${jdbc.url}")
+	  private String url;
+	  @Value("${jdbc.username}")
+	  private String user;
+	  @Value("${jdbc.password}")
+	  private String password;
 	  private ApplicationContext applicationContext;
-	  @Autowired
-	  private Environment env;
 	  public void setApplicationContext(ApplicationContext applicationContext) {
 	    this.applicationContext = applicationContext;
 	  }
-	  //JDBC事物管理
+	  //用于读取配置文件
 	  @Bean
-	  public DataSourceTransactionManager transactionManager(DruidDataSource dataSource){
-		  DataSourceTransactionManager manager=new DataSourceTransactionManager(dataSource);
-		  return manager;
+	  public static PropertySourcesPlaceholderConfigurer propertyConfigure(){
+		  return new PropertySourcesPlaceholderConfigurer();
 	  }
 	  //Druid数据库连接池
 	  @Bean(initMethod="init",destroyMethod="close")
 	  public DruidDataSource dataSource() throws SQLException{
 		  DruidDataSource data=new DruidDataSource();
 		  //配置数据源
-		  data.setDriverClassName(env.getProperty("jdbc.driver"));
-	      data.setUrl(env.getProperty("jdbc.url"));
-	       data.setUsername(env.getProperty("jdbc.user"));
-	       data.setPassword(env.getProperty("jdbc.password"));
+		  data.setDriverClassName(driver);
+	      data.setUrl(url);
+	       data.setUsername(user);
+	       data.setPassword(password);
 	       //配置连接池属性
 		  data.setInitialSize(5);//初始化大小
 		  data.setMinIdle(1);//最小连接数
@@ -69,6 +78,12 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		  data.setMaxPoolPreparedStatementPerConnectionSize(20);
 		  data.setFilters("start");
 		  return data;
+	  }
+	  //JDBC事物管理
+	  @Bean
+	  public DataSourceTransactionManager transactionManager(DruidDataSource dataSource){
+		  DataSourceTransactionManager manager=new DataSourceTransactionManager(dataSource);
+		  return manager;
 	  }
 	  //获取Mybatis的SqlSessionFactory
 	  @Bean

@@ -23,7 +23,7 @@
     <log4j.version>1.2.17</log4j.version>
     <fastjson.version>1.2.32</fastjson.version>
     <jackson.version>2.8.7</jackson.version>
-    <commons-io>2.2</commons-io>
+    <commons-io>2.5</commons-io>
     <javaee-web-api>7.0</javaee-web-api>
     <thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
     <guava.version>18.0</guava.version>
@@ -83,6 +83,7 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- 为了简化关于文件的操作 -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
