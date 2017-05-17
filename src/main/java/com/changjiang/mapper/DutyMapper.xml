@@ -90,6 +90,9 @@
     from duty
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="testSelect" resultMap="BaseResultMap">
+  	select * from duty 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from duty
     where id = #{id,jdbcType=INTEGER}

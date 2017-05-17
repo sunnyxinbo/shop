@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -32,13 +33,15 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.changjiang.service.DutyService;
 
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
-@ComponentScan(basePackageClasses={MyMvcConfig.class})
+@ComponentScan(basePackageClasses={MyMvcConfig.class,DutyService.class})
 @PropertySource("classpath:db.properties")//配置文件
+@MapperScan(basePackages="com.changjiang.mapper") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 	  @Value("${jdbc.driver}")
 	  private String driver;
@@ -52,13 +55,17 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 	  public void setApplicationContext(ApplicationContext applicationContext) {
 	    this.applicationContext = applicationContext;
 	  }
+	  @Bean
+	  public PlatformTransactionManager txManager() throws SQLException {
+	     return new DataSourceTransactionManager(dataSource());
+	  }
 	  //用于读取配置文件
 	  @Bean
 	  public static PropertySourcesPlaceholderConfigurer propertyConfigure(){
 		  return new PropertySourcesPlaceholderConfigurer();
 	  }
 	  //Druid数据库连接池
-	  @Bean(initMethod="init",destroyMethod="close")
+	  @Bean
 	  public DruidDataSource dataSource() throws SQLException{
 		  DruidDataSource data=new DruidDataSource();
 		  //配置数据源
@@ -90,9 +97,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 	  public SqlSessionFactoryBean sqlSessionFactory(DruidDataSource dataSource) throws IOException{
 		  SqlSessionFactoryBean b=new SqlSessionFactoryBean();
 		  b.setDataSource(dataSource);
-		// 设置 mapper xml
-	    b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/mapper/**/*.xml"));
-		  return b;
+		  //将mybatis-config.xml配置文件注入到SqlSessionFactory
+		  b.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
+		 // 设置 mapper xml
+	     b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/mapper/*.xml"));
+		 return b;
 	  }
 	  /**
 	   * 以下三个Bean配置视图解析器

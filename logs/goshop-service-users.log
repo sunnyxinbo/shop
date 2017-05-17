@@ -1,38 +1,26 @@
-[DEBUG][20170515 00:30:50,710][Log4jImpl:46] Retrieving column information for table "duty"
-[DEBUG][20170515 00:30:50,866][Log4jImpl:46] Found column "id", data type 4, in table "db2..duty"
-[DEBUG][20170515 00:30:50,894][Log4jImpl:46] Found column "name", data type 12, in table "db2..duty"
-[DEBUG][20170515 00:30:50,896][Log4jImpl:46] Found column "desc", data type 12, in table "db2..duty"
-[DEBUG][20170515 00:30:50,898][Log4jImpl:46] Found column "grade_id", data type 4, in table "db2..duty"
-[DEBUG][20170515 00:30:50,899][Log4jImpl:46] Found column "store_id", data type 4, in table "db2..duty"
-[DEBUG][20170515 00:30:50,901][Log4jImpl:46] Found column "state", data type 1, in table "db2..duty"
-[DEBUG][20170515 00:30:50,925][Log4jImpl:46] Retrieving column information for table "function"
-[DEBUG][20170515 00:30:50,955][Log4jImpl:46] Found column "id", data type 4, in table "db2..function"
-[DEBUG][20170515 00:30:50,956][Log4jImpl:46] Found column "function_name", data type 12, in table "db2..function"
-[DEBUG][20170515 00:30:50,957][Log4jImpl:46] Found column "upper_level_id", data type 4, in table "db2..function"
-[DEBUG][20170515 00:30:50,958][Log4jImpl:46] Found column "current_level", data type 4, in table "db2..function"
-[DEBUG][20170515 00:30:50,971][Log4jImpl:46] Retrieving column information for table "group"
-[DEBUG][20170515 00:30:51,024][Log4jImpl:46] Found column "id", data type 4, in table "db2..group"
-[DEBUG][20170515 00:30:51,025][Log4jImpl:46] Found column "name", data type 12, in table "db2..group"
-[DEBUG][20170515 00:30:51,027][Log4jImpl:46] Found column "desc", data type 12, in table "db2..group"
-[DEBUG][20170515 00:30:51,040][Log4jImpl:46] Found column "grade_id", data type 4, in table "db2..group"
-[DEBUG][20170515 00:30:51,041][Log4jImpl:46] Found column "state", data type 1, in table "db2..group"
-[DEBUG][20170515 00:30:51,047][Log4jImpl:46] Found column "store_id", data type 4, in table "db2..group"
-[DEBUG][20170515 00:30:51,053][Log4jImpl:46] Retrieving column information for table "role"
-[DEBUG][20170515 00:30:51,088][Log4jImpl:46] Found column "id", data type 4, in table "db2..role"
-[DEBUG][20170515 00:30:51,089][Log4jImpl:46] Found column "name", data type 12, in table "db2..role"
-[DEBUG][20170515 00:30:51,090][Log4jImpl:46] Found column "desc", data type 12, in table "db2..role"
-[DEBUG][20170515 00:30:51,094][Log4jImpl:46] Found column "duty_id", data type 4, in table "db2..role"
-[DEBUG][20170515 00:30:51,095][Log4jImpl:46] Found column "icon", data type 12, in table "db2..role"
-[DEBUG][20170515 00:30:51,096][Log4jImpl:46] Found column "duty_name", data type 12, in table "db2..role"
-[DEBUG][20170515 00:30:51,097][Log4jImpl:46] Found column "state", data type 1, in table "db2..role"
-[DEBUG][20170515 00:30:51,098][Log4jImpl:46] Found column "group_id", data type 4, in table "db2..role"
-[DEBUG][20170515 00:30:51,099][Log4jImpl:46] Found column "store_id", data type 4, in table "db2..role"
-[DEBUG][20170515 00:30:51,124][Log4jImpl:46] Retrieving column information for table "role_power"
-[DEBUG][20170515 00:30:51,138][Log4jImpl:46] Found column "id", data type 4, in table "db2..role_power"
-[DEBUG][20170515 00:30:51,138][Log4jImpl:46] Found column "function_name", data type 12, in table "db2..role_power"
-[DEBUG][20170515 00:30:51,139][Log4jImpl:46] Found column "upper_level_id", data type 4, in table "db2..role_power"
-[DEBUG][20170515 00:30:51,139][Log4jImpl:46] Found column "current_level", data type 4, in table "db2..role_power"
-[DEBUG][20170515 00:30:51,139][Log4jImpl:46] Found column "role_id", data type 4, in table "db2..role_power"
-[DEBUG][20170515 00:30:51,142][Log4jImpl:46] Retrieving column information for table "serial_number"
-[DEBUG][20170515 00:30:51,166][Log4jImpl:46] Found column "id", data type 4, in table "db2..serial_number"
-[DEBUG][20170515 00:30:51,166][Log4jImpl:46] Found column "last_serial_num", data type 12, in table "db2..serial_number"
+[ERROR][20170518 01:03:23,465][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:03:31,031][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:08:29,619][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:08:33,080][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:10:53,213][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:10:55,436][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:17:18,753][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:17:21,169][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:20:04,052][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:20:06,708][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:22:37,041][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:22:39,734][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:25:15,015][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:25:17,585][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 01:36:54,767][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 01:36:58,117][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 02:13:20,690][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 02:13:24,436][DruidDataSource:785] {dataSource-1} inited
+[DEBUG][20170518 02:13:24,640][PreparedStatementPool:129] stmt enter cache
+[DEBUG][20170518 02:13:24,689][PreparedStatementPool:160] stmt exit cache
+[INFO ][20170518 02:13:24,692][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170518 02:14:02,438][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170518 02:14:05,036][DruidDataSource:785] {dataSource-1} inited
+[DEBUG][20170518 02:14:05,104][PreparedStatementPool:129] stmt enter cache
+[DEBUG][20170518 02:14:05,123][PreparedStatementPool:160] stmt exit cache
+[INFO ][20170518 02:14:05,125][DruidDataSource:1534] {dataSource-1} closed

@@ -4,8 +4,10 @@ import com.changjiang.entity.Duty;
 import com.changjiang.entity.DutyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface DutyMapper {
+	Duty testSelect();
     long countByExample(DutyExample example);
 
     int deleteByExample(DutyExample example);
