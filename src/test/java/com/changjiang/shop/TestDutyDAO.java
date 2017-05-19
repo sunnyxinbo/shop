@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.changjiang.config.MyMvcConfig;
+import com.changjiang.entity.Duty;
 import com.changjiang.service.DutyService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,7 +40,10 @@ public class TestDutyDAO {
 
 	@Test
 	public void test() {
-			Assert.assertNotNull(service.getDuty(1));
+			Duty duty=service.getDuty(1);
+			Assert.assertEquals(1,(int)duty.getId());
+			Assert.assertEquals("2",duty.getName());
+			Assert.assertEquals("2",duty.getDesc());
 	}
 
 }

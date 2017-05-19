@@ -13,7 +13,7 @@ public class DutyService {
 	private DutyMapper mapper;
 	public Duty getDuty(int id){
 		Duty duty=new Duty();
-		duty=mapper.testSelect();
+		duty=mapper.testSelect(id);
 		return duty;
 	}
 }

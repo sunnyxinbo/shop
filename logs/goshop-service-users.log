@@ -1,26 +1,15 @@
-[ERROR][20170518 01:03:23,465][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:03:31,031][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:08:29,619][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:08:33,080][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:10:53,213][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:10:55,436][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:17:18,753][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:17:21,169][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:20:04,052][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:20:06,708][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:22:37,041][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:22:39,734][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:25:15,015][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:25:17,585][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 01:36:54,767][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 01:36:58,117][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 02:13:20,690][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 02:13:24,436][DruidDataSource:785] {dataSource-1} inited
-[DEBUG][20170518 02:13:24,640][PreparedStatementPool:129] stmt enter cache
-[DEBUG][20170518 02:13:24,689][PreparedStatementPool:160] stmt exit cache
-[INFO ][20170518 02:13:24,692][DruidDataSource:1534] {dataSource-1} closed
-[ERROR][20170518 02:14:02,438][FilterManager:133] load filter error, filter not found : start
-[INFO ][20170518 02:14:05,036][DruidDataSource:785] {dataSource-1} inited
-[DEBUG][20170518 02:14:05,104][PreparedStatementPool:129] stmt enter cache
-[DEBUG][20170518 02:14:05,123][PreparedStatementPool:160] stmt exit cache
-[INFO ][20170518 02:14:05,125][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170519 09:36:38,829][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170519 09:36:45,844][DruidDataSource:785] {dataSource-1} inited
+[DEBUG][20170519 09:36:46,091][PreparedStatementPool:129] stmt enter cache
+[DEBUG][20170519 09:36:46,196][PreparedStatementPool:160] stmt exit cache
+[INFO ][20170519 09:36:46,203][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170519 09:37:27,135][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170519 09:37:29,586][DruidDataSource:785] {dataSource-1} inited
+[DEBUG][20170519 09:37:29,669][PreparedStatementPool:129] stmt enter cache
+[DEBUG][20170519 09:37:29,779][PreparedStatementPool:160] stmt exit cache
+[INFO ][20170519 09:37:29,784][DruidDataSource:1534] {dataSource-1} closed
+[ERROR][20170519 09:40:07,590][FilterManager:133] load filter error, filter not found : start
+[INFO ][20170519 09:40:09,910][DruidDataSource:785] {dataSource-1} inited
+[DEBUG][20170519 09:40:09,991][PreparedStatementPool:129] stmt enter cache
+[DEBUG][20170519 09:40:10,011][PreparedStatementPool:160] stmt exit cache
+[INFO ][20170519 09:40:10,014][DruidDataSource:1534] {dataSource-1} closed
