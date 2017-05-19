@@ -1,6 +1,6 @@
 package com.changjiang.entity;
 
-public class Serial {
+public class SerialNumber {
     private Integer id;
 
     private String lastSerialNum;

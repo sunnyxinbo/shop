@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changjiang.mapper.WorkStationMapper" >
+  <resultMap id="BaseResultMap" type="com.changjiang.entity.WorkStation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="go_work_time" property="goWorkTime" jdbcType="TIME" />
+    <result column="leave_work_time" property="leaveWorkTime" jdbcType="TIME" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, user_id, go_work_time, leave_work_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from work_station
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from work_station
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changjiang.entity.WorkStation" >
+    insert into work_station (id, name, user_id, 
+      go_work_time, leave_work_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{goWorkTime,jdbcType=TIME}, #{leaveWorkTime,jdbcType=TIME})
+  </insert>
+  <insert id="insertSelective" parameterType="com.changjiang.entity.WorkStation" >
+    insert into work_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="goWorkTime != null" >
+        go_work_time,
+      </if>
+      <if test="leaveWorkTime != null" >
+        leave_work_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goWorkTime != null" >
+        #{goWorkTime,jdbcType=TIME},
+      </if>
+      <if test="leaveWorkTime != null" >
+        #{leaveWorkTime,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changjiang.entity.WorkStation" >
+    update work_station
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goWorkTime != null" >
+        go_work_time = #{goWorkTime,jdbcType=TIME},
+      </if>
+      <if test="leaveWorkTime != null" >
+        leave_work_time = #{leaveWorkTime,jdbcType=TIME},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changjiang.entity.WorkStation" >
+    update work_station
+    set name = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      go_work_time = #{goWorkTime,jdbcType=TIME},
+      leave_work_time = #{leaveWorkTime,jdbcType=TIME}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

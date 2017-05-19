@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changjiang.mapper.WorkstationRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.changjiang.entity.WorkstationRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="go_work_time" property="goWorkTime" jdbcType="TIME" />
+    <result column="leave_work_time" property="leaveWorkTime" jdbcType="TIME" />
+    <result column="counter_id" property="counterId" jdbcType="INTEGER" />
+    <result column="son_area_id" property="sonAreaId" jdbcType="INTEGER" />
+    <result column="work_day" property="workDay" jdbcType="DATE" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="work_station_id" property="workStationId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, user_phone, go_work_time, leave_work_time, counter_id, son_area_id, 
+    work_day, store_id, work_station_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from workstation_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from workstation_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changjiang.entity.WorkstationRecord" >
+    insert into workstation_record (id, user_id, user_name, 
+      user_phone, go_work_time, leave_work_time, 
+      counter_id, son_area_id, work_day, 
+      store_id, work_station_id)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{goWorkTime,jdbcType=TIME}, #{leaveWorkTime,jdbcType=TIME}, 
+      #{counterId,jdbcType=INTEGER}, #{sonAreaId,jdbcType=INTEGER}, #{workDay,jdbcType=DATE}, 
+      #{storeId,jdbcType=INTEGER}, #{workStationId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.changjiang.entity.WorkstationRecord" >
+    insert into workstation_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="goWorkTime != null" >
+        go_work_time,
+      </if>
+      <if test="leaveWorkTime != null" >
+        leave_work_time,
+      </if>
+      <if test="counterId != null" >
+        counter_id,
+      </if>
+      <if test="sonAreaId != null" >
+        son_area_id,
+      </if>
+      <if test="workDay != null" >
+        work_day,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="workStationId != null" >
+        work_station_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="goWorkTime != null" >
+        #{goWorkTime,jdbcType=TIME},
+      </if>
+      <if test="leaveWorkTime != null" >
+        #{leaveWorkTime,jdbcType=TIME},
+      </if>
+      <if test="counterId != null" >
+        #{counterId,jdbcType=INTEGER},
+      </if>
+      <if test="sonAreaId != null" >
+        #{sonAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="workDay != null" >
+        #{workDay,jdbcType=DATE},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="workStationId != null" >
+        #{workStationId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changjiang.entity.WorkstationRecord" >
+    update workstation_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="goWorkTime != null" >
+        go_work_time = #{goWorkTime,jdbcType=TIME},
+      </if>
+      <if test="leaveWorkTime != null" >
+        leave_work_time = #{leaveWorkTime,jdbcType=TIME},
+      </if>
+      <if test="counterId != null" >
+        counter_id = #{counterId,jdbcType=INTEGER},
+      </if>
+      <if test="sonAreaId != null" >
+        son_area_id = #{sonAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="workDay != null" >
+        work_day = #{workDay,jdbcType=DATE},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="workStationId != null" >
+        work_station_id = #{workStationId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changjiang.entity.WorkstationRecord" >
+    update workstation_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      go_work_time = #{goWorkTime,jdbcType=TIME},
+      leave_work_time = #{leaveWorkTime,jdbcType=TIME},
+      counter_id = #{counterId,jdbcType=INTEGER},
+      son_area_id = #{sonAreaId,jdbcType=INTEGER},
+      work_day = #{workDay,jdbcType=DATE},
+      store_id = #{storeId,jdbcType=INTEGER},
+      work_station_id = #{workStationId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
