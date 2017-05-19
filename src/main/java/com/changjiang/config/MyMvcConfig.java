@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -33,13 +32,12 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.changjiang.service.DutyService;
 
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
-@ComponentScan(basePackageClasses={MyMvcConfig.class,DutyService.class})
+@ComponentScan(basePackageClasses={MyMvcConfig.class})
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.mapper") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
