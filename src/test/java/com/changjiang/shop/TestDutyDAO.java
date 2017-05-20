@@ -1,5 +1,7 @@
 package com.changjiang.shop;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -13,15 +15,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.changjiang.config.MyMvcConfig;
-import com.changjiang.entity.Duty;
-import com.changjiang.service.DutyService;
+import com.changjiang.entity.Area;
+import com.changjiang.mapper.AreaTypeMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={MyMvcConfig.class})
 @WebAppConfiguration("src/main/resources")
 public class TestDutyDAO {
 	@Autowired
-	private DutyService service;
+	private AreaTypeMapper mapper;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -40,10 +42,9 @@ public class TestDutyDAO {
 
 	@Test
 	public void test() {
-			Duty duty=service.getDuty(1);
-			Assert.assertEquals(1,(int)duty.getId());
-			Assert.assertEquals("2",duty.getName());
-			Assert.assertEquals("2",duty.getDesc());
+		List<Area> result=mapper.selectAreaByType(1);
+		Assert.assertNotNull(result.get(0));
+		Assert.assertNotNull(result.get(1));
 	}
 
 }
