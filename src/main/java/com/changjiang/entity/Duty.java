@@ -1,20 +1,25 @@
 package com.changjiang.entity;
-
 public class Duty {
     private Integer id;
-
     private String name;
-
     private String desc;
-
     private Integer gradeId;
-
     private Integer storeId;
-
     private String state;
-
+    public Duty() {
+        super();
+    }
+    public Duty(Integer id,String name,String desc,Integer gradeId,Integer storeId,String state) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.gradeId = gradeId;
+        this.storeId = storeId;
+        this.state = state;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -22,23 +27,23 @@ public class Duty {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
 
     public Integer getGradeId() {
-        return gradeId;
+        return this.gradeId;
     }
 
     public void setGradeId(Integer gradeId) {
@@ -46,7 +51,7 @@ public class Duty {
     }
 
     public Integer getStoreId() {
-        return storeId;
+        return this.storeId;
     }
 
     public void setStoreId(Integer storeId) {
@@ -54,10 +59,11 @@ public class Duty {
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
+
 }

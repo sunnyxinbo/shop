@@ -1,94 +1,89 @@
 package com.changjiang.entity;
-
-import java.util.Date;
-
 public class UserChange {
     private Integer id;
-
     private String realname;
-
     private String nickname;
-
-    private String card;
-
+    private String idNumber;
     private String phone;
-
     private String password;
-
     private String desc;
-
-    private String gender;
-
-    private String photo;
-
+    private String sex;
+    private String icon;
     private String address;
-
     private String qq;
-
     private String wechat;
-
     private String email;
-
-    private Integer roleId;
-
-    private Integer dutyId;
-
-    private Integer groupId;
-
-    private Integer counterId;
-
-    private String personalSignature;
-
-    private String state;
-
-    private Integer storeId;
-
     private Integer userId;
-
-    private String userName;
-
-    private Date operateTime;
-
+    private java.util.Date operateTime;
     private String operator;
-
     private String newRealname;
-
     private String newNickname;
-
-    private String newCard;
-
-    private String newPhone;
-
+    private String newIdNumber;
+    private String newIcon;
     private String newPassword;
-
     private String newDesc;
-
-    private String newGender;
-
-    private String newPhoto;
-
+    private String newSex;
     private String newAddress;
-
     private String newQq;
-
     private String newWechat;
-
     private String newEmail;
-
-    private Integer newRoleId;
-
-    private Integer newDutyId;
-
-    private Integer newGroupId;
-
-    private Integer newCounterId;
-
-    private Integer newStoreId;
-
-    private Integer newUserId;
-
+    private String role;
+    private String newRole;
+    private String duty;
+    private String newDuty;
+    private String department;
+    private String newDepartment;
+    private String counter;
+    private String newCounter;
+    private String store;
+    private String newStore;
+    private String number;
+    public UserChange() {
+        super();
+    }
+    public UserChange(Integer id,String realname,String nickname,String idNumber,String phone,String password,String desc,String sex,String icon,String address,String qq,String wechat,String email,Integer userId,java.util.Date operateTime,String operator,String newRealname,String newNickname,String newIdNumber,String newIcon,String newPassword,String newDesc,String newSex,String newAddress,String newQq,String newWechat,String newEmail,String role,String newRole,String duty,String newDuty,String department,String newDepartment,String counter,String newCounter,String store,String newStore,String number) {
+        super();
+        this.id = id;
+        this.realname = realname;
+        this.nickname = nickname;
+        this.idNumber = idNumber;
+        this.phone = phone;
+        this.password = password;
+        this.desc = desc;
+        this.sex = sex;
+        this.icon = icon;
+        this.address = address;
+        this.qq = qq;
+        this.wechat = wechat;
+        this.email = email;
+        this.userId = userId;
+        this.operateTime = operateTime;
+        this.operator = operator;
+        this.newRealname = newRealname;
+        this.newNickname = newNickname;
+        this.newIdNumber = newIdNumber;
+        this.newIcon = newIcon;
+        this.newPassword = newPassword;
+        this.newDesc = newDesc;
+        this.newSex = newSex;
+        this.newAddress = newAddress;
+        this.newQq = newQq;
+        this.newWechat = newWechat;
+        this.newEmail = newEmail;
+        this.role = role;
+        this.newRole = newRole;
+        this.duty = duty;
+        this.newDuty = newDuty;
+        this.department = department;
+        this.newDepartment = newDepartment;
+        this.counter = counter;
+        this.newCounter = newCounter;
+        this.store = store;
+        this.newStore = newStore;
+        this.number = number;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -96,330 +91,299 @@ public class UserChange {
     }
 
     public String getRealname() {
-        return realname;
+        return this.realname;
     }
 
     public void setRealname(String realname) {
-        this.realname = realname == null ? null : realname.trim();
+        this.realname = realname;
     }
 
     public String getNickname() {
-        return nickname;
+        return this.nickname;
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
+        this.nickname = nickname;
     }
 
-    public String getCard() {
-        return card;
+    public String getIdNumber() {
+        return this.idNumber;
     }
 
-    public void setCard(String card) {
-        this.card = card == null ? null : card.trim();
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
 
-    public String getGender() {
-        return gender;
+    public String getSex() {
+        return this.sex;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getIcon() {
+        return this.icon;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getQq() {
-        return qq;
+        return this.qq;
     }
 
     public void setQq(String qq) {
-        this.qq = qq == null ? null : qq.trim();
+        this.qq = qq;
     }
 
     public String getWechat() {
-        return wechat;
+        return this.wechat;
     }
 
     public void setWechat(String wechat) {
-        this.wechat = wechat == null ? null : wechat.trim();
+        this.wechat = wechat;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Integer getDutyId() {
-        return dutyId;
-    }
-
-    public void setDutyId(Integer dutyId) {
-        this.dutyId = dutyId;
-    }
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
-
-    public Integer getCounterId() {
-        return counterId;
-    }
-
-    public void setCounterId(Integer counterId) {
-        this.counterId = counterId;
-    }
-
-    public String getPersonalSignature() {
-        return personalSignature;
-    }
-
-    public void setPersonalSignature(String personalSignature) {
-        this.personalSignature = personalSignature == null ? null : personalSignature.trim();
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
-    }
-
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+        this.email = email;
     }
 
     public Integer getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public java.util.Date getOperateTime() {
+        return this.operateTime;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public Date getOperateTime() {
-        return operateTime;
-    }
-
-    public void setOperateTime(Date operateTime) {
+    public void setOperateTime(java.util.Date operateTime) {
         this.operateTime = operateTime;
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
     }
 
     public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
+        this.operator = operator;
     }
 
     public String getNewRealname() {
-        return newRealname;
+        return this.newRealname;
     }
 
     public void setNewRealname(String newRealname) {
-        this.newRealname = newRealname == null ? null : newRealname.trim();
+        this.newRealname = newRealname;
     }
 
     public String getNewNickname() {
-        return newNickname;
+        return this.newNickname;
     }
 
     public void setNewNickname(String newNickname) {
-        this.newNickname = newNickname == null ? null : newNickname.trim();
+        this.newNickname = newNickname;
     }
 
-    public String getNewCard() {
-        return newCard;
+    public String getNewIdNumber() {
+        return this.newIdNumber;
     }
 
-    public void setNewCard(String newCard) {
-        this.newCard = newCard == null ? null : newCard.trim();
+    public void setNewIdNumber(String newIdNumber) {
+        this.newIdNumber = newIdNumber;
     }
 
-    public String getNewPhone() {
-        return newPhone;
+    public String getNewIcon() {
+        return this.newIcon;
     }
 
-    public void setNewPhone(String newPhone) {
-        this.newPhone = newPhone == null ? null : newPhone.trim();
+    public void setNewIcon(String newIcon) {
+        this.newIcon = newIcon;
     }
 
     public String getNewPassword() {
-        return newPassword;
+        return this.newPassword;
     }
 
     public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword == null ? null : newPassword.trim();
+        this.newPassword = newPassword;
     }
 
     public String getNewDesc() {
-        return newDesc;
+        return this.newDesc;
     }
 
     public void setNewDesc(String newDesc) {
-        this.newDesc = newDesc == null ? null : newDesc.trim();
+        this.newDesc = newDesc;
     }
 
-    public String getNewGender() {
-        return newGender;
+    public String getNewSex() {
+        return this.newSex;
     }
 
-    public void setNewGender(String newGender) {
-        this.newGender = newGender == null ? null : newGender.trim();
-    }
-
-    public String getNewPhoto() {
-        return newPhoto;
-    }
-
-    public void setNewPhoto(String newPhoto) {
-        this.newPhoto = newPhoto == null ? null : newPhoto.trim();
+    public void setNewSex(String newSex) {
+        this.newSex = newSex;
     }
 
     public String getNewAddress() {
-        return newAddress;
+        return this.newAddress;
     }
 
     public void setNewAddress(String newAddress) {
-        this.newAddress = newAddress == null ? null : newAddress.trim();
+        this.newAddress = newAddress;
     }
 
     public String getNewQq() {
-        return newQq;
+        return this.newQq;
     }
 
     public void setNewQq(String newQq) {
-        this.newQq = newQq == null ? null : newQq.trim();
+        this.newQq = newQq;
     }
 
     public String getNewWechat() {
-        return newWechat;
+        return this.newWechat;
     }
 
     public void setNewWechat(String newWechat) {
-        this.newWechat = newWechat == null ? null : newWechat.trim();
+        this.newWechat = newWechat;
     }
 
     public String getNewEmail() {
-        return newEmail;
+        return this.newEmail;
     }
 
     public void setNewEmail(String newEmail) {
-        this.newEmail = newEmail == null ? null : newEmail.trim();
+        this.newEmail = newEmail;
     }
 
-    public Integer getNewRoleId() {
-        return newRoleId;
+    public String getRole() {
+        return this.role;
     }
 
-    public void setNewRoleId(Integer newRoleId) {
-        this.newRoleId = newRoleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public Integer getNewDutyId() {
-        return newDutyId;
+    public String getNewRole() {
+        return this.newRole;
     }
 
-    public void setNewDutyId(Integer newDutyId) {
-        this.newDutyId = newDutyId;
+    public void setNewRole(String newRole) {
+        this.newRole = newRole;
     }
 
-    public Integer getNewGroupId() {
-        return newGroupId;
+    public String getDuty() {
+        return this.duty;
     }
 
-    public void setNewGroupId(Integer newGroupId) {
-        this.newGroupId = newGroupId;
+    public void setDuty(String duty) {
+        this.duty = duty;
     }
 
-    public Integer getNewCounterId() {
-        return newCounterId;
+    public String getNewDuty() {
+        return this.newDuty;
     }
 
-    public void setNewCounterId(Integer newCounterId) {
-        this.newCounterId = newCounterId;
+    public void setNewDuty(String newDuty) {
+        this.newDuty = newDuty;
     }
 
-    public Integer getNewStoreId() {
-        return newStoreId;
+    public String getDepartment() {
+        return this.department;
     }
 
-    public void setNewStoreId(Integer newStoreId) {
-        this.newStoreId = newStoreId;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public Integer getNewUserId() {
-        return newUserId;
+    public String getNewDepartment() {
+        return this.newDepartment;
     }
 
-    public void setNewUserId(Integer newUserId) {
-        this.newUserId = newUserId;
+    public void setNewDepartment(String newDepartment) {
+        this.newDepartment = newDepartment;
     }
+
+    public String getCounter() {
+        return this.counter;
+    }
+
+    public void setCounter(String counter) {
+        this.counter = counter;
+    }
+
+    public String getNewCounter() {
+        return this.newCounter;
+    }
+
+    public void setNewCounter(String newCounter) {
+        this.newCounter = newCounter;
+    }
+
+    public String getStore() {
+        return this.store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public String getNewStore() {
+        return this.newStore;
+    }
+
+    public void setNewStore(String newStore) {
+        this.newStore = newStore;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
 }

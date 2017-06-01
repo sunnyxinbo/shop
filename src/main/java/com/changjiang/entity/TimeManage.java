@@ -1,56 +1,59 @@
 package com.changjiang.entity;
-
-import java.util.Date;
-
 public class TimeManage {
     private Integer id;
-
-    private Date startTime;
-
-    private Date endTime;
-
+    private java.util.Date startTime;
+    private java.util.Date endTime;
     private String name;
-
     private Integer storeId;
-
     private String state;
-
     private String desc;
-
+    public TimeManage() {
+        super();
+    }
+    public TimeManage(Integer id,java.util.Date startTime,java.util.Date endTime,String name,Integer storeId,String state,String desc) {
+        super();
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.name = name;
+        this.storeId = storeId;
+        this.state = state;
+        this.desc = desc;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public java.util.Date getStartTime() {
+        return this.startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(java.util.Date startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public java.util.Date getEndTime() {
+        return this.endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(java.util.Date endTime) {
         this.endTime = endTime;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Integer getStoreId() {
-        return storeId;
+        return this.storeId;
     }
 
     public void setStoreId(Integer storeId) {
@@ -58,18 +61,19 @@ public class TimeManage {
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
+
 }

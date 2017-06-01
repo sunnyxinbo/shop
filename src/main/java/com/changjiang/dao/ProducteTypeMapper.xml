@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changjiang.dao.ProducteTypeDao">
+    <resultMap id="result_ProducteType_Map" type="com.changjiang.entity.ProducteType">
+        <id column="ProducteType0" property="id" />
+        <result column="ProducteType1" property="name" />
+        <result column="ProducteType2" property="desc" />
+    </resultMap>
+
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="producte_type_Column">
+        producte_type.id as ProducteType0
+        ,producte_type.name as ProducteType1
+        ,producte_type.desc as ProducteType2
+    </sql>
+
+    <select id="getProducteTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+        select count(id) from producte_type
+        <if test="require!=null"><include refid="Assist" /></if>
+    </select>
+    <select id="selectProducteType" parameterType="com.changjiang.common.Assist"  resultMap="result_ProducteType_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
+        <include refid="producte_type_Column" /> 
+            </otherwise>
+        </choose>
+        from producte_type
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
+    </select> 
+
+    <select id="selectProducteTypeById" parameterType="java.lang.Integer" resultMap="result_ProducteType_Map">
+        select 
+            <include refid="producte_type_Column" /> 
+        from producte_type
+        where producte_type.id = #{id}
+    </select> 
+
+
+    <insert id="insertProducteType" parameterType="com.changjiang.entity.ProducteType">
+        insert into producte_type(id,name,desc) 
+        values(#{id},#{name},#{desc})
+    </insert>
+
+    <insert id="insertNonEmptyProducteType" parameterType="com.changjiang.entity.ProducteType">
+        insert into producte_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="desc != null">desc,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null"> #{id},</if>
+            <if test="name != null"> #{name},</if>
+            <if test="desc != null"> #{desc},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteProducteTypeById" parameterType="java.lang.Integer">
+        delete from producte_type
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteProducteType" parameterType="com.changjiang.common.Assist">
+        delete from producte_type
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
+    <update id="updateProducteTypeById" parameterType="com.changjiang.entity.ProducteType">
+        update producte_type set
+            name=#{name}
+            ,desc=#{desc}
+        where id=#{id}
+    </update>
+
+    <update id="updateNonEmptyProducteTypeById" parameterType="com.changjiang.entity.ProducteType">
+        update producte_type
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="desc != null">
+                desc=#{desc},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <update id="updateProducteType" parameterType="map">
+        update producte_type
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                desc=#{enti.desc},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyProducteType" parameterType="map">
+        update producte_type
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.desc != null">
+                desc=#{enti.desc},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+</mapper>

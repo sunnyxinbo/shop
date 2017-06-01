@@ -1,26 +1,25 @@
 package com.changjiang.entity;
-
 public class Role {
     private Integer id;
-
     private String name;
-
     private String desc;
-
-    private Integer dutyId;
-
     private String icon;
-
-    private String dutyName;
-
     private String state;
-
-    private Integer groupId;
-
     private Integer storeId;
-
+    public Role() {
+        super();
+    }
+    public Role(Integer id,String name,String desc,String icon,String state,Integer storeId) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.icon = icon;
+        this.state = state;
+        this.storeId = storeId;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -28,66 +27,43 @@ public class Role {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
-    }
-
-    public Integer getDutyId() {
-        return dutyId;
-    }
-
-    public void setDutyId(Integer dutyId) {
-        this.dutyId = dutyId;
+        this.desc = desc;
     }
 
     public String getIcon() {
-        return icon;
+        return this.icon;
     }
 
     public void setIcon(String icon) {
-        this.icon = icon == null ? null : icon.trim();
-    }
-
-    public String getDutyName() {
-        return dutyName;
-    }
-
-    public void setDutyName(String dutyName) {
-        this.dutyName = dutyName == null ? null : dutyName.trim();
+        this.icon = icon;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
-    }
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
+        this.state = state;
     }
 
     public Integer getStoreId() {
-        return storeId;
+        return this.storeId;
     }
 
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
+
 }

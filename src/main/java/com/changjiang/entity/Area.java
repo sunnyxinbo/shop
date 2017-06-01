@@ -1,24 +1,27 @@
 package com.changjiang.entity;
-
 public class Area {
     private Integer id;
-
     private String name;
-
-    private Integer areaTypeId;
-
-    private Integer storeId;
-
+    private Integer store;
     private String state;
-
     private String desc;
-
     private Integer upperLevelId;
-
     private Integer currentLevel;
-
+    public Area() {
+        super();
+    }
+    public Area(Integer id,String name,Integer store,String state,String desc,Integer upperLevelId,Integer currentLevel) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.store = store;
+        this.state = state;
+        this.desc = desc;
+        this.upperLevelId = upperLevelId;
+        this.currentLevel = currentLevel;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -26,47 +29,39 @@ public class Area {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public Integer getAreaTypeId() {
-        return areaTypeId;
+    public Integer getStore() {
+        return this.store;
     }
 
-    public void setAreaTypeId(Integer areaTypeId) {
-        this.areaTypeId = areaTypeId;
-    }
-
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setStore(Integer store) {
+        this.store = store;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
 
     public Integer getUpperLevelId() {
-        return upperLevelId;
+        return this.upperLevelId;
     }
 
     public void setUpperLevelId(Integer upperLevelId) {
@@ -74,10 +69,11 @@ public class Area {
     }
 
     public Integer getCurrentLevel() {
-        return currentLevel;
+        return this.currentLevel;
     }
 
     public void setCurrentLevel(Integer currentLevel) {
         this.currentLevel = currentLevel;
     }
+
 }

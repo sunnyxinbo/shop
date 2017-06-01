@@ -39,7 +39,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @EnableTransactionManagement//开启注解方式事务管理
 @ComponentScan(basePackageClasses={MyMvcConfig.class})
 @PropertySource("classpath:db.properties")//配置文件
-@MapperScan(basePackages="com.changjiang.mapper") //扫描接口
+@MapperScan(basePackages="com.changjiang.dao") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 	  @Value("${jdbc.driver}")
 	  private String driver;
@@ -98,7 +98,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		  //将mybatis-config.xml配置文件注入到SqlSessionFactory
 		  b.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
 		 // 设置 mapper xml
-	     b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/mapper/*.xml"));
+	     b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/dao/*.xml"));
 		 return b;
 	  }
 	  /**

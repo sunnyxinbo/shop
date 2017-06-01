@@ -1,24 +1,27 @@
 package com.changjiang.entity;
-
 public class Counter {
     private Integer id;
-
     private String name;
-
     private String desc;
-
-    private Integer counterTypeId;
-
-    private Integer storeId;
-
+    private Integer type;
+    private Integer store;
     private String state;
-
-    private Integer upperLevelId;
-
-    private Integer currentLevel;
-
+    private Integer area;
+    public Counter() {
+        super();
+    }
+    public Counter(Integer id,String name,String desc,Integer type,Integer store,String state,Integer area) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.type = type;
+        this.store = store;
+        this.state = state;
+        this.area = area;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -26,58 +29,51 @@ public class Counter {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
 
-    public Integer getCounterTypeId() {
-        return counterTypeId;
+    public Integer getType() {
+        return this.type;
     }
 
-    public void setCounterTypeId(Integer counterTypeId) {
-        this.counterTypeId = counterTypeId;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public Integer getStore() {
+        return this.store;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setStore(Integer store) {
+        this.store = store;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
 
-    public Integer getUpperLevelId() {
-        return upperLevelId;
+    public Integer getArea() {
+        return this.area;
     }
 
-    public void setUpperLevelId(Integer upperLevelId) {
-        this.upperLevelId = upperLevelId;
+    public void setArea(Integer area) {
+        this.area = area;
     }
 
-    public Integer getCurrentLevel() {
-        return currentLevel;
-    }
-
-    public void setCurrentLevel(Integer currentLevel) {
-        this.currentLevel = currentLevel;
-    }
 }

@@ -1,26 +1,33 @@
 package com.changjiang.entity;
-
 public class Store {
     private Integer id;
-
     private String name;
-
     private Integer storeTypeId;
-
     private String address;
-
     private String phone;
-
     private String legalName;
-
     private String legalNamePhone;
-
     private String state;
-
     private String desc;
-
+    private Integer organizationId;
+    public Store() {
+        super();
+    }
+    public Store(Integer id,String name,Integer storeTypeId,String address,String phone,String legalName,String legalNamePhone,String state,String desc,Integer organizationId) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.storeTypeId = storeTypeId;
+        this.address = address;
+        this.phone = phone;
+        this.legalName = legalName;
+        this.legalNamePhone = legalNamePhone;
+        this.state = state;
+        this.desc = desc;
+        this.organizationId = organizationId;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -28,15 +35,15 @@ public class Store {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Integer getStoreTypeId() {
-        return storeTypeId;
+        return this.storeTypeId;
     }
 
     public void setStoreTypeId(Integer storeTypeId) {
@@ -44,50 +51,59 @@ public class Store {
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getLegalName() {
-        return legalName;
+        return this.legalName;
     }
 
     public void setLegalName(String legalName) {
-        this.legalName = legalName == null ? null : legalName.trim();
+        this.legalName = legalName;
     }
 
     public String getLegalNamePhone() {
-        return legalNamePhone;
+        return this.legalNamePhone;
     }
 
     public void setLegalNamePhone(String legalNamePhone) {
-        this.legalNamePhone = legalNamePhone == null ? null : legalNamePhone.trim();
+        this.legalNamePhone = legalNamePhone;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
+
+    public Integer getOrganizationId() {
+        return this.organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
+    }
+
 }

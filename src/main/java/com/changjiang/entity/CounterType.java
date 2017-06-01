@@ -1,18 +1,21 @@
 package com.changjiang.entity;
-
 public class CounterType {
     private Integer id;
-
     private String name;
-
     private String desc;
-
-    private Integer storeId;
-
     private String state;
-
+    public CounterType() {
+        super();
+    }
+    public CounterType(Integer id,String name,String desc,String state) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.state = state;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -20,34 +23,27 @@ public class CounterType {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
-    }
-
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+        this.desc = desc;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
+
 }

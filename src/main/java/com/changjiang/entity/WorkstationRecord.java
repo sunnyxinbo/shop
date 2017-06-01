@@ -1,32 +1,37 @@
 package com.changjiang.entity;
-
-import java.util.Date;
-
 public class WorkstationRecord {
     private Integer id;
-
     private Integer userId;
-
     private String userName;
-
     private String userPhone;
-
-    private Date goWorkTime;
-
-    private Date leaveWorkTime;
-
+    private java.util.Date goWorkTime;
+    private java.util.Date leaveWorkTime;
     private Integer counterId;
-
     private Integer sonAreaId;
-
-    private Date workDay;
-
+    private java.util.Date workDay;
     private Integer storeId;
-
     private Integer workStationId;
-
+    private String number;
+    public WorkstationRecord() {
+        super();
+    }
+    public WorkstationRecord(Integer id,Integer userId,String userName,String userPhone,java.util.Date goWorkTime,java.util.Date leaveWorkTime,Integer counterId,Integer sonAreaId,java.util.Date workDay,Integer storeId,Integer workStationId,String number) {
+        super();
+        this.id = id;
+        this.userId = userId;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.goWorkTime = goWorkTime;
+        this.leaveWorkTime = leaveWorkTime;
+        this.counterId = counterId;
+        this.sonAreaId = sonAreaId;
+        this.workDay = workDay;
+        this.storeId = storeId;
+        this.workStationId = workStationId;
+        this.number = number;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -34,7 +39,7 @@ public class WorkstationRecord {
     }
 
     public Integer getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(Integer userId) {
@@ -42,39 +47,39 @@ public class WorkstationRecord {
     }
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getUserPhone() {
-        return userPhone;
+        return this.userPhone;
     }
 
     public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone == null ? null : userPhone.trim();
+        this.userPhone = userPhone;
     }
 
-    public Date getGoWorkTime() {
-        return goWorkTime;
+    public java.util.Date getGoWorkTime() {
+        return this.goWorkTime;
     }
 
-    public void setGoWorkTime(Date goWorkTime) {
+    public void setGoWorkTime(java.util.Date goWorkTime) {
         this.goWorkTime = goWorkTime;
     }
 
-    public Date getLeaveWorkTime() {
-        return leaveWorkTime;
+    public java.util.Date getLeaveWorkTime() {
+        return this.leaveWorkTime;
     }
 
-    public void setLeaveWorkTime(Date leaveWorkTime) {
+    public void setLeaveWorkTime(java.util.Date leaveWorkTime) {
         this.leaveWorkTime = leaveWorkTime;
     }
 
     public Integer getCounterId() {
-        return counterId;
+        return this.counterId;
     }
 
     public void setCounterId(Integer counterId) {
@@ -82,23 +87,23 @@ public class WorkstationRecord {
     }
 
     public Integer getSonAreaId() {
-        return sonAreaId;
+        return this.sonAreaId;
     }
 
     public void setSonAreaId(Integer sonAreaId) {
         this.sonAreaId = sonAreaId;
     }
 
-    public Date getWorkDay() {
-        return workDay;
+    public java.util.Date getWorkDay() {
+        return this.workDay;
     }
 
-    public void setWorkDay(Date workDay) {
+    public void setWorkDay(java.util.Date workDay) {
         this.workDay = workDay;
     }
 
     public Integer getStoreId() {
-        return storeId;
+        return this.storeId;
     }
 
     public void setStoreId(Integer storeId) {
@@ -106,10 +111,19 @@ public class WorkstationRecord {
     }
 
     public Integer getWorkStationId() {
-        return workStationId;
+        return this.workStationId;
     }
 
     public void setWorkStationId(Integer workStationId) {
         this.workStationId = workStationId;
     }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
 }

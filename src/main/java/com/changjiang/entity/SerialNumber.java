@@ -1,12 +1,17 @@
 package com.changjiang.entity;
-
 public class SerialNumber {
     private Integer id;
-
     private String lastSerialNum;
-
+    public SerialNumber() {
+        super();
+    }
+    public SerialNumber(Integer id,String lastSerialNum) {
+        super();
+        this.id = id;
+        this.lastSerialNum = lastSerialNum;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -14,10 +19,11 @@ public class SerialNumber {
     }
 
     public String getLastSerialNum() {
-        return lastSerialNum;
+        return this.lastSerialNum;
     }
 
     public void setLastSerialNum(String lastSerialNum) {
-        this.lastSerialNum = lastSerialNum == null ? null : lastSerialNum.trim();
+        this.lastSerialNum = lastSerialNum;
     }
+
 }

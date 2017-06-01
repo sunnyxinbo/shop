@@ -1,16 +1,23 @@
 package com.changjiang.entity;
-
 public class Function {
     private Integer id;
-
     private String functionName;
-
     private Integer upperLevelId;
-
     private Integer currentLevel;
-
+    private String icon;
+    public Function() {
+        super();
+    }
+    public Function(Integer id,String functionName,Integer upperLevelId,Integer currentLevel,String icon) {
+        super();
+        this.id = id;
+        this.functionName = functionName;
+        this.upperLevelId = upperLevelId;
+        this.currentLevel = currentLevel;
+        this.icon = icon;
+    }
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -18,15 +25,15 @@ public class Function {
     }
 
     public String getFunctionName() {
-        return functionName;
+        return this.functionName;
     }
 
     public void setFunctionName(String functionName) {
-        this.functionName = functionName == null ? null : functionName.trim();
+        this.functionName = functionName;
     }
 
     public Integer getUpperLevelId() {
-        return upperLevelId;
+        return this.upperLevelId;
     }
 
     public void setUpperLevelId(Integer upperLevelId) {
@@ -34,10 +41,19 @@ public class Function {
     }
 
     public Integer getCurrentLevel() {
-        return currentLevel;
+        return this.currentLevel;
     }
 
     public void setCurrentLevel(Integer currentLevel) {
         this.currentLevel = currentLevel;
     }
+
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
 }
