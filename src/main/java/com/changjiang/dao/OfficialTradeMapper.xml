@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.changjiang.dao.OfficialTradeDao">
+<mapper namespace="com.changjiang.mapper.OfficialTradeDao">
     <resultMap id="result_OfficialTrade_Map" type="com.changjiang.entity.OfficialTrade">
         <id column="OfficialTrade0" property="id" />
         <result column="OfficialTrade1" property="number" />
@@ -16,22 +16,6 @@
         <result column="OfficialTrade11" property="statisticalCategories" />
         <result column="OfficialTrade12" property="rawMaterial" />
     </resultMap>
-
-    <sql id="Assist">
-        <where>
-            <foreach collection="require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
-
-    <sql id="updateAssist">
-        <where>
-            <foreach collection="assist.require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
 
     <sql id="official_trade_Column">
         official_trade.id as OfficialTrade0
@@ -49,22 +33,13 @@
         ,official_trade.raw_material as OfficialTrade12
     </sql>
 
-    <select id="getOfficialTradeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOfficialTradeRowCount" resultType="java.lang.Long">
         select count(id) from official_trade
-        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOfficialTrade" parameterType="com.changjiang.common.Assist"  resultMap="result_OfficialTrade_Map">
-        select  <if test="distinct !=null">${distinct}</if>
-        <choose>
-            <when test="resultColumn!=null">${resultColumn}</when>
-            <otherwise>
+    <select id="selectOfficialTrade" resultMap="result_OfficialTrade_Map">
+        select 
         <include refid="official_trade_Column" /> 
-            </otherwise>
-        </choose>
         from official_trade
-        <if test="require!=null"><include refid="Assist" /></if>
-        <if test="order !=null">${order}</if>
-        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectOfficialTradeById" parameterType="java.lang.Integer" resultMap="result_OfficialTrade_Map">
@@ -117,11 +92,6 @@
     <delete id="deleteOfficialTradeById" parameterType="java.lang.Integer">
         delete from official_trade
         where id = #{id}
-    </delete>
-
-    <delete id="deleteOfficialTrade" parameterType="com.changjiang.common.Assist">
-        delete from official_trade
-        <if test="require!=null"><include refid="Assist" /></if>
     </delete>
 
     <update id="updateOfficialTradeById" parameterType="com.changjiang.entity.OfficialTrade">
@@ -182,72 +152,6 @@
             </if>
         </set>
         where id=#{id}
-    </update>
-
-    <update id="updateOfficialTrade" parameterType="map">
-        update official_trade
-        <set>
-                id=#{enti.id},
-                number=#{enti.number},
-                official_name=#{enti.officialName},
-                product_name=#{enti.productName},
-                alias=#{enti.alias},
-                official_type=#{enti.officialType},
-                former_name=#{enti.formerName},
-                desc=#{enti.desc},
-                official_price=#{enti.officialPrice},
-                icon=#{enti.icon},
-                video=#{enti.video},
-                statistical_categories=#{enti.statisticalCategories},
-                raw_material=#{enti.rawMaterial},
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
-    </update>
-
-    <update id="updateNonEmptyOfficialTrade" parameterType="map">
-        update official_trade
-        <set>
-            <if test="enti.id != null">
-                id=#{enti.id},
-            </if>
-            <if test="enti.number != null">
-                number=#{enti.number},
-            </if>
-            <if test="enti.officialName != null">
-                official_name=#{enti.officialName},
-            </if>
-            <if test="enti.productName != null">
-                product_name=#{enti.productName},
-            </if>
-            <if test="enti.alias != null">
-                alias=#{enti.alias},
-            </if>
-            <if test="enti.officialType != null">
-                official_type=#{enti.officialType},
-            </if>
-            <if test="enti.formerName != null">
-                former_name=#{enti.formerName},
-            </if>
-            <if test="enti.desc != null">
-                desc=#{enti.desc},
-            </if>
-            <if test="enti.officialPrice != null">
-                official_price=#{enti.officialPrice},
-            </if>
-            <if test="enti.icon != null">
-                icon=#{enti.icon},
-            </if>
-            <if test="enti.video != null">
-                video=#{enti.video},
-            </if>
-            <if test="enti.statisticalCategories != null">
-                statistical_categories=#{enti.statisticalCategories},
-            </if>
-            <if test="enti.rawMaterial != null">
-                raw_material=#{enti.rawMaterial},
-            </if>
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

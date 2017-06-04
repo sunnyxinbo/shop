@@ -1,17 +1,25 @@
 package com.changjiang.service;
-import java.util.List;
-import com.changjiang.dao.SerialNumberDao;
 import com.changjiang.entity.SerialNumber;
-import com.changjiang.common.Assist;
+import com.changjiang.dao.SerialNumberDao;
+import com.changjiang.service.SerialNumberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
 public class SerialNumberServiceImpl implements SerialNumberService{
+	@Autowired
     private SerialNumberDao serialNumberDao;
     @Override
-    public long getSerialNumberRowCount(Assist assist){
-        return serialNumberDao.getSerialNumberRowCount(assist);
+    public long getSerialNumberRowCount(){
+        return serialNumberDao.getSerialNumberRowCount();
     }
+    /**
+     * 查询所有的流水号信息
+     */
     @Override
-    public List<SerialNumber> selectSerialNumber(Assist assist){
-        return serialNumberDao.selectSerialNumber(assist);
+    public List<SerialNumber> selectSerialNumber(){
+        return serialNumberDao.selectSerialNumber();
     }
     @Override
     public SerialNumber selectSerialNumberById(Integer id){
@@ -25,29 +33,23 @@ public class SerialNumberServiceImpl implements SerialNumberService{
     public int insertNonEmptySerialNumber(SerialNumber value){
         return serialNumberDao.insertNonEmptySerialNumber(value);
     }
+
+    /**
+     * 通过id删除流水号
+     * @param id
+     * @return
+     */
     @Override
     public int deleteSerialNumberById(Integer id){
         return serialNumberDao.deleteSerialNumberById(id);
-    }
-    @Override
-    public int deleteSerialNumber(Assist assist){
-        return serialNumberDao.deleteSerialNumber(assist);
     }
     @Override
     public int updateSerialNumberById(SerialNumber enti){
         return serialNumberDao.updateSerialNumberById(enti);
     }
     @Override
-    public int updateSerialNumber(SerialNumber value, Assist assist){
-        return serialNumberDao.updateSerialNumber(value,assist);
-    }
-    @Override
     public int updateNonEmptySerialNumberById(SerialNumber enti){
         return serialNumberDao.updateNonEmptySerialNumberById(enti);
-    }
-    @Override
-    public int updateNonEmptySerialNumber(SerialNumber value, Assist assist){
-        return serialNumberDao.updateNonEmptySerialNumber(value,assist);
     }
 
     public SerialNumberDao getSerialNumberDao() {

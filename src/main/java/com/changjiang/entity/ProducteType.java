@@ -1,8 +1,31 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
+/**
+ * 产品类型实体类
+ */
 public class ProducteType {
+    /**
+     * 产品类型id
+     */
     private Integer id;
+    /**
+     * 产品类型名称
+     */
     private String name;
+    /**
+     * 产品类型描述
+     */
     private String desc;
+    /**
+     * 使用一个List<OfficialTrade>集合属性表示产品类型拥有的办公贸易
+     */
+    List<OfficialTrade> officialTrades;
+    /**
+     * 使用一个List<StoreProducte>集合属性表示产品类型拥有的店面产品
+     */
+    List<StoreProducte> storeProductes;
     public ProducteType() {
         super();
     }
@@ -34,6 +57,21 @@ public class ProducteType {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+    public List<OfficialTrade> getOfficialTrades() {
+        return officialTrades;
+    }
+
+    public void setOfficialTrades(List<OfficialTrade> officialTrades) {
+        this.officialTrades = officialTrades;
+    }
+
+    public List<StoreProducte> getStoreProductes() {
+        return storeProductes;
+    }
+
+    public void setStoreProductes(List<StoreProducte> storeProductes) {
+        this.storeProductes = storeProductes;
     }
 
 }

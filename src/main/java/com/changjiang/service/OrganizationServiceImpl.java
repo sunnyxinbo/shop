@@ -1,18 +1,34 @@
 package com.changjiang.service;
-import java.util.List;
-import com.changjiang.dao.OrganizationDao;
 import com.changjiang.entity.Organization;
-import com.changjiang.common.Assist;
+import com.changjiang.dao.OrganizationDao;
+import com.changjiang.service.OrganizationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
 public class OrganizationServiceImpl implements OrganizationService{
+    @Autowired
     private OrganizationDao organizationDao;
     @Override
-    public long getOrganizationRowCount(Assist assist){
-        return organizationDao.getOrganizationRowCount(assist);
+    public long getOrganizationRowCount(){
+        return organizationDao.getOrganizationRowCount();
     }
+
+    /**
+     * 查询所有的组织
+     * @return
+     */
     @Override
-    public List<Organization> selectOrganization(Assist assist){
-        return organizationDao.selectOrganization(assist);
+    public List<Organization> selectOrganization(){
+        return organizationDao.selectOrganization();
     }
+
+    /**
+     * 通过id查询组织
+     * @param id
+     * @return
+     */
     @Override
     public Organization selectOrganizationById(Integer id){
         return organizationDao.selectOrganizationById(id);
@@ -30,24 +46,12 @@ public class OrganizationServiceImpl implements OrganizationService{
         return organizationDao.deleteOrganizationById(id);
     }
     @Override
-    public int deleteOrganization(Assist assist){
-        return organizationDao.deleteOrganization(assist);
-    }
-    @Override
     public int updateOrganizationById(Organization enti){
         return organizationDao.updateOrganizationById(enti);
     }
     @Override
-    public int updateOrganization(Organization value, Assist assist){
-        return organizationDao.updateOrganization(value,assist);
-    }
-    @Override
     public int updateNonEmptyOrganizationById(Organization enti){
         return organizationDao.updateNonEmptyOrganizationById(enti);
-    }
-    @Override
-    public int updateNonEmptyOrganization(Organization value, Assist assist){
-        return organizationDao.updateNonEmptyOrganization(value,assist);
     }
 
     public OrganizationDao getOrganizationDao() {
@@ -56,6 +60,12 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     public void setOrganizationDao(OrganizationDao organizationDao) {
         this.organizationDao = organizationDao;
+    }
+    /**
+     * 通过currentLevelId查找其下所有的组织
+     */
+    public List<Organization> selectOrganizationByCurrentLevelId(Integer currentLevelId){
+        return organizationDao.selectOrganizationByCurrentLevelId(currentLevelId);
     }
 
 }

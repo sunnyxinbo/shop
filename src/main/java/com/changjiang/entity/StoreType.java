@@ -1,9 +1,31 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
+/**
+ * 店面类型
+ */
 public class StoreType {
+    /**
+     * 店面类型id
+     */
     private Integer id;
+    /**
+     * 店面类型名称
+     */
     private String storeTypeName;
+    /**
+     * 状态
+     */
     private String state;
+    /**
+     * 描述
+     */
     private String desc;
+    /**
+     * 使用一个List<Store>集合属性表示店面类型拥有的店面
+     */
+    private List<Store> stores;
     public StoreType() {
         super();
     }
@@ -44,6 +66,13 @@ public class StoreType {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
     }
 
 }

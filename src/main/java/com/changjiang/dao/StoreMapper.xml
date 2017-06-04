@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.changjiang.dao.StoreDao">
+<mapper namespace="com.changjiang.mapper.StoreDao">
     <resultMap id="result_Store_Map" type="com.changjiang.entity.Store">
         <id column="Store0" property="id" />
         <result column="Store1" property="name" />
@@ -13,22 +13,6 @@
         <result column="Store8" property="desc" />
         <result column="Store9" property="organizationId" />
     </resultMap>
-
-    <sql id="Assist">
-        <where>
-            <foreach collection="require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
-
-    <sql id="updateAssist">
-        <where>
-            <foreach collection="assist.require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
 
     <sql id="store_Column">
         store.id as Store0
@@ -43,22 +27,13 @@
         ,store.organization_id as Store9
     </sql>
 
-    <select id="getStoreRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getStoreRowCount" resultType="java.lang.Long">
         select count(id) from store
-        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectStore" parameterType="com.changjiang.common.Assist"  resultMap="result_Store_Map">
-        select  <if test="distinct !=null">${distinct}</if>
-        <choose>
-            <when test="resultColumn!=null">${resultColumn}</when>
-            <otherwise>
+    <select id="selectStore" resultMap="result_Store_Map">
+        select 
         <include refid="store_Column" /> 
-            </otherwise>
-        </choose>
         from store
-        <if test="require!=null"><include refid="Assist" /></if>
-        <if test="order !=null">${order}</if>
-        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectStoreById" parameterType="java.lang.Integer" resultMap="result_Store_Map">
@@ -107,11 +82,6 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteStore" parameterType="com.changjiang.common.Assist">
-        delete from store
-        <if test="require!=null"><include refid="Assist" /></if>
-    </delete>
-
     <update id="updateStoreById" parameterType="com.changjiang.entity.Store">
         update store set
             name=#{name}
@@ -158,60 +128,6 @@
             </if>
         </set>
         where id=#{id}
-    </update>
-
-    <update id="updateStore" parameterType="map">
-        update store
-        <set>
-                id=#{enti.id},
-                name=#{enti.name},
-                store_type_id=#{enti.storeTypeId},
-                address=#{enti.address},
-                phone=#{enti.phone},
-                legal_name=#{enti.legalName},
-                legal_name_phone=#{enti.legalNamePhone},
-                state=#{enti.state},
-                desc=#{enti.desc},
-                organization_id=#{enti.organizationId},
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
-    </update>
-
-    <update id="updateNonEmptyStore" parameterType="map">
-        update store
-        <set>
-            <if test="enti.id != null">
-                id=#{enti.id},
-            </if>
-            <if test="enti.name != null">
-                name=#{enti.name},
-            </if>
-            <if test="enti.storeTypeId != null">
-                store_type_id=#{enti.storeTypeId},
-            </if>
-            <if test="enti.address != null">
-                address=#{enti.address},
-            </if>
-            <if test="enti.phone != null">
-                phone=#{enti.phone},
-            </if>
-            <if test="enti.legalName != null">
-                legal_name=#{enti.legalName},
-            </if>
-            <if test="enti.legalNamePhone != null">
-                legal_name_phone=#{enti.legalNamePhone},
-            </if>
-            <if test="enti.state != null">
-                state=#{enti.state},
-            </if>
-            <if test="enti.desc != null">
-                desc=#{enti.desc},
-            </if>
-            <if test="enti.organizationId != null">
-                organization_id=#{enti.organizationId},
-            </if>
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

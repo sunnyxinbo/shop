@@ -1,17 +1,27 @@
 package com.changjiang.service;
-import java.util.List;
-import com.changjiang.dao.StoreDao;
 import com.changjiang.entity.Store;
-import com.changjiang.common.Assist;
+import com.changjiang.dao.StoreDao;
+import com.changjiang.service.StoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
 public class StoreServiceImpl implements StoreService{
+    @Autowired
     private StoreDao storeDao;
     @Override
-    public long getStoreRowCount(Assist assist){
-        return storeDao.getStoreRowCount(assist);
+    public long getStoreRowCount(){
+        return storeDao.getStoreRowCount();
     }
+
+    /**
+     * 查询所有的店面
+     * @return
+     */
     @Override
-    public List<Store> selectStore(Assist assist){
-        return storeDao.selectStore(assist);
+    public List<Store> selectStore(){
+        return storeDao.selectStore();
     }
     @Override
     public Store selectStoreById(Integer id){
@@ -30,24 +40,12 @@ public class StoreServiceImpl implements StoreService{
         return storeDao.deleteStoreById(id);
     }
     @Override
-    public int deleteStore(Assist assist){
-        return storeDao.deleteStore(assist);
-    }
-    @Override
     public int updateStoreById(Store enti){
         return storeDao.updateStoreById(enti);
     }
     @Override
-    public int updateStore(Store value, Assist assist){
-        return storeDao.updateStore(value,assist);
-    }
-    @Override
     public int updateNonEmptyStoreById(Store enti){
         return storeDao.updateNonEmptyStoreById(enti);
-    }
-    @Override
-    public int updateNonEmptyStore(Store value, Assist assist){
-        return storeDao.updateNonEmptyStore(value,assist);
     }
 
     public StoreDao getStoreDao() {
