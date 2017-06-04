@@ -1,7 +1,7 @@
 package com.changjiang.service;
 import com.changjiang.entity.Organization;
 import com.changjiang.dao.OrganizationDao;
-import com.changjiang.service.OrganizationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

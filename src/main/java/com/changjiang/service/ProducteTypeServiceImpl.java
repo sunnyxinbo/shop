@@ -1,7 +1,7 @@
 package com.changjiang.service;
 import com.changjiang.entity.ProducteType;
 import com.changjiang.dao.ProducteTypeDao;
-import com.changjiang.service.ProducteTypeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

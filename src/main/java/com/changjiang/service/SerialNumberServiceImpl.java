@@ -1,7 +1,7 @@
 package com.changjiang.service;
 import com.changjiang.entity.SerialNumber;
 import com.changjiang.dao.SerialNumberDao;
-import com.changjiang.service.SerialNumberService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

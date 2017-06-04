@@ -32,12 +32,15 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.changjiang.controller.StoreController;
+import com.changjiang.service.StoreServiceImpl;
 
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
-@ComponentScan(basePackageClasses={MyMvcConfig.class})
+@ComponentScan(basePackageClasses={MyMvcConfig.class,StoreController.class,
+		StoreServiceImpl.class})
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.dao") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{

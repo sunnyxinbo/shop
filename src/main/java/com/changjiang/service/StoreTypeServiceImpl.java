@@ -1,7 +1,7 @@
 package com.changjiang.service;
 import com.changjiang.entity.StoreType;
 import com.changjiang.dao.StoreTypeDao;
-import com.changjiang.service.StoreTypeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
