@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Organization {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Organization implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7651393928743803091L;
+	private Integer id;
     private String name;
     private Integer upperLevelId;
     private Integer currentLevel;

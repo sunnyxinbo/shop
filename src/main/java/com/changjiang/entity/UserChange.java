@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class UserChange {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class UserChange implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2753590600087339405L;
+	private Integer id;
     private String realname;
     private String nickname;
     private String idNumber;

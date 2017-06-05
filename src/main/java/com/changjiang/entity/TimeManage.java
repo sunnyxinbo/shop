@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class TimeManage {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class TimeManage implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6612078757677885894L;
+	private Integer id;
     private java.util.Date startTime;
     private java.util.Date endTime;
     private String name;

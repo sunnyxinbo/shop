@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class UserInformation {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class UserInformation implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7494830944819534304L;
+	private Integer id;
     private String realname;
     private String nickname;
     private String idNumber;

@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class RolePower {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class RolePower implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6419962752298233349L;
+	private Integer id;
     private String functionName;
     private Integer roleId;
     private Integer functionId;

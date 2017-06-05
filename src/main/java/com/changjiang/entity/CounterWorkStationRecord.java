@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class CounterWorkStationRecord {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class CounterWorkStationRecord implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1285370350128763686L;
+	private Integer id;
     private Integer counterId;
     private Integer workStationId;
     public CounterWorkStationRecord() {

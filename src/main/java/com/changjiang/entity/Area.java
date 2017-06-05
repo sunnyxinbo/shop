@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Area {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Area implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2179468246699294823L;
+	private Integer id;
     private String name;
     private Integer store;
     private String state;

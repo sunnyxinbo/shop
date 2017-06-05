@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class WorkstationRecord {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class WorkstationRecord implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3514364338730451830L;
+	private Integer id;
     private Integer userId;
     private String userName;
     private String userPhone;

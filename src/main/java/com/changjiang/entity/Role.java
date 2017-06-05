@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Role {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Role implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5393677909281491664L;
+	private Integer id;
     private String name;
     private String desc;
     private String icon;

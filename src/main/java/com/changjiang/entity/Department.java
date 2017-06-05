@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Department {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Department implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8359094481613999711L;
+	private Integer id;
     private String number;
     private String name;
     private String desc;

@@ -1,12 +1,17 @@
 package com.changjiang.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 店面类型
  */
-public class StoreType {
+public class StoreType implements Serializable{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2966826507075087114L;
+	/**
      * 店面类型id
      */
     private Integer id;

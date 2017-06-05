@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class WorkStation {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class WorkStation implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1053334919948110040L;
+	private Integer id;
     private String name;
     private Integer userId;
     private java.util.Date goWorkTime;

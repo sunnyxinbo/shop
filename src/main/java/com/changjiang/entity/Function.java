@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Function {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Function implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7750082498065436362L;
+	private Integer id;
     private String functionName;
     private Integer upperLevelId;
     private Integer currentLevel;

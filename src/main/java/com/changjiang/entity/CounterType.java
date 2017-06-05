@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class CounterType {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class CounterType implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6395202289958497595L;
+	private Integer id;
     private String name;
     private String desc;
     private String state;

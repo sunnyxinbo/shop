@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Duty {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Duty implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2269019323604775086L;
+	private Integer id;
     private String name;
     private String desc;
     private Integer gradeId;

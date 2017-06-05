@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class StoreProducte {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class StoreProducte implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1327746073409455235L;
+	private Integer id;
     private String name;
     private String desc;
     private String video;

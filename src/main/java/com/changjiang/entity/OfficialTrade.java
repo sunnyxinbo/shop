@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class OfficialTrade {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class OfficialTrade implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5425704566966531483L;
+	private Integer id;
     private String number;
     private String officialName;
     private String productName;

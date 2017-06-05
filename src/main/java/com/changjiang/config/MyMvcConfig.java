@@ -14,6 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -52,6 +55,12 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 	  private String user;
 	  @Value("${jdbc.password}")
 	  private String password;
+	  @Value("${redis.hostName}")
+	  private String redisHostName;
+	  @Value("${redis.password}")
+	  private String redisPassword;
+	  @Value("${redis.port}")
+	  private Integer redisPort;
 	  private ApplicationContext applicationContext;
 	  public void setApplicationContext(ApplicationContext applicationContext) {
 	    this.applicationContext = applicationContext;
@@ -72,8 +81,8 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		  //配置数据源
 		  data.setDriverClassName(driver);
 	      data.setUrl(url);
-	       data.setUsername(user);
-	       data.setPassword(password);
+	      data.setUsername(user);
+	      data.setPassword(password);
 	       //配置连接池属性
 		  data.setInitialSize(5);//初始化大小
 		  data.setMinIdle(1);//最小连接数
@@ -93,6 +102,21 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		  DataSourceTransactionManager manager=new DataSourceTransactionManager(dataSource);
 		  return manager;
 	  }
+	  //Redis连接工厂
+	  @Bean
+	  public RedisConnectionFactory redisCF(){
+		  JedisConnectionFactory cf=new JedisConnectionFactory();
+		  cf.setHostName(redisHostName);
+		  cf.setPort(redisPort);
+		  return cf;
+	  }
+	  //redisTemplate
+	  @Bean
+	  public RedisTemplate<String,Object> getRedisTeplate(RedisConnectionFactory cf){
+		  RedisTemplate<String, Object> redis=new RedisTemplate<String, Object>();
+		  redis.setConnectionFactory(cf);
+		  return redis;
+	  }
 	  //获取Mybatis的SqlSessionFactory
 	  @Bean
 	  public SqlSessionFactoryBean sqlSessionFactory(DruidDataSource dataSource) throws IOException{
@@ -100,9 +124,9 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		  b.setDataSource(dataSource);
 		  //将mybatis-config.xml配置文件注入到SqlSessionFactory
 		  b.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
-		 // 设置 mapper xml
-	     b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/dao/*.xml"));
-		 return b;
+		  // 设置 mapper xml
+	      b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/dao/*.xml"));
+		  return b;
 	  }
 	  /**
 	   * 以下三个Bean配置视图解析器

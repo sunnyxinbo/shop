@@ -1,6 +1,13 @@
 package com.changjiang.entity;
-public class Counter {
-    private Integer id;
+
+import java.io.Serializable;
+
+public class Counter implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6063247701548840457L;
+	private Integer id;
     private String name;
     private String desc;
     private Integer type;
