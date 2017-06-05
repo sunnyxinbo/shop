@@ -145,7 +145,7 @@
                 upper_level_id=#{enti.upperLevelId},
             </if>
             <if test="enti.currentLevel != null">
-                current_level=#{enti.currentLevel},
+                current_level=#{enti.currentLevel"},
             </if>
             <if test="enti.icon != null">
                 icon=#{enti.icon},
