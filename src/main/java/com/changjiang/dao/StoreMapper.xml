@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.changjiang.mapper.StoreDao">
+<mapper namespace="com.changjiang.dao.StoreDao">
+	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
+	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_Store_Map" type="com.changjiang.entity.Store">
         <id column="Store0" property="id" />
         <result column="Store1" property="name" />
@@ -38,7 +40,7 @@
 
     <select id="selectStoreById" parameterType="java.lang.Integer" resultMap="result_Store_Map">
         select 
-            <include refid="store_Column" /> 
+          <include refid="store_Column"/>
         from store
         where store.id = #{id}
     </select> 

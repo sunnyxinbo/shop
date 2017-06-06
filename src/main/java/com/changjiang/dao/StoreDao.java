@@ -1,6 +1,9 @@
 package com.changjiang.dao;
 import com.changjiang.entity.Store;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+@Repository("StoreDao")
 public interface StoreDao{
     long getStoreRowCount();
     List<Store> selectStore();

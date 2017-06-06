@@ -37,13 +37,14 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.changjiang.controller.StoreController;
 import com.changjiang.service.StoreServiceImpl;
+import com.changjiang.util.MybatisRedisCache;
 
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
 @ComponentScan(basePackageClasses={MyMvcConfig.class,StoreController.class,
-		StoreServiceImpl.class})
+		StoreServiceImpl.class,MybatisRedisCache.class})
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.dao") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
@@ -111,7 +112,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		  return cf;
 	  }
 	  //redisTemplate
-	  @Bean
+	  @Bean("redisTemplate")
 	  public RedisTemplate<String,Object> getRedisTeplate(RedisConnectionFactory cf){
 		  RedisTemplate<String, Object> redis=new RedisTemplate<String, Object>();
 		  redis.setConnectionFactory(cf);
@@ -179,5 +180,8 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 		registry.addViewController("/toUpload").setViewName("/upload");
 		registry.addViewController("/sse").setViewName("/sse");
 		registry.addViewController("/async").setViewName("/async");
+	}
+	public Object getBean(String name){
+		return applicationContext.getBean("redisTemplate");
 	}
 }
