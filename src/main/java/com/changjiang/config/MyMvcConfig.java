@@ -14,9 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -48,6 +45,7 @@ import com.changjiang.util.MybatisRedisCache;
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.dao") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+	  //关系型数据库配置信息
 	  @Value("${jdbc.driver}")
 	  private String driver;
 	  @Value("${jdbc.url}")
@@ -56,16 +54,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 	  private String user;
 	  @Value("${jdbc.password}")
 	  private String password;
-	  @Value("${redis.hostName}")
-	  private String redisHostName;
-	  @Value("${redis.password}")
-	  private String redisPassword;
-	  @Value("${redis.port}")
-	  private Integer redisPort;
 	  private ApplicationContext applicationContext;
 	  public void setApplicationContext(ApplicationContext applicationContext) {
 	    this.applicationContext = applicationContext;
 	  }
+	  
 	  @Bean
 	  public PlatformTransactionManager txManager() throws SQLException {
 	     return new DataSourceTransactionManager(dataSource());
@@ -102,21 +95,6 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 	  public DataSourceTransactionManager transactionManager(DruidDataSource dataSource){
 		  DataSourceTransactionManager manager=new DataSourceTransactionManager(dataSource);
 		  return manager;
-	  }
-	  //Redis连接工厂
-	  @Bean
-	  public RedisConnectionFactory redisCF(){
-		  JedisConnectionFactory cf=new JedisConnectionFactory();
-		  cf.setHostName(redisHostName);
-		  cf.setPort(redisPort);
-		  return cf;
-	  }
-	  //redisTemplate
-	  @Bean("redisTemplate")
-	  public RedisTemplate<String,Object> getRedisTeplate(RedisConnectionFactory cf){
-		  RedisTemplate<String, Object> redis=new RedisTemplate<String, Object>();
-		  redis.setConnectionFactory(cf);
-		  return redis;
 	  }
 	  //获取Mybatis的SqlSessionFactory
 	  @Bean
