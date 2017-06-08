@@ -41,7 +41,7 @@ import com.changjiang.util.MybatisRedisCache;
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
 @ComponentScan(basePackageClasses={MyMvcConfig.class,StoreController.class,
-		StoreServiceImpl.class})
+		StoreServiceImpl.class,MybatisRedisCache.class})
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.dao") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter{
@@ -103,9 +103,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 		  SqlSessionFactoryBean b=new SqlSessionFactoryBean();
 		  b.setDataSource(dataSource);
 		  //将mybatis-config.xml配置文件注入到SqlSessionFactory
-		  b.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
+		  b.setConfigLocation(applicationContext.getResource
+				  ("classpath:mybatis-config.xml"));
 		  // 设置 mapper xml
-	      b.setMapperLocations(applicationContext.getResources("classpath:com/changjiang/dao/*.xml"));
+	      b.setMapperLocations(applicationContext.getResources
+	    		  ("classpath:com/changjiang/dao/*.xml"));
 		  return b;
 	  }
 	  /**

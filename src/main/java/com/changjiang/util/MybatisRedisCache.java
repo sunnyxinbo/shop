@@ -3,7 +3,6 @@ package com.changjiang.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -16,13 +15,15 @@ import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;  
-  
+
 public class MybatisRedisCache implements Cache {
     private static Logger logger = LoggerFactory.getLogger(
     		MybatisRedisCache.class);  
@@ -30,6 +31,11 @@ public class MybatisRedisCache implements Cache {
      /** The ReadWriteLock. */    
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();   
     private String id;  
+	  //用于读取配置文件
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertyConfigure(){
+		return new PropertySourcesPlaceholderConfigurer();
+	}
     public MybatisRedisCache(final String id) throws IOException {
     	redisClient=createRedis();
         if (id == null) {  
@@ -75,12 +81,18 @@ public class MybatisRedisCache implements Cache {
         return readWriteLock;  
     }  
     protected Jedis createRedis() throws IOException{
-    	String hostName=new String();
-    	InputStream in=new FileInputStream("src/main/resources/db.properties");
-    	Properties p=new Properties();
-    	p.load(in);
-    	hostName=p.getProperty("redis.hostName");
-        JedisPool pool = new JedisPool(new JedisPoolConfig(),hostName);  
+    	/**
+    	 * 用于JUnit条件下
+    	 */
+//    	InputStream in=new FileInputStream("redis.properties");
+//    	Properties p=new Properties();
+//    	p.load(in);
+//        JedisPool pool = new JedisPool(new JedisPoolConfig(),
+//        		p.getProperty("redis.hostName"));
+    	/**
+    	 * 用于部署环境下
+    	 */
+        JedisPool pool = new JedisPool(new JedisPoolConfig(),"192.168.1.112");
         return pool.getResource();  
     }  
 }
