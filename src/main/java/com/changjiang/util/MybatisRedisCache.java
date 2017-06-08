@@ -2,8 +2,13 @@ package com.changjiang.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Properties;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -11,23 +16,22 @@ import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;  
   
-  
 public class MybatisRedisCache implements Cache {
-	@Value("${redis.hostName}")
-    private String hostName;
-    private static Logger logger = LoggerFactory.getLogger(MybatisRedisCache.class);  
-    private Jedis redisClient=createReids();  
+    private static Logger logger = LoggerFactory.getLogger(
+    		MybatisRedisCache.class);  
+    private Jedis redisClient;  
      /** The ReadWriteLock. */    
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();   
-      
     private String id;  
-      
-    public MybatisRedisCache(final String id) {    
+    public MybatisRedisCache(final String id) throws IOException {
+    	redisClient=createRedis();
         if (id == null) {  
             throw new IllegalArgumentException("Cache instances require an ID");  
         }  
@@ -41,7 +45,6 @@ public class MybatisRedisCache implements Cache {
   
     @Override  
     public int getSize() {  
-     
         return Integer.valueOf(redisClient.dbSize().toString());  
     }  
   
@@ -71,8 +74,13 @@ public class MybatisRedisCache implements Cache {
     public ReadWriteLock getReadWriteLock() {  
         return readWriteLock;  
     }  
-    protected  static Jedis createReids(){
-        JedisPool pool = new JedisPool(new JedisPoolConfig(),"192.168.1.112");  
+    protected Jedis createRedis() throws IOException{
+    	String hostName=new String();
+    	InputStream in=new FileInputStream("src/main/resources/db.properties");
+    	Properties p=new Properties();
+    	p.load(in);
+    	hostName=p.getProperty("redis.hostName");
+        JedisPool pool = new JedisPool(new JedisPoolConfig(),hostName);  
         return pool.getResource();  
     }  
 }

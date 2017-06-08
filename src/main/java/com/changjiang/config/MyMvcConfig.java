@@ -41,7 +41,7 @@ import com.changjiang.util.MybatisRedisCache;
 @EnableAspectJAutoProxy//开启切面自动代理
 @EnableTransactionManagement//开启注解方式事务管理
 @ComponentScan(basePackageClasses={MyMvcConfig.class,StoreController.class,
-		StoreServiceImpl.class,MybatisRedisCache.class})
+		StoreServiceImpl.class})
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.dao") //扫描接口
 public class MyMvcConfig extends WebMvcConfigurerAdapter{
@@ -159,8 +159,5 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/toUpload").setViewName("/upload");
 		registry.addViewController("/sse").setViewName("/sse");
 		registry.addViewController("/async").setViewName("/async");
-	}
-	public Object getBean(String name){
-		return applicationContext.getBean("redisTemplate");
 	}
 }
