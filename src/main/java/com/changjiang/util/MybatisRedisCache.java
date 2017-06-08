@@ -4,18 +4,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.concurrent.locks.ReadWriteLock;  
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import javax.net.ssl.HostnameVerifier;
-
-import org.apache.ibatis.cache.Cache;  
-import org.slf4j.Logger;  
+import org.apache.ibatis.cache.Cache;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-import redis.clients.jedis.Jedis;  
-import redis.clients.jedis.JedisPool;  
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;  
   
   
@@ -74,7 +72,7 @@ public class MybatisRedisCache implements Cache {
         return readWriteLock;  
     }  
     protected  static Jedis createReids(){
-        JedisPool pool = new JedisPool(new JedisPoolConfig(), "192.168.1.112");  
+        JedisPool pool = new JedisPool(new JedisPoolConfig(),"192.168.1.112");  
         return pool.getResource();  
     }  
 }

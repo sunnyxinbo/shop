@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -44,7 +45,7 @@ import com.changjiang.util.MybatisRedisCache;
 		StoreServiceImpl.class,MybatisRedisCache.class})
 @PropertySource("classpath:db.properties")//配置文件
 @MapperScan(basePackages="com.changjiang.dao") //扫描接口
-public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
+public class MyMvcConfig extends WebMvcConfigurerAdapter{
 	  //关系型数据库配置信息
 	  @Value("${jdbc.driver}")
 	  private String driver;
@@ -54,6 +55,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter implements ApplicationC
 	  private String user;
 	  @Value("${jdbc.password}")
 	  private String password;
+	  @Autowired
 	  private ApplicationContext applicationContext;
 	  public void setApplicationContext(ApplicationContext applicationContext) {
 	    this.applicationContext = applicationContext;
