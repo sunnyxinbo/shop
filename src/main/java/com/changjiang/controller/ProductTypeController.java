@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 /**
- * 产品类型控制层
+ * 商品分类控制层
  */
 @Controller
 @RequestMapping("/producttype")
@@ -36,7 +36,7 @@ public class ProductTypeController {
                 System.out.println(producteType.getName());
             }
         }
-        return null;
+        return "index";
     }
 
     /**
@@ -64,7 +64,7 @@ public class ProductTypeController {
                 }
             }
         }
-        return null;
+        return "index";
     }
     /**
      * 通过产品类型查询所有的店面产品
@@ -73,7 +73,7 @@ public class ProductTypeController {
      */
     @RequestMapping(value = "/querystoreproduct")
     public String queryStoreProducteByType(){
-        int id = 2;
+        int id = 1;
         List<ProducteType> producteTypeList = producteTypeService.selectStoreProductByTypeId(id);
         if (producteTypeList != null && producteTypeList.size() > 0){
             System.out.println(" producteTypeList.size() :" + producteTypeList.size());
@@ -82,11 +82,42 @@ public class ProductTypeController {
             }
         }
 
-        return null;
+        return "index";
     }
     /**
-     * 通过产品类型查询所有的店面产品
-     * @param
+     * 删除所有的产品类型   (当有外键约束时无法删除)
      * @return
      */
+    @RequestMapping(value = "/deleteproducttype")
+    public String deleteProductTypes(){
+    	int id = 2;
+    	producteTypeService.deleteProducteTypeById(id);
+        return "index";
+    }
+    /**
+     * 添加所有的产品类型
+     * @return
+     */
+    @RequestMapping(value = "/addproduct")
+    public String addProductTypes(){
+    	ProducteType productType = new ProducteType();
+    	productType.setId(3);
+    	productType.setDbDesc("test");
+    	productType.setName("test");
+    	producteTypeService.insertNonEmptyProducteType(productType);
+        return "index";
+    }
+    /**
+     * 更新所有的产品类型  (未能更新数据)
+     * @return
+     */
+    @RequestMapping(value = "/updateproduct")
+    public String updateProductTypes(){
+    	ProducteType productType = new ProducteType();
+    	productType.setId(3);
+    	productType.setDbDesc("desc");
+    	productType.setName("name");
+    	producteTypeService.updateNonEmptyProducteTypeById(productType);
+        return "index";
+    }
 }

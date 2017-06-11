@@ -1,13 +1,6 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Store implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -167463537515274428L;
-	private Integer id;
+public class Store {
+    private Integer id;
     private String name;
     private Integer storeTypeId;
     private String address;
@@ -15,12 +8,12 @@ public class Store implements Serializable{
     private String legalName;
     private String legalNamePhone;
     private String state;
-    private String desc;
+    private String dbDesc;
     private Integer organizationId;
     public Store() {
         super();
     }
-    public Store(Integer id,String name,Integer storeTypeId,String address,String phone,String legalName,String legalNamePhone,String state,String desc,Integer organizationId) {
+    public Store(Integer id,String name,Integer storeTypeId,String address,String phone,String legalName,String legalNamePhone,String state,String dbDesc,Integer organizationId) {
         super();
         this.id = id;
         this.name = name;
@@ -30,7 +23,7 @@ public class Store implements Serializable{
         this.legalName = legalName;
         this.legalNamePhone = legalNamePhone;
         this.state = state;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.organizationId = organizationId;
     }
     public Integer getId() {
@@ -97,12 +90,12 @@ public class Store implements Serializable{
         this.state = state;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public Integer getOrganizationId() {

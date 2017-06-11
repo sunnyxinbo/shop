@@ -1,23 +1,16 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class TimeManage implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -6612078757677885894L;
-	private Integer id;
+public class TimeManage {
+    private Integer id;
     private java.util.Date startTime;
     private java.util.Date endTime;
     private String name;
     private Integer storeId;
     private String state;
-    private String desc;
+    private String dbDesc;
     public TimeManage() {
         super();
     }
-    public TimeManage(Integer id,java.util.Date startTime,java.util.Date endTime,String name,Integer storeId,String state,String desc) {
+    public TimeManage(Integer id,java.util.Date startTime,java.util.Date endTime,String name,Integer storeId,String state,String dbDesc) {
         super();
         this.id = id;
         this.startTime = startTime;
@@ -25,7 +18,7 @@ public class TimeManage implements Serializable{
         this.name = name;
         this.storeId = storeId;
         this.state = state;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
     }
     public Integer getId() {
         return this.id;
@@ -75,12 +68,12 @@ public class TimeManage implements Serializable{
         this.state = state;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
 }

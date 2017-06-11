@@ -1,24 +1,19 @@
 package com.changjiang.service;
-import com.changjiang.entity.Store;
-import com.changjiang.dao.StoreDao;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.changjiang.dao.StoreDao;
+import com.changjiang.entity.Store;
 @Service
 public class StoreServiceImpl implements StoreService{
-    @Autowired
+	@Autowired
     private StoreDao storeDao;
     @Override
     public long getStoreRowCount(){
         return storeDao.getStoreRowCount();
     }
-
-    /**
-     * 查询所有的店面
-     * @return
-     */
     @Override
     public List<Store> selectStore(){
         return storeDao.selectStore();

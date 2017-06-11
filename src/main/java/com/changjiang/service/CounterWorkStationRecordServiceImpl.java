@@ -1,17 +1,22 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.changjiang.dao.CounterWorkStationRecordDao;
 import com.changjiang.entity.CounterWorkStationRecord;
-import com.changjiang.common.Assist;
+@Service
 public class CounterWorkStationRecordServiceImpl implements CounterWorkStationRecordService{
-    private CounterWorkStationRecordDao counterWorkStationRecordDao;
+    @Autowired
+	private CounterWorkStationRecordDao counterWorkStationRecordDao;
     @Override
-    public long getCounterWorkStationRecordRowCount(Assist assist){
-        return counterWorkStationRecordDao.getCounterWorkStationRecordRowCount(assist);
+    public long getCounterWorkStationRecordRowCount(){
+        return counterWorkStationRecordDao.getCounterWorkStationRecordRowCount();
     }
     @Override
-    public List<CounterWorkStationRecord> selectCounterWorkStationRecord(Assist assist){
-        return counterWorkStationRecordDao.selectCounterWorkStationRecord(assist);
+    public List<CounterWorkStationRecord> selectCounterWorkStationRecord(){
+        return counterWorkStationRecordDao.selectCounterWorkStationRecord();
     }
     @Override
     public CounterWorkStationRecord selectCounterWorkStationRecordById(Integer id){
@@ -30,24 +35,12 @@ public class CounterWorkStationRecordServiceImpl implements CounterWorkStationRe
         return counterWorkStationRecordDao.deleteCounterWorkStationRecordById(id);
     }
     @Override
-    public int deleteCounterWorkStationRecord(Assist assist){
-        return counterWorkStationRecordDao.deleteCounterWorkStationRecord(assist);
-    }
-    @Override
     public int updateCounterWorkStationRecordById(CounterWorkStationRecord enti){
         return counterWorkStationRecordDao.updateCounterWorkStationRecordById(enti);
     }
     @Override
-    public int updateCounterWorkStationRecord(CounterWorkStationRecord value, Assist assist){
-        return counterWorkStationRecordDao.updateCounterWorkStationRecord(value,assist);
-    }
-    @Override
     public int updateNonEmptyCounterWorkStationRecordById(CounterWorkStationRecord enti){
         return counterWorkStationRecordDao.updateNonEmptyCounterWorkStationRecordById(enti);
-    }
-    @Override
-    public int updateNonEmptyCounterWorkStationRecord(CounterWorkStationRecord value, Assist assist){
-        return counterWorkStationRecordDao.updateNonEmptyCounterWorkStationRecord(value,assist);
     }
 
     public CounterWorkStationRecordDao getCounterWorkStationRecordDao() {

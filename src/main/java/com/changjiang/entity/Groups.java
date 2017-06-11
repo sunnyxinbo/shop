@@ -2,15 +2,15 @@ package com.changjiang.entity;
 public class Groups {
     private Integer id;
     private String groupName;
-    private String desc;
+    private String dbDesc;
     public Groups() {
         super();
     }
-    public Groups(Integer id,String groupName,String desc) {
+    public Groups(Integer id,String groupName,String dbDesc) {
         super();
         this.id = id;
         this.groupName = groupName;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
     }
     public Integer getId() {
         return this.id;
@@ -28,12 +28,12 @@ public class Groups {
         this.groupName = groupName;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
 }

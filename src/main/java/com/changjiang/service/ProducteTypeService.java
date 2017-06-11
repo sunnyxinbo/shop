@@ -1,7 +1,6 @@
 package com.changjiang.service;
-import com.changjiang.entity.ProducteType;
-
 import java.util.List;
+import com.changjiang.entity.ProducteType;
 public interface ProducteTypeService{
     long getProducteTypeRowCount();
     List<ProducteType> selectProducteType();
@@ -17,7 +16,6 @@ public interface ProducteTypeService{
      * @return
      */
     List<ProducteType> selectOfficialTradeAndProductByTypeId(Integer id);
-
     /**
      * 通过产品类型查询所有的店面产品
      * @param id

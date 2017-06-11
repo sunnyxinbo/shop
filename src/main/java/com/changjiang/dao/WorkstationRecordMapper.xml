@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changjiang.dao.WorkstationRecordDao">
-	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
-	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_WorkstationRecord_Map" type="com.changjiang.entity.WorkstationRecord">
         <id column="WorkstationRecord0" property="id" />
         <result column="WorkstationRecord1" property="userId" />
@@ -17,22 +15,6 @@
         <result column="WorkstationRecord10" property="workStationId" />
         <result column="WorkstationRecord11" property="number" />
     </resultMap>
-
-    <sql id="Assist">
-        <where>
-            <foreach collection="require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
-
-    <sql id="updateAssist">
-        <where>
-            <foreach collection="assist.require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
 
     <sql id="workstation_record_Column">
         workstation_record.id as WorkstationRecord0
@@ -49,22 +31,13 @@
         ,workstation_record.number as WorkstationRecord11
     </sql>
 
-    <select id="getWorkstationRecordRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getWorkstationRecordRowCount" resultType="java.lang.Long">
         select count(id) from workstation_record
-        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectWorkstationRecord" parameterType="com.changjiang.common.Assist"  resultMap="result_WorkstationRecord_Map">
-        select  <if test="distinct !=null">${distinct}</if>
-        <choose>
-            <when test="resultColumn!=null">${resultColumn}</when>
-            <otherwise>
+    <select id="selectWorkstationRecord" resultMap="result_WorkstationRecord_Map">
+        select 
         <include refid="workstation_record_Column" /> 
-            </otherwise>
-        </choose>
         from workstation_record
-        <if test="require!=null"><include refid="Assist" /></if>
-        <if test="order !=null">${order}</if>
-        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectWorkstationRecordById" parameterType="java.lang.Integer" resultMap="result_WorkstationRecord_Map">
@@ -115,11 +88,6 @@
     <delete id="deleteWorkstationRecordById" parameterType="java.lang.Integer">
         delete from workstation_record
         where id = #{id}
-    </delete>
-
-    <delete id="deleteWorkstationRecord" parameterType="com.changjiang.common.Assist">
-        delete from workstation_record
-        <if test="require!=null"><include refid="Assist" /></if>
     </delete>
 
     <update id="updateWorkstationRecordById" parameterType="com.changjiang.entity.WorkstationRecord">
@@ -176,68 +144,6 @@
             </if>
         </set>
         where id=#{id}
-    </update>
-
-    <update id="updateWorkstationRecord" parameterType="map">
-        update workstation_record
-        <set>
-                id=#{enti.id},
-                user_id=#{enti.userId},
-                user_name=#{enti.userName},
-                user_phone=#{enti.userPhone},
-                go_work_time=#{enti.goWorkTime},
-                leave_work_time=#{enti.leaveWorkTime},
-                counter_id=#{enti.counterId},
-                son_area_id=#{enti.sonAreaId},
-                work_day=#{enti.workDay},
-                store_id=#{enti.storeId},
-                work_station_id=#{enti.workStationId},
-                number=#{enti.number},
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
-    </update>
-
-    <update id="updateNonEmptyWorkstationRecord" parameterType="map">
-        update workstation_record
-        <set>
-            <if test="enti.id != null">
-                id=#{enti.id},
-            </if>
-            <if test="enti.userId != null">
-                user_id=#{enti.userId},
-            </if>
-            <if test="enti.userName != null">
-                user_name=#{enti.userName},
-            </if>
-            <if test="enti.userPhone != null">
-                user_phone=#{enti.userPhone},
-            </if>
-            <if test="enti.goWorkTime != null">
-                go_work_time=#{enti.goWorkTime},
-            </if>
-            <if test="enti.leaveWorkTime != null">
-                leave_work_time=#{enti.leaveWorkTime},
-            </if>
-            <if test="enti.counterId != null">
-                counter_id=#{enti.counterId},
-            </if>
-            <if test="enti.sonAreaId != null">
-                son_area_id=#{enti.sonAreaId},
-            </if>
-            <if test="enti.workDay != null">
-                work_day=#{enti.workDay},
-            </if>
-            <if test="enti.storeId != null">
-                store_id=#{enti.storeId},
-            </if>
-            <if test="enti.workStationId != null">
-                work_station_id=#{enti.workStationId},
-            </if>
-            <if test="enti.number != null">
-                number=#{enti.number},
-            </if>
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

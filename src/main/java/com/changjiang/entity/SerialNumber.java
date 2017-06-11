@@ -1,13 +1,6 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class SerialNumber implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1078414198611130815L;
-	private Integer id;
+public class SerialNumber {
+    private Integer id;
     private String lastSerialNum;
     public SerialNumber() {
         super();

@@ -1,14 +1,14 @@
 package com.changjiang.service;
-import com.changjiang.entity.OfficialTrade;
-import com.changjiang.dao.OfficialTradeDao;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.changjiang.dao.OfficialTradeDao;
+import com.changjiang.entity.OfficialTrade;
 @Service
 public class OfficialTradeServiceImpl implements OfficialTradeService{
-    @Autowired
+	@Autowired
     private OfficialTradeDao officialTradeDao;
     @Override
     public long getOfficialTradeRowCount(){

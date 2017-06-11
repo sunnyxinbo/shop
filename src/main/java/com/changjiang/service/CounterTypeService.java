@@ -1,17 +1,13 @@
 package com.changjiang.service;
 import java.util.List;
 import com.changjiang.entity.CounterType;
-import com.changjiang.common.Assist;
 public interface CounterTypeService{
-    long getCounterTypeRowCount(Assist assist);
-    List<CounterType> selectCounterType(Assist assist);
+    long getCounterTypeRowCount();
+    List<CounterType> selectCounterType();
     CounterType selectCounterTypeById(Integer id);
     int insertCounterType(CounterType value);
     int insertNonEmptyCounterType(CounterType value);
     int deleteCounterTypeById(Integer id);
-    int deleteCounterType(Assist assist);
     int updateCounterTypeById(CounterType enti);
-    int updateCounterType(CounterType value, Assist assist);
     int updateNonEmptyCounterTypeById(CounterType enti);
-    int updateNonEmptyCounterType(CounterType value, Assist assist);
 }

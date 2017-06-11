@@ -1,28 +1,11 @@
 package com.changjiang.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * 产品类型实体类
- */
-public class ProducteType implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 3274228460939615707L;
-	/**
-     * 产品类型id
-     */
+public class ProducteType {
     private Integer id;
-    /**
-     * 产品类型名称
-     */
     private String name;
-    /**
-     * 产品类型描述
-     */
-    private String desc;
+    private String dbDesc;
     /**
      * 使用一个List<OfficialTrade>集合属性表示产品类型拥有的办公贸易
      */
@@ -34,11 +17,11 @@ public class ProducteType implements Serializable{
     public ProducteType() {
         super();
     }
-    public ProducteType(Integer id,String name,String desc) {
+    public ProducteType(Integer id,String name,String dbDesc) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
     }
     public Integer getId() {
         return this.id;
@@ -56,27 +39,24 @@ public class ProducteType implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
-    public List<OfficialTrade> getOfficialTrades() {
-        return officialTrades;
-    }
-
-    public void setOfficialTrades(List<OfficialTrade> officialTrades) {
-        this.officialTrades = officialTrades;
-    }
-
-    public List<StoreProducte> getStoreProductes() {
-        return storeProductes;
-    }
-
-    public void setStoreProductes(List<StoreProducte> storeProductes) {
-        this.storeProductes = storeProductes;
-    }
+	public List<OfficialTrade> getOfficialTrades() {
+		return officialTrades;
+	}
+	public void setOfficialTrades(List<OfficialTrade> officialTrades) {
+		this.officialTrades = officialTrades;
+	}
+	public List<StoreProducte> getStoreProductes() {
+		return storeProductes;
+	}
+	public void setStoreProductes(List<StoreProducte> storeProductes) {
+		this.storeProductes = storeProductes;
+	}
 
 }

@@ -1,17 +1,22 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.changjiang.dao.WorkstationRecordDao;
 import com.changjiang.entity.WorkstationRecord;
-import com.changjiang.common.Assist;
+@Service
 public class WorkstationRecordServiceImpl implements WorkstationRecordService{
+	@Autowired
     private WorkstationRecordDao workstationRecordDao;
     @Override
-    public long getWorkstationRecordRowCount(Assist assist){
-        return workstationRecordDao.getWorkstationRecordRowCount(assist);
+    public long getWorkstationRecordRowCount(){
+        return workstationRecordDao.getWorkstationRecordRowCount();
     }
     @Override
-    public List<WorkstationRecord> selectWorkstationRecord(Assist assist){
-        return workstationRecordDao.selectWorkstationRecord(assist);
+    public List<WorkstationRecord> selectWorkstationRecord(){
+        return workstationRecordDao.selectWorkstationRecord();
     }
     @Override
     public WorkstationRecord selectWorkstationRecordById(Integer id){
@@ -30,24 +35,12 @@ public class WorkstationRecordServiceImpl implements WorkstationRecordService{
         return workstationRecordDao.deleteWorkstationRecordById(id);
     }
     @Override
-    public int deleteWorkstationRecord(Assist assist){
-        return workstationRecordDao.deleteWorkstationRecord(assist);
-    }
-    @Override
     public int updateWorkstationRecordById(WorkstationRecord enti){
         return workstationRecordDao.updateWorkstationRecordById(enti);
     }
     @Override
-    public int updateWorkstationRecord(WorkstationRecord value, Assist assist){
-        return workstationRecordDao.updateWorkstationRecord(value,assist);
-    }
-    @Override
     public int updateNonEmptyWorkstationRecordById(WorkstationRecord enti){
         return workstationRecordDao.updateNonEmptyWorkstationRecordById(enti);
-    }
-    @Override
-    public int updateNonEmptyWorkstationRecord(WorkstationRecord value, Assist assist){
-        return workstationRecordDao.updateNonEmptyWorkstationRecord(value,assist);
     }
 
     public WorkstationRecordDao getWorkstationRecordDao() {

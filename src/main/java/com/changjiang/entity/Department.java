@@ -1,27 +1,20 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Department implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -8359094481613999711L;
-	private Integer id;
+public class Department {
+    private Integer id;
     private String number;
     private String name;
-    private String desc;
+    private String dbDesc;
     private Integer storeId;
     private String departmentGrade;
     public Department() {
         super();
     }
-    public Department(Integer id,String number,String name,String desc,Integer storeId,String departmentGrade) {
+    public Department(Integer id,String number,String name,String dbDesc,Integer storeId,String departmentGrade) {
         super();
         this.id = id;
         this.number = number;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.storeId = storeId;
         this.departmentGrade = departmentGrade;
     }
@@ -49,12 +42,12 @@ public class Department implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public Integer getStoreId() {

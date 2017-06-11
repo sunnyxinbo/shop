@@ -1,24 +1,17 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class CounterType implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -6395202289958497595L;
-	private Integer id;
+public class CounterType {
+    private Integer id;
     private String name;
-    private String desc;
+    private String dbDesc;
     private String state;
     public CounterType() {
         super();
     }
-    public CounterType(Integer id,String name,String desc,String state) {
+    public CounterType(Integer id,String name,String dbDesc,String state) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.state = state;
     }
     public Integer getId() {
@@ -37,12 +30,12 @@ public class CounterType implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public String getState() {

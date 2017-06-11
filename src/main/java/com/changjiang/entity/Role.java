@@ -1,26 +1,19 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Role implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -5393677909281491664L;
-	private Integer id;
+public class Role {
+    private Integer id;
     private String name;
-    private String desc;
+    private String dbDesc;
     private String icon;
     private String state;
     private Integer storeId;
     public Role() {
         super();
     }
-    public Role(Integer id,String name,String desc,String icon,String state,Integer storeId) {
+    public Role(Integer id,String name,String dbDesc,String icon,String state,Integer storeId) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.icon = icon;
         this.state = state;
         this.storeId = storeId;
@@ -41,12 +34,12 @@ public class Role implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public String getIcon() {
