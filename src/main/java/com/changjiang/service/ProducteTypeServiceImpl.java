@@ -1,28 +1,19 @@
 package com.changjiang.service;
-import com.changjiang.entity.ProducteType;
-import com.changjiang.dao.ProducteTypeDao;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-/**
- * 产品类型业务层
- */
+import com.changjiang.dao.ProducteTypeDao;
+import com.changjiang.entity.ProducteType;
 @Service
 public class ProducteTypeServiceImpl implements ProducteTypeService{
-    @Autowired
+	@Autowired
     private ProducteTypeDao producteTypeDao;
     @Override
     public long getProducteTypeRowCount(){
         return producteTypeDao.getProducteTypeRowCount();
     }
-
-    /**
-     * 查询所有的产品类型
-     * @return
-     */
     @Override
     public List<ProducteType> selectProducteType(){
         return producteTypeDao.selectProducteType();
@@ -51,6 +42,14 @@ public class ProducteTypeServiceImpl implements ProducteTypeService{
     public int updateNonEmptyProducteTypeById(ProducteType enti){
         return producteTypeDao.updateNonEmptyProducteTypeById(enti);
     }
+
+    public ProducteTypeDao getProducteTypeDao() {
+        return this.producteTypeDao;
+    }
+
+    public void setProducteTypeDao(ProducteTypeDao producteTypeDao) {
+        this.producteTypeDao = producteTypeDao;
+    }
     /**
      * 通过产品类型查询所有的店面产品以及办公贸易
      * @param id
@@ -68,14 +67,6 @@ public class ProducteTypeServiceImpl implements ProducteTypeService{
     @Override
     public List<ProducteType> selectStoreProductByTypeId(Integer id) {
         return producteTypeDao.selectStoreProductByTypeId(id);
-    }
-
-    public ProducteTypeDao getProducteTypeDao() {
-        return this.producteTypeDao;
-    }
-
-    public void setProducteTypeDao(ProducteTypeDao producteTypeDao) {
-        this.producteTypeDao = producteTypeDao;
     }
 
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changjiang.dao.StoreDao">
-	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
-	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_Store_Map" type="com.changjiang.entity.Store">
         <id column="Store0" property="id" />
         <result column="Store1" property="name" />
@@ -12,7 +10,7 @@
         <result column="Store5" property="legalName" />
         <result column="Store6" property="legalNamePhone" />
         <result column="Store7" property="state" />
-        <result column="Store8" property="desc" />
+        <result column="Store8" property="dbDesc" />
         <result column="Store9" property="organizationId" />
     </resultMap>
 
@@ -25,7 +23,7 @@
         ,store.legal_name as Store5
         ,store.legal_name_phone as Store6
         ,store.state as Store7
-        ,store.desc as Store8
+        ,store.db_desc as Store8
         ,store.organization_id as Store9
     </sql>
 
@@ -40,15 +38,15 @@
 
     <select id="selectStoreById" parameterType="java.lang.Integer" resultMap="result_Store_Map">
         select 
-          <include refid="store_Column"/>
+            <include refid="store_Column" /> 
         from store
         where store.id = #{id}
     </select> 
 
 
     <insert id="insertStore" parameterType="com.changjiang.entity.Store">
-        insert into store(id,name,store_type_id,address,phone,legal_name,legal_name_phone,state,desc,organization_id) 
-        values(#{id},#{name},#{storeTypeId},#{address},#{phone},#{legalName},#{legalNamePhone},#{state},#{desc},#{organizationId})
+        insert into store(id,name,store_type_id,address,phone,legal_name,legal_name_phone,state,db_desc,organization_id) 
+        values(#{id},#{name},#{storeTypeId},#{address},#{phone},#{legalName},#{legalNamePhone},#{state},#{dbDesc},#{organizationId})
     </insert>
 
     <insert id="insertNonEmptyStore" parameterType="com.changjiang.entity.Store">
@@ -62,7 +60,7 @@
             <if test="legalName != null">legal_name,</if>
             <if test="legalNamePhone != null">legal_name_phone,</if>
             <if test="state != null">state,</if>
-            <if test="desc != null">desc,</if>
+            <if test="dbDesc != null">db_desc,</if>
             <if test="organizationId != null">organization_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -74,7 +72,7 @@
             <if test="legalName != null"> #{legalName},</if>
             <if test="legalNamePhone != null"> #{legalNamePhone},</if>
             <if test="state != null"> #{state},</if>
-            <if test="desc != null"> #{desc},</if>
+            <if test="dbDesc != null"> #{dbDesc},</if>
             <if test="organizationId != null"> #{organizationId},</if>
         </trim>
     </insert>
@@ -93,7 +91,7 @@
             ,legal_name=#{legalName}
             ,legal_name_phone=#{legalNamePhone}
             ,state=#{state}
-            ,desc=#{desc}
+            ,db_desc=#{dbDesc}
             ,organization_id=#{organizationId}
         where id=#{id}
     </update>
@@ -122,8 +120,8 @@
             <if test="state != null">
                 state=#{state},
             </if>
-            <if test="desc != null">
-                desc=#{desc},
+            <if test="dbDesc != null">
+                db_desc=#{dbDesc},
             </if>
             <if test="organizationId != null">
                 organization_id=#{organizationId},

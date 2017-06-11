@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changjiang.dao.RolePowerDao">
-	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
-	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_RolePower_Map" type="com.changjiang.entity.RolePower">
         <id column="RolePower0" property="id" />
         <result column="RolePower1" property="functionName" />
         <result column="RolePower2" property="roleId" />
         <result column="RolePower3" property="functionId" />
     </resultMap>
-
-    <sql id="Assist">
-        <where>
-            <foreach collection="require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
-
-    <sql id="updateAssist">
-        <where>
-            <foreach collection="assist.require" item="req" separator=" ">
-                ${req.require} #{req.value}
-            </foreach>
-        </where>
-    </sql>
 
     <sql id="role_power_Column">
         role_power.id as RolePower0
@@ -33,22 +15,13 @@
         ,role_power.function_id as RolePower3
     </sql>
 
-    <select id="getRolePowerRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getRolePowerRowCount" resultType="java.lang.Long">
         select count(id) from role_power
-        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectRolePower" parameterType="com.changjiang.common.Assist"  resultMap="result_RolePower_Map">
-        select  <if test="distinct !=null">${distinct}</if>
-        <choose>
-            <when test="resultColumn!=null">${resultColumn}</when>
-            <otherwise>
+    <select id="selectRolePower" resultMap="result_RolePower_Map">
+        select 
         <include refid="role_power_Column" /> 
-            </otherwise>
-        </choose>
         from role_power
-        <if test="require!=null"><include refid="Assist" /></if>
-        <if test="order !=null">${order}</if>
-        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectRolePowerById" parameterType="java.lang.Integer" resultMap="result_RolePower_Map">
@@ -85,11 +58,6 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteRolePower" parameterType="com.changjiang.common.Assist">
-        delete from role_power
-        <if test="require!=null"><include refid="Assist" /></if>
-    </delete>
-
     <update id="updateRolePowerById" parameterType="com.changjiang.entity.RolePower">
         update role_power set
             function_name=#{functionName}
@@ -112,36 +80,6 @@
             </if>
         </set>
         where id=#{id}
-    </update>
-
-    <update id="updateRolePower" parameterType="map">
-        update role_power
-        <set>
-                id=#{enti.id},
-                function_name=#{enti.functionName},
-                role_id=#{enti.roleId},
-                function_id=#{enti.functionId},
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
-    </update>
-
-    <update id="updateNonEmptyRolePower" parameterType="map">
-        update role_power
-        <set>
-            <if test="enti.id != null">
-                id=#{enti.id},
-            </if>
-            <if test="enti.functionName != null">
-                function_name=#{enti.functionName},
-            </if>
-            <if test="enti.roleId != null">
-                role_id=#{enti.roleId},
-            </if>
-            <if test="enti.functionId != null">
-                function_id=#{enti.functionId},
-            </if>
-        </set>
-        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

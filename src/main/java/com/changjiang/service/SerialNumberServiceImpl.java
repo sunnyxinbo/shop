@@ -1,11 +1,11 @@
 package com.changjiang.service;
-import com.changjiang.entity.SerialNumber;
-import com.changjiang.dao.SerialNumberDao;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.changjiang.dao.SerialNumberDao;
+import com.changjiang.entity.SerialNumber;
 @Service
 public class SerialNumberServiceImpl implements SerialNumberService{
 	@Autowired
@@ -14,9 +14,6 @@ public class SerialNumberServiceImpl implements SerialNumberService{
     public long getSerialNumberRowCount(){
         return serialNumberDao.getSerialNumberRowCount();
     }
-    /**
-     * 查询所有的流水号信息
-     */
     @Override
     public List<SerialNumber> selectSerialNumber(){
         return serialNumberDao.selectSerialNumber();
@@ -33,12 +30,6 @@ public class SerialNumberServiceImpl implements SerialNumberService{
     public int insertNonEmptySerialNumber(SerialNumber value){
         return serialNumberDao.insertNonEmptySerialNumber(value);
     }
-
-    /**
-     * 通过id删除流水号
-     * @param id
-     * @return
-     */
     @Override
     public int deleteSerialNumberById(Integer id){
         return serialNumberDao.deleteSerialNumberById(id);

@@ -1,17 +1,22 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.changjiang.dao.CounterDao;
 import com.changjiang.entity.Counter;
-import com.changjiang.common.Assist;
+@Service
 public class CounterServiceImpl implements CounterService{
+	@Autowired
     private CounterDao counterDao;
     @Override
-    public long getCounterRowCount(Assist assist){
-        return counterDao.getCounterRowCount(assist);
+    public long getCounterRowCount(){
+        return counterDao.getCounterRowCount();
     }
     @Override
-    public List<Counter> selectCounter(Assist assist){
-        return counterDao.selectCounter(assist);
+    public List<Counter> selectCounter(){
+        return counterDao.selectCounter();
     }
     @Override
     public Counter selectCounterById(Integer id){
@@ -30,24 +35,12 @@ public class CounterServiceImpl implements CounterService{
         return counterDao.deleteCounterById(id);
     }
     @Override
-    public int deleteCounter(Assist assist){
-        return counterDao.deleteCounter(assist);
-    }
-    @Override
     public int updateCounterById(Counter enti){
         return counterDao.updateCounterById(enti);
     }
     @Override
-    public int updateCounter(Counter value, Assist assist){
-        return counterDao.updateCounter(value,assist);
-    }
-    @Override
     public int updateNonEmptyCounterById(Counter enti){
         return counterDao.updateNonEmptyCounterById(enti);
-    }
-    @Override
-    public int updateNonEmptyCounter(Counter value, Assist assist){
-        return counterDao.updateNonEmptyCounter(value,assist);
     }
 
     public CounterDao getCounterDao() {

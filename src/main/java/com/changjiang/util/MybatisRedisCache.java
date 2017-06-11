@@ -92,7 +92,7 @@ public class MybatisRedisCache implements Cache {
     	/**
     	 * 用于部署环境下
     	 */
-        JedisPool pool = new JedisPool(new JedisPoolConfig(),"192.168.1.112");
+        JedisPool pool = new JedisPool(new JedisPoolConfig(),"localhost");
         return pool.getResource();  
     }  
 }

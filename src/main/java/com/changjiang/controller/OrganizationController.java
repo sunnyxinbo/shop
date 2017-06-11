@@ -32,14 +32,14 @@ public class OrganizationController {
                 System.out.println(organization.getName());
             }
         }
-        return null;
+        return "index";
     }
     /**
-     * 查询id为2的组织以及它下所有的组织
+     * 查询id为1的组织以及它下所有的组织
      */
     @RequestMapping(value = "/queryByIdBelow")
     public String queryByIdAndBelow(){
-        int id=3;
+        int id=1;
         Organization organization = organizationService.selectOrganizationById(id);
         if (organization != null){
             System.out.println(organization.getName()+"的当前层是: " + organization.getCurrentLevel());
@@ -53,6 +53,6 @@ public class OrganizationController {
                 }
             }
         }
-        return null;
+        return "index";
     }
 }

@@ -10,14 +10,12 @@ public interface ProducteTypeDao{
     int deleteProducteTypeById(Integer id);
     int updateProducteTypeById(ProducteType enti);
     int updateNonEmptyProducteTypeById(ProducteType enti);
-
     /**
      * 通过产品类型查询所有的店面产品以及办公贸易
      * @param id
      * @return
      */
     List<ProducteType> selectOfficialTradeAndProductByTypeId(Integer id);
-
     /**
      * 通过产品类型查询所有的店面产品
      * @param id

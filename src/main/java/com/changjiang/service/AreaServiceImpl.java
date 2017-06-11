@@ -1,17 +1,22 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.changjiang.dao.AreaDao;
 import com.changjiang.entity.Area;
-import com.changjiang.common.Assist;
+@Service
 public class AreaServiceImpl implements AreaService{
+	@Autowired
     private AreaDao areaDao;
     @Override
-    public long getAreaRowCount(Assist assist){
-        return areaDao.getAreaRowCount(assist);
+    public long getAreaRowCount(){
+        return areaDao.getAreaRowCount();
     }
     @Override
-    public List<Area> selectArea(Assist assist){
-        return areaDao.selectArea(assist);
+    public List<Area> selectArea(){
+        return areaDao.selectArea();
     }
     @Override
     public Area selectAreaById(Integer id){
@@ -30,24 +35,12 @@ public class AreaServiceImpl implements AreaService{
         return areaDao.deleteAreaById(id);
     }
     @Override
-    public int deleteArea(Assist assist){
-        return areaDao.deleteArea(assist);
-    }
-    @Override
     public int updateAreaById(Area enti){
         return areaDao.updateAreaById(enti);
     }
     @Override
-    public int updateArea(Area value, Assist assist){
-        return areaDao.updateArea(value,assist);
-    }
-    @Override
     public int updateNonEmptyAreaById(Area enti){
         return areaDao.updateNonEmptyAreaById(enti);
-    }
-    @Override
-    public int updateNonEmptyArea(Area value, Assist assist){
-        return areaDao.updateNonEmptyArea(value,assist);
     }
 
     public AreaDao getAreaDao() {

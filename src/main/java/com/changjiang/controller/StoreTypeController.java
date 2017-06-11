@@ -35,7 +35,7 @@ public class StoreTypeController {
                 System.out.println(storeType.getStoreTypeName());
             }
         }
-        return null;
+        return "index";
     }
     /**
      * 通过店面类型查询所有的店面  嵌套结果: 使用嵌套结果映射来处理重复的联合结果的子集
@@ -56,6 +56,6 @@ public class StoreTypeController {
                 }
             }
         }
-        return null;
+        return "index";
     }
 }

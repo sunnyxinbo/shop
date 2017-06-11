@@ -35,6 +35,6 @@ public class StoreController {
                 System.out.println(store.getName());
             }
         }
-        return null;
+        return "index";
     }
 }

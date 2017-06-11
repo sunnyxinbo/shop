@@ -1,29 +1,22 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Area implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 2179468246699294823L;
-	private Integer id;
+public class Area {
+    private Integer id;
     private String name;
     private Integer store;
     private String state;
-    private String desc;
+    private String dbDesc;
     private Integer upperLevelId;
     private Integer currentLevel;
     public Area() {
         super();
     }
-    public Area(Integer id,String name,Integer store,String state,String desc,Integer upperLevelId,Integer currentLevel) {
+    public Area(Integer id,String name,Integer store,String state,String dbDesc,Integer upperLevelId,Integer currentLevel) {
         super();
         this.id = id;
         this.name = name;
         this.store = store;
         this.state = state;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.upperLevelId = upperLevelId;
         this.currentLevel = currentLevel;
     }
@@ -59,12 +52,12 @@ public class Area implements Serializable{
         this.state = state;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public Integer getUpperLevelId() {

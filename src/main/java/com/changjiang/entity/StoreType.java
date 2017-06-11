@@ -1,32 +1,12 @@
 package com.changjiang.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * 店面类型
- */
-public class StoreType implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 2966826507075087114L;
-	/**
-     * 店面类型id
-     */
+public class StoreType {
     private Integer id;
-    /**
-     * 店面类型名称
-     */
     private String storeTypeName;
-    /**
-     * 状态
-     */
     private String state;
-    /**
-     * 描述
-     */
-    private String desc;
+    private String dbExplain;
     /**
      * 使用一个List<Store>集合属性表示店面类型拥有的店面
      */
@@ -34,12 +14,12 @@ public class StoreType implements Serializable{
     public StoreType() {
         super();
     }
-    public StoreType(Integer id,String storeTypeName,String state,String desc) {
+    public StoreType(Integer id,String storeTypeName,String state,String dbExplain) {
         super();
         this.id = id;
         this.storeTypeName = storeTypeName;
         this.state = state;
-        this.desc = desc;
+        this.dbExplain = dbExplain;
     }
     public Integer getId() {
         return this.id;
@@ -65,19 +45,18 @@ public class StoreType implements Serializable{
         this.state = state;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbExplain() {
+        return this.dbExplain;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbExplain(String dbExplain) {
+        this.dbExplain = dbExplain;
     }
-    public List<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
-    }
+	public List<Store> getStores() {
+		return stores;
+	}
+	public void setStores(List<Store> stores) {
+		this.stores = stores;
+	}
 
 }

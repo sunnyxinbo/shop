@@ -1,20 +1,13 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class OfficialTrade implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 5425704566966531483L;
-	private Integer id;
+public class OfficialTrade {
+    private Integer id;
     private String number;
     private String officialName;
     private String productName;
     private String alias;
     private Integer officialType;
     private String formerName;
-    private String desc;
+    private String dbDesc;
     private Double officialPrice;
     private String icon;
     private String video;
@@ -23,7 +16,7 @@ public class OfficialTrade implements Serializable{
     public OfficialTrade() {
         super();
     }
-    public OfficialTrade(Integer id,String number,String officialName,String productName,String alias,Integer officialType,String formerName,String desc,Double officialPrice,String icon,String video,Integer statisticalCategories,String rawMaterial) {
+    public OfficialTrade(Integer id,String number,String officialName,String productName,String alias,Integer officialType,String formerName,String dbDesc,Double officialPrice,String icon,String video,Integer statisticalCategories,String rawMaterial) {
         super();
         this.id = id;
         this.number = number;
@@ -32,7 +25,7 @@ public class OfficialTrade implements Serializable{
         this.alias = alias;
         this.officialType = officialType;
         this.formerName = formerName;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.officialPrice = officialPrice;
         this.icon = icon;
         this.video = video;
@@ -95,12 +88,12 @@ public class OfficialTrade implements Serializable{
         this.formerName = formerName;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public Double getOfficialPrice() {

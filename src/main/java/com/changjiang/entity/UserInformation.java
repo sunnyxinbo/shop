@@ -1,19 +1,12 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class UserInformation implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7494830944819534304L;
-	private Integer id;
+public class UserInformation {
+    private Integer id;
     private String realname;
     private String nickname;
     private String idNumber;
     private String phone;
     private String password;
-    private String desc;
+    private String dbDesc;
     private String sex;
     private String icon;
     private String address;
@@ -27,7 +20,7 @@ public class UserInformation implements Serializable{
     public UserInformation() {
         super();
     }
-    public UserInformation(Integer id,String realname,String nickname,String idNumber,String phone,String password,String desc,String sex,String icon,String address,String qq,String wechat,String email,Integer dutyId,Integer departmentId,String state,Integer storeId) {
+    public UserInformation(Integer id,String realname,String nickname,String idNumber,String phone,String password,String dbDesc,String sex,String icon,String address,String qq,String wechat,String email,Integer dutyId,Integer departmentId,String state,Integer storeId) {
         super();
         this.id = id;
         this.realname = realname;
@@ -35,7 +28,7 @@ public class UserInformation implements Serializable{
         this.idNumber = idNumber;
         this.phone = phone;
         this.password = password;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.sex = sex;
         this.icon = icon;
         this.address = address;
@@ -95,12 +88,12 @@ public class UserInformation implements Serializable{
         this.password = password;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public String getSex() {

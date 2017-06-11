@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changjiang.dao.ProducteTypeDao">
-	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
-	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_ProducteType_Map" type="com.changjiang.entity.ProducteType">
         <id column="ProducteType0" property="id" />
         <result column="ProducteType1" property="name" />
-        <result column="ProducteType2" property="desc" />
+        <result column="ProducteType2" property="dbDesc" />
     </resultMap>
 
     <sql id="producte_type_Column">
         producte_type.id as ProducteType0
         ,producte_type.name as ProducteType1
-        ,producte_type.desc as ProducteType2
+        ,producte_type.db_desc as ProducteType2
     </sql>
 
     <select id="getProducteTypeRowCount" resultType="java.lang.Long">
@@ -30,7 +28,9 @@
         from producte_type
         where producte_type.id = #{id}
     </select> 
-    <!-- 通过产品类型查询所有的办公贸易与店面产品 -->
+
+
+ <!-- 通过产品类型查询所有的办公贸易与店面产品 -->
     <select id="selectOfficialTradeAndProductByTypeId" parameterType="java.lang.Integer" resultMap="result_ProducteType_Map2">
         select
         *
@@ -73,7 +73,7 @@
         </collection>
     </resultMap>
 
-    <!-- 通过产品类型查询所有的办公贸易与店面产品 -->
+<!-- 通过产品类型查询所有的办公贸易与店面产品 -->
     <select id="selectStoreProductByTypeId" parameterType="java.lang.Integer" resultMap="result_ProducteType_Map3">
         select *
         from producte_type p , store_producte s
@@ -99,9 +99,12 @@
 
 
 
+
+
+
     <insert id="insertProducteType" parameterType="com.changjiang.entity.ProducteType">
-        insert into producte_type(id,name,desc) 
-        values(#{id},#{name},#{desc})
+        insert into producte_type(id,name,db_desc) 
+        values(#{id},#{name},#{dbDesc})
     </insert>
 
     <insert id="insertNonEmptyProducteType" parameterType="com.changjiang.entity.ProducteType">
@@ -109,12 +112,12 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="name != null">name,</if>
-            <if test="desc != null">desc,</if>
+            <if test="dbDesc != null">db_desc,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null"> #{id},</if>
             <if test="name != null"> #{name},</if>
-            <if test="desc != null"> #{desc},</if>
+            <if test="dbDesc != null"> #{dbDesc},</if>
         </trim>
     </insert>
 
@@ -126,7 +129,7 @@
     <update id="updateProducteTypeById" parameterType="com.changjiang.entity.ProducteType">
         update producte_type set
             name=#{name}
-            ,desc=#{desc}
+            ,db_desc=#{dbDesc}
         where id=#{id}
     </update>
 
@@ -136,8 +139,8 @@
             <if test="name != null">
                 name=#{name},
             </if>
-            <if test="desc != null">
-                desc=#{desc},
+            <if test="dbDesc != null">
+                db_desc=#{dbDesc},
             </if>
         </set>
         where id=#{id}

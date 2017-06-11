@@ -1,27 +1,26 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Function implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7750082498065436362L;
-	private Integer id;
+public class Function {
+    private Integer id;
     private String functionName;
     private Integer upperLevelId;
     private Integer currentLevel;
     private String icon;
+    private Integer groupId;
+    private Integer orderId;
+    private String urls;
     public Function() {
         super();
     }
-    public Function(Integer id,String functionName,Integer upperLevelId,Integer currentLevel,String icon) {
+    public Function(Integer id,String functionName,Integer upperLevelId,Integer currentLevel,String icon,Integer groupId,Integer orderId,String urls) {
         super();
         this.id = id;
         this.functionName = functionName;
         this.upperLevelId = upperLevelId;
         this.currentLevel = currentLevel;
         this.icon = icon;
+        this.groupId = groupId;
+        this.orderId = orderId;
+        this.urls = urls;
     }
     public Integer getId() {
         return this.id;
@@ -61,6 +60,30 @@ public class Function implements Serializable{
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public Integer getGroupId() {
+        return this.groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public Integer getOrderId() {
+        return this.orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getUrls() {
+        return this.urls;
+    }
+
+    public void setUrls(String urls) {
+        this.urls = urls;
     }
 
 }

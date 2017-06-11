@@ -1,17 +1,22 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.changjiang.dao.WorkStationDao;
 import com.changjiang.entity.WorkStation;
-import com.changjiang.common.Assist;
+@Service
 public class WorkStationServiceImpl implements WorkStationService{
+	@Autowired
     private WorkStationDao workStationDao;
     @Override
-    public long getWorkStationRowCount(Assist assist){
-        return workStationDao.getWorkStationRowCount(assist);
+    public long getWorkStationRowCount(){
+        return workStationDao.getWorkStationRowCount();
     }
     @Override
-    public List<WorkStation> selectWorkStation(Assist assist){
-        return workStationDao.selectWorkStation(assist);
+    public List<WorkStation> selectWorkStation(){
+        return workStationDao.selectWorkStation();
     }
     @Override
     public WorkStation selectWorkStationById(Integer id){
@@ -30,24 +35,12 @@ public class WorkStationServiceImpl implements WorkStationService{
         return workStationDao.deleteWorkStationById(id);
     }
     @Override
-    public int deleteWorkStation(Assist assist){
-        return workStationDao.deleteWorkStation(assist);
-    }
-    @Override
     public int updateWorkStationById(WorkStation enti){
         return workStationDao.updateWorkStationById(enti);
     }
     @Override
-    public int updateWorkStation(WorkStation value, Assist assist){
-        return workStationDao.updateWorkStation(value,assist);
-    }
-    @Override
     public int updateNonEmptyWorkStationById(WorkStation enti){
         return workStationDao.updateNonEmptyWorkStationById(enti);
-    }
-    @Override
-    public int updateNonEmptyWorkStation(WorkStation value, Assist assist){
-        return workStationDao.updateNonEmptyWorkStation(value,assist);
     }
 
     public WorkStationDao getWorkStationDao() {

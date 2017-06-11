@@ -32,6 +32,6 @@ public class SerialNumberController {
                 System.out.println("流水号是  ：" + serialNumber.getLastSerialNum() + "流水号id是 ：" + serialNumber.getId());
             }
         }
-        return null;
+       return "index";
     }
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changjiang.dao.OrganizationDao">
-	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
-	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_Organization_Map" type="com.changjiang.entity.Organization">
         <id column="Organization0" property="id" />
         <result column="Organization1" property="name" />
@@ -32,6 +30,17 @@
         from organization
         where organization.id = #{id}
     </select> 
+
+<!--  通过currentLevel查询它下的所有组织 -->
+    <select id="selectOrganizationByCurrentLevelId" parameterType="java.lang.Integer" resultMap="result_Organization_Map">
+        select
+        <include refid="organization_Column" />
+        from organization
+        where organization.upper_level_id = #{upper_level_id}
+    </select>
+
+
+
 
 
     <insert id="insertOrganization" parameterType="com.changjiang.entity.Organization">
@@ -83,11 +92,5 @@
         </set>
         where id=#{id}
     </update>
-    <!--  通过currentLevel查询它下的所有组织 -->
-    <select id="selectOrganizationByCurrentLevelId" parameterType="java.lang.Integer" resultMap="result_Organization_Map">
-        select
-        <include refid="organization_Column" />
-        from organization
-        where organization.upper_level_id = #{upper_level_id}
-    </select>
+
 </mapper>

@@ -1,24 +1,19 @@
 package com.changjiang.service;
-import com.changjiang.entity.StoreType;
-import com.changjiang.dao.StoreTypeDao;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.changjiang.dao.StoreTypeDao;
+import com.changjiang.entity.StoreType;
 @Service
 public class StoreTypeServiceImpl implements StoreTypeService{
-    @Autowired
+	@Autowired
     private StoreTypeDao storeTypeDao;
     @Override
     public long getStoreTypeRowCount(){
         return storeTypeDao.getStoreTypeRowCount();
     }
-
-    /**
-     * 查询所有的店面类型
-     * @return
-     */
     @Override
     public List<StoreType> selectStoreType(){
         return storeTypeDao.selectStoreType();
@@ -48,6 +43,13 @@ public class StoreTypeServiceImpl implements StoreTypeService{
         return storeTypeDao.updateNonEmptyStoreTypeById(enti);
     }
 
+    public StoreTypeDao getStoreTypeDao() {
+        return this.storeTypeDao;
+    }
+
+    public void setStoreTypeDao(StoreTypeDao storeTypeDao) {
+        this.storeTypeDao = storeTypeDao;
+    }
     /**
      * 通过店面类型查询所有的店面  嵌套结果: 使用嵌套结果映射来处理重复的联合结果的子集
      * @param id
@@ -57,13 +59,4 @@ public class StoreTypeServiceImpl implements StoreTypeService{
     public List<StoreType> getStoresByStoreType(Integer id) {
         return storeTypeDao.getStoresByStoreType(id);
     }
-
-    public StoreTypeDao getStoreTypeDao() {
-        return this.storeTypeDao;
-    }
-
-    public void setStoreTypeDao(StoreTypeDao storeTypeDao) {
-        this.storeTypeDao = storeTypeDao;
-    }
-
 }

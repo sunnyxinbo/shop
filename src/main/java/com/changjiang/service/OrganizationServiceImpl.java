@@ -1,34 +1,23 @@
 package com.changjiang.service;
-import com.changjiang.entity.Organization;
-import com.changjiang.dao.OrganizationDao;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.changjiang.dao.OrganizationDao;
+import com.changjiang.entity.Organization;
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
-    @Autowired
+	@Autowired
     private OrganizationDao organizationDao;
     @Override
     public long getOrganizationRowCount(){
         return organizationDao.getOrganizationRowCount();
     }
-
-    /**
-     * 查询所有的组织
-     * @return
-     */
     @Override
     public List<Organization> selectOrganization(){
         return organizationDao.selectOrganization();
     }
-
-    /**
-     * 通过id查询组织
-     * @param id
-     * @return
-     */
     @Override
     public Organization selectOrganizationById(Integer id){
         return organizationDao.selectOrganizationById(id);
@@ -67,5 +56,4 @@ public class OrganizationServiceImpl implements OrganizationService{
     public List<Organization> selectOrganizationByCurrentLevelId(Integer currentLevelId){
         return organizationDao.selectOrganizationByCurrentLevelId(currentLevelId);
     }
-
 }

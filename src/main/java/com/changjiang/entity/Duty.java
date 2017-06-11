@@ -1,26 +1,19 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Duty implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 2269019323604775086L;
-	private Integer id;
+public class Duty {
+    private Integer id;
     private String name;
-    private String desc;
+    private String dbDesc;
     private Integer gradeId;
     private Integer storeId;
     private String state;
     public Duty() {
         super();
     }
-    public Duty(Integer id,String name,String desc,Integer gradeId,Integer storeId,String state) {
+    public Duty(Integer id,String name,String dbDesc,Integer gradeId,Integer storeId,String state) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.gradeId = gradeId;
         this.storeId = storeId;
         this.state = state;
@@ -41,12 +34,12 @@ public class Duty implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public Integer getGradeId() {

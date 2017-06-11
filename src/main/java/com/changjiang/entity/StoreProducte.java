@@ -1,15 +1,8 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class StoreProducte implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -1327746073409455235L;
-	private Integer id;
+public class StoreProducte {
+    private Integer id;
     private String name;
-    private String desc;
+    private String dbDesc;
     private String video;
     private String rawMaterial;
     private Double price;
@@ -19,11 +12,11 @@ public class StoreProducte implements Serializable{
     public StoreProducte() {
         super();
     }
-    public StoreProducte(Integer id,String name,String desc,String video,String rawMaterial,Double price,Double specialPrice,Integer officialTrade,Integer type) {
+    public StoreProducte(Integer id,String name,String dbDesc,String video,String rawMaterial,Double price,Double specialPrice,Integer officialTrade,Integer type) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.video = video;
         this.rawMaterial = rawMaterial;
         this.price = price;
@@ -47,12 +40,12 @@ public class StoreProducte implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public String getVideo() {

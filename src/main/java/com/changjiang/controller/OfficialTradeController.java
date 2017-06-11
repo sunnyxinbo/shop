@@ -22,17 +22,18 @@ public class OfficialTradeController {
     @Autowired
     private OfficialTradeService officialTradeService;
     /**
-     * 查询所有的办公贸易新息
+     * 查询所有的办公贸易信息
      * @return
      */
     @RequestMapping(value = "/queryAll")
     public String queryAll(){
         List<OfficialTrade> officialTrades = officialTradeService.selectOfficialTrade();
+        System.out.println("officialTrades.size() :" + officialTrades.size());
         if(officialTrades != null && officialTrades.size() > 0){
             for (OfficialTrade officialTrade:officialTrades){
                 System.out.println(officialTrade.getOfficialName());
             }
         }
-        return null;
+        return "index1";
     }
 }

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changjiang.dao.StoreProducteDao">
-	<cache eviction="LRU" type="com.changjiang.util.MybatisRedisCache" 
-	flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="result_StoreProducte_Map" type="com.changjiang.entity.StoreProducte">
         <id column="StoreProducte0" property="id" />
         <result column="StoreProducte1" property="name" />
-        <result column="StoreProducte2" property="desc" />
+        <result column="StoreProducte2" property="dbDesc" />
         <result column="StoreProducte3" property="video" />
         <result column="StoreProducte4" property="rawMaterial" />
         <result column="StoreProducte5" property="price" />
@@ -18,7 +16,7 @@
     <sql id="store_producte_Column">
         store_producte.id as StoreProducte0
         ,store_producte.name as StoreProducte1
-        ,store_producte.desc as StoreProducte2
+        ,store_producte.db_desc as StoreProducte2
         ,store_producte.video as StoreProducte3
         ,store_producte.raw_material as StoreProducte4
         ,store_producte.price as StoreProducte5
@@ -45,8 +43,8 @@
 
 
     <insert id="insertStoreProducte" parameterType="com.changjiang.entity.StoreProducte">
-        insert into store_producte(id,name,desc,video,raw_material,price,special_price,official_trade,type) 
-        values(#{id},#{name},#{desc},#{video},#{rawMaterial},#{price},#{specialPrice},#{officialTrade},#{type})
+        insert into store_producte(id,name,db_desc,video,raw_material,price,special_price,official_trade,type) 
+        values(#{id},#{name},#{dbDesc},#{video},#{rawMaterial},#{price},#{specialPrice},#{officialTrade},#{type})
     </insert>
 
     <insert id="insertNonEmptyStoreProducte" parameterType="com.changjiang.entity.StoreProducte">
@@ -54,7 +52,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="name != null">name,</if>
-            <if test="desc != null">desc,</if>
+            <if test="dbDesc != null">db_desc,</if>
             <if test="video != null">video,</if>
             <if test="rawMaterial != null">raw_material,</if>
             <if test="price != null">price,</if>
@@ -65,7 +63,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null"> #{id},</if>
             <if test="name != null"> #{name},</if>
-            <if test="desc != null"> #{desc},</if>
+            <if test="dbDesc != null"> #{dbDesc},</if>
             <if test="video != null"> #{video},</if>
             <if test="rawMaterial != null"> #{rawMaterial},</if>
             <if test="price != null"> #{price},</if>
@@ -83,7 +81,7 @@
     <update id="updateStoreProducteById" parameterType="com.changjiang.entity.StoreProducte">
         update store_producte set
             name=#{name}
-            ,desc=#{desc}
+            ,db_desc=#{dbDesc}
             ,video=#{video}
             ,raw_material=#{rawMaterial}
             ,price=#{price}
@@ -99,8 +97,8 @@
             <if test="name != null">
                 name=#{name},
             </if>
-            <if test="desc != null">
-                desc=#{desc},
+            <if test="dbDesc != null">
+                db_desc=#{dbDesc},
             </if>
             <if test="video != null">
                 video=#{video},

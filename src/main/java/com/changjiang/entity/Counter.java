@@ -1,15 +1,8 @@
 package com.changjiang.entity;
-
-import java.io.Serializable;
-
-public class Counter implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 6063247701548840457L;
-	private Integer id;
+public class Counter {
+    private Integer id;
     private String name;
-    private String desc;
+    private String dbDesc;
     private Integer type;
     private Integer store;
     private String state;
@@ -17,11 +10,11 @@ public class Counter implements Serializable{
     public Counter() {
         super();
     }
-    public Counter(Integer id,String name,String desc,Integer type,Integer store,String state,Integer area) {
+    public Counter(Integer id,String name,String dbDesc,Integer type,Integer store,String state,Integer area) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.dbDesc = dbDesc;
         this.type = type;
         this.store = store;
         this.state = state;
@@ -43,12 +36,12 @@ public class Counter implements Serializable{
         this.name = name;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getDbDesc() {
+        return this.dbDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDbDesc(String dbDesc) {
+        this.dbDesc = dbDesc;
     }
 
     public Integer getType() {
