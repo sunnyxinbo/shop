@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.OrganizationDao;
 import com.changjiang.entity.Organization;
+import com.changjiang.common.Assist;
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
 	@Autowired
     private OrganizationDao organizationDao;
     @Override
-    public long getOrganizationRowCount(){
-        return organizationDao.getOrganizationRowCount();
+    public long getOrganizationRowCount(Assist assist){
+        return organizationDao.getOrganizationRowCount(assist);
     }
     @Override
-    public List<Organization> selectOrganization(){
-        return organizationDao.selectOrganization();
+    public List<Organization> selectOrganization(Assist assist){
+        return organizationDao.selectOrganization(assist);
     }
     @Override
     public Organization selectOrganizationById(Integer id){
@@ -35,12 +36,24 @@ public class OrganizationServiceImpl implements OrganizationService{
         return organizationDao.deleteOrganizationById(id);
     }
     @Override
+    public int deleteOrganization(Assist assist){
+        return organizationDao.deleteOrganization(assist);
+    }
+    @Override
     public int updateOrganizationById(Organization enti){
         return organizationDao.updateOrganizationById(enti);
     }
     @Override
+    public int updateOrganization(Organization value, Assist assist){
+        return organizationDao.updateOrganization(value,assist);
+    }
+    @Override
     public int updateNonEmptyOrganizationById(Organization enti){
         return organizationDao.updateNonEmptyOrganizationById(enti);
+    }
+    @Override
+    public int updateNonEmptyOrganization(Organization value, Assist assist){
+        return organizationDao.updateNonEmptyOrganization(value,assist);
     }
 
     public OrganizationDao getOrganizationDao() {

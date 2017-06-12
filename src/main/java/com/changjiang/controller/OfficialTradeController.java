@@ -1,5 +1,7 @@
 package com.changjiang.controller;
 
+import com.changjiang.common.Assist;
+
 /**
  * Created by a1996_000 on 2017/6/2.
  */
@@ -27,7 +29,8 @@ public class OfficialTradeController {
      */
     @RequestMapping(value = "/queryAll")
     public String queryAll(){
-        List<OfficialTrade> officialTrades = officialTradeService.selectOfficialTrade();
+    	Assist assist = new Assist();
+        List<OfficialTrade> officialTrades = officialTradeService.selectOfficialTrade(assist);
         System.out.println("officialTrades.size() :" + officialTrades.size());
         if(officialTrades != null && officialTrades.size() > 0){
             for (OfficialTrade officialTrade:officialTrades){

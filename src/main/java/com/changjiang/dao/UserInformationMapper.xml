@@ -21,6 +21,22 @@
         <result column="UserInformation16" property="storeId" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="user_information_Column">
         user_information.id as UserInformation0
         ,user_information.realname as UserInformation1
@@ -41,13 +57,22 @@
         ,user_information.store_id as UserInformation16
     </sql>
 
-    <select id="getUserInformationRowCount" resultType="java.lang.Long">
+    <select id="getUserInformationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from user_information
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUserInformation" resultMap="result_UserInformation_Map">
-        select 
+    <select id="selectUserInformation" parameterType="com.changjiang.common.Assist"  resultMap="result_UserInformation_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="user_information_Column" /> 
+            </otherwise>
+        </choose>
         from user_information
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectUserInformationById" parameterType="java.lang.Integer" resultMap="result_UserInformation_Map">
@@ -108,6 +133,11 @@
     <delete id="deleteUserInformationById" parameterType="java.lang.Integer">
         delete from user_information
         where id = #{id}
+    </delete>
+
+    <delete id="deleteUserInformation" parameterType="com.changjiang.common.Assist">
+        delete from user_information
+        <if test="require!=null"><include refid="Assist" /></if>
     </delete>
 
     <update id="updateUserInformationById" parameterType="com.changjiang.entity.UserInformation">
@@ -184,6 +214,88 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateUserInformation" parameterType="map">
+        update user_information
+        <set>
+                id=#{enti.id},
+                realname=#{enti.realname},
+                nickname=#{enti.nickname},
+                id_number=#{enti.idNumber},
+                phone=#{enti.phone},
+                password=#{enti.password},
+                db_desc=#{enti.dbDesc},
+                sex=#{enti.sex},
+                icon=#{enti.icon},
+                address=#{enti.address},
+                qq=#{enti.qq},
+                wechat=#{enti.wechat},
+                email=#{enti.email},
+                duty_id=#{enti.dutyId},
+                department_id=#{enti.departmentId},
+                state=#{enti.state},
+                store_id=#{enti.storeId},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyUserInformation" parameterType="map">
+        update user_information
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.realname != null">
+                realname=#{enti.realname},
+            </if>
+            <if test="enti.nickname != null">
+                nickname=#{enti.nickname},
+            </if>
+            <if test="enti.idNumber != null">
+                id_number=#{enti.idNumber},
+            </if>
+            <if test="enti.phone != null">
+                phone=#{enti.phone},
+            </if>
+            <if test="enti.password != null">
+                password=#{enti.password},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.sex != null">
+                sex=#{enti.sex},
+            </if>
+            <if test="enti.icon != null">
+                icon=#{enti.icon},
+            </if>
+            <if test="enti.address != null">
+                address=#{enti.address},
+            </if>
+            <if test="enti.qq != null">
+                qq=#{enti.qq},
+            </if>
+            <if test="enti.wechat != null">
+                wechat=#{enti.wechat},
+            </if>
+            <if test="enti.email != null">
+                email=#{enti.email},
+            </if>
+            <if test="enti.dutyId != null">
+                duty_id=#{enti.dutyId},
+            </if>
+            <if test="enti.departmentId != null">
+                department_id=#{enti.departmentId},
+            </if>
+            <if test="enti.state != null">
+                state=#{enti.state},
+            </if>
+            <if test="enti.storeId != null">
+                store_id=#{enti.storeId},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

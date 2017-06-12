@@ -8,6 +8,22 @@
         <result column="Organization3" property="currentLevel" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="organization_Column">
         organization.id as Organization0
         ,organization.name as Organization1
@@ -15,13 +31,22 @@
         ,organization.current_level as Organization3
     </sql>
 
-    <select id="getOrganizationRowCount" resultType="java.lang.Long">
+    <select id="getOrganizationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from organization
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOrganization" resultMap="result_Organization_Map">
-        select 
+    <select id="selectOrganization" parameterType="com.changjiang.common.Assist"  resultMap="result_Organization_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="organization_Column" /> 
+            </otherwise>
+        </choose>
         from organization
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectOrganizationById" parameterType="java.lang.Integer" resultMap="result_Organization_Map">
@@ -38,7 +63,6 @@
         from organization
         where organization.upper_level_id = #{upper_level_id}
     </select>
-
 
 
 
@@ -69,6 +93,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteOrganization" parameterType="com.changjiang.common.Assist">
+        delete from organization
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateOrganizationById" parameterType="com.changjiang.entity.Organization">
         update organization set
             name=#{name}
@@ -91,6 +120,36 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateOrganization" parameterType="map">
+        update organization
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                upper_level_id=#{enti.upperLevelId},
+                current_level=#{enti.currentLevel},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyOrganization" parameterType="map">
+        update organization
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.upperLevelId != null">
+                upper_level_id=#{enti.upperLevelId},
+            </if>
+            <if test="enti.currentLevel != null">
+                current_level=#{enti.currentLevel},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

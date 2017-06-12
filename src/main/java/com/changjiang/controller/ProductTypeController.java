@@ -1,5 +1,7 @@
 package com.changjiang.controller;
 
+import com.changjiang.common.Assist;
+
 /**
  * Created by a1996_000 on 2017/6/2.
  */
@@ -30,7 +32,8 @@ public class ProductTypeController {
      */
     @RequestMapping(value = "/queryAll")
     public String queryAllProductTypes(){
-        List<ProducteType> producteTypes = producteTypeService.selectProducteType();
+    	Assist assist = new Assist();
+        List<ProducteType> producteTypes = producteTypeService.selectProducteType(assist);
         if(producteTypes != null && producteTypes.size() > 0){
             for (ProducteType producteType:producteTypes){
                 System.out.println(producteType.getName());
@@ -108,7 +111,7 @@ public class ProductTypeController {
         return "index";
     }
     /**
-     * 更新所有的产品类型  (未能更新数据)
+     * 更新所有的产品类型 
      * @return
      */
     @RequestMapping(value = "/updateproduct")

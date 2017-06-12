@@ -6,6 +6,7 @@ public class ProducteType {
     private Integer id;
     private String name;
     private String dbDesc;
+    private String storeNumber;
     /**
      * 使用一个List<OfficialTrade>集合属性表示产品类型拥有的办公贸易
      */
@@ -17,11 +18,12 @@ public class ProducteType {
     public ProducteType() {
         super();
     }
-    public ProducteType(Integer id,String name,String dbDesc) {
+    public ProducteType(Integer id,String name,String dbDesc,String storeNumber) {
         super();
         this.id = id;
         this.name = name;
         this.dbDesc = dbDesc;
+        this.storeNumber = storeNumber;
     }
     public Integer getId() {
         return this.id;
@@ -45,6 +47,14 @@ public class ProducteType {
 
     public void setDbDesc(String dbDesc) {
         this.dbDesc = dbDesc;
+    }
+
+    public String getStoreNumber() {
+        return this.storeNumber;
+    }
+
+    public void setStoreNumber(String storeNumber) {
+        this.storeNumber = storeNumber;
     }
 	public List<OfficialTrade> getOfficialTrades() {
 		return officialTrades;

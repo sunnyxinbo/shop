@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.FunctionDao;
 import com.changjiang.entity.Function;
+import com.changjiang.common.Assist;
 @Service
 public class FunctionServiceImpl implements FunctionService{
-	@Autowired
-    private FunctionDao functionDao;
+    @Autowired
+	private FunctionDao functionDao;
     @Override
-    public long getFunctionRowCount(){
-        return functionDao.getFunctionRowCount();
+    public long getFunctionRowCount(Assist assist){
+        return functionDao.getFunctionRowCount(assist);
     }
     @Override
-    public List<Function> selectFunction(){
-        return functionDao.selectFunction();
+    public List<Function> selectFunction(Assist assist){
+        return functionDao.selectFunction(assist);
     }
     @Override
     public Function selectFunctionById(Integer id){
@@ -35,12 +36,24 @@ public class FunctionServiceImpl implements FunctionService{
         return functionDao.deleteFunctionById(id);
     }
     @Override
+    public int deleteFunction(Assist assist){
+        return functionDao.deleteFunction(assist);
+    }
+    @Override
     public int updateFunctionById(Function enti){
         return functionDao.updateFunctionById(enti);
     }
     @Override
+    public int updateFunction(Function value, Assist assist){
+        return functionDao.updateFunction(value,assist);
+    }
+    @Override
     public int updateNonEmptyFunctionById(Function enti){
         return functionDao.updateNonEmptyFunctionById(enti);
+    }
+    @Override
+    public int updateNonEmptyFunction(Function value, Assist assist){
+        return functionDao.updateNonEmptyFunction(value,assist);
     }
 
     public FunctionDao getFunctionDao() {

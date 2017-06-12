@@ -12,6 +12,22 @@
         <result column="Function7" property="urls" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="function_Column">
         function.id as Function0
         ,function.function_name as Function1
@@ -23,13 +39,22 @@
         ,function.urls as Function7
     </sql>
 
-    <select id="getFunctionRowCount" resultType="java.lang.Long">
+    <select id="getFunctionRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from function
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectFunction" resultMap="result_Function_Map">
-        select 
+    <select id="selectFunction" parameterType="com.changjiang.common.Assist"  resultMap="result_Function_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="function_Column" /> 
+            </otherwise>
+        </choose>
         from function
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectFunctionById" parameterType="java.lang.Integer" resultMap="result_Function_Map">
@@ -74,6 +99,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteFunction" parameterType="com.changjiang.common.Assist">
+        delete from function
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateFunctionById" parameterType="com.changjiang.entity.Function">
         update function set
             function_name=#{functionName}
@@ -112,6 +142,52 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateFunction" parameterType="map">
+        update function
+        <set>
+                id=#{enti.id},
+                function_name=#{enti.functionName},
+                upper_level_id=#{enti.upperLevelId},
+                current_level=#{enti.currentLevel},
+                icon=#{enti.icon},
+                group_id=#{enti.groupId},
+                order_id=#{enti.orderId},
+                urls=#{enti.urls},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyFunction" parameterType="map">
+        update function
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.functionName != null">
+                function_name=#{enti.functionName},
+            </if>
+            <if test="enti.upperLevelId != null">
+                upper_level_id=#{enti.upperLevelId},
+            </if>
+            <if test="enti.currentLevel != null">
+                current_level=#{enti.currentLevel},
+            </if>
+            <if test="enti.icon != null">
+                icon=#{enti.icon},
+            </if>
+            <if test="enti.groupId != null">
+                group_id=#{enti.groupId},
+            </if>
+            <if test="enti.orderId != null">
+                order_id=#{enti.orderId},
+            </if>
+            <if test="enti.urls != null">
+                urls=#{enti.urls},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

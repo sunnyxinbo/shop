@@ -11,6 +11,22 @@
         <result column="Users6" property="enabled" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="users_Column">
         users.id as Users0
         ,users.username as Users1
@@ -21,13 +37,22 @@
         ,users.enabled as Users6
     </sql>
 
-    <select id="getUsersRowCount" resultType="java.lang.Long">
+    <select id="getUsersRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from users
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUsers" resultMap="result_Users_Map">
-        select 
+    <select id="selectUsers" parameterType="com.changjiang.common.Assist"  resultMap="result_Users_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="users_Column" /> 
+            </otherwise>
+        </choose>
         from users
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectUsersById" parameterType="java.lang.Integer" resultMap="result_Users_Map">
@@ -70,6 +95,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteUsers" parameterType="com.changjiang.common.Assist">
+        delete from users
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateUsersById" parameterType="com.changjiang.entity.Users">
         update users set
             username=#{username}
@@ -104,6 +134,48 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateUsers" parameterType="map">
+        update users
+        <set>
+                id=#{enti.id},
+                username=#{enti.username},
+                password=#{enti.password},
+                role_id=#{enti.roleId},
+                store=#{enti.store},
+                user_information=#{enti.userInformation},
+                enabled=#{enti.enabled},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyUsers" parameterType="map">
+        update users
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.username != null">
+                username=#{enti.username},
+            </if>
+            <if test="enti.password != null">
+                password=#{enti.password},
+            </if>
+            <if test="enti.roleId != null">
+                role_id=#{enti.roleId},
+            </if>
+            <if test="enti.store != null">
+                store=#{enti.store},
+            </if>
+            <if test="enti.userInformation != null">
+                user_information=#{enti.userInformation},
+            </if>
+            <if test="enti.enabled != null">
+                enabled=#{enti.enabled},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

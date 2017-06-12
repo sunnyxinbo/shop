@@ -11,6 +11,22 @@
         <result column="Area6" property="currentLevel" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="area_Column">
         area.id as Area0
         ,area.name as Area1
@@ -21,13 +37,22 @@
         ,area.current_level as Area6
     </sql>
 
-    <select id="getAreaRowCount" resultType="java.lang.Long">
+    <select id="getAreaRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from area
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectArea" resultMap="result_Area_Map">
-        select 
+    <select id="selectArea" parameterType="com.changjiang.common.Assist"  resultMap="result_Area_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="area_Column" /> 
+            </otherwise>
+        </choose>
         from area
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectAreaById" parameterType="java.lang.Integer" resultMap="result_Area_Map">
@@ -70,6 +95,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteArea" parameterType="com.changjiang.common.Assist">
+        delete from area
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateAreaById" parameterType="com.changjiang.entity.Area">
         update area set
             name=#{name}
@@ -104,6 +134,48 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateArea" parameterType="map">
+        update area
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                store=#{enti.store},
+                state=#{enti.state},
+                db_desc=#{enti.dbDesc},
+                upper_level_id=#{enti.upperLevelId},
+                current_level=#{enti.currentLevel},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyArea" parameterType="map">
+        update area
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.store != null">
+                store=#{enti.store},
+            </if>
+            <if test="enti.state != null">
+                state=#{enti.state},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.upperLevelId != null">
+                upper_level_id=#{enti.upperLevelId},
+            </if>
+            <if test="enti.currentLevel != null">
+                current_level=#{enti.currentLevel},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

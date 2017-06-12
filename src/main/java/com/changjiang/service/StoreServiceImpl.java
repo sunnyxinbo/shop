@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.StoreDao;
 import com.changjiang.entity.Store;
+import com.changjiang.common.Assist;
 @Service
 public class StoreServiceImpl implements StoreService{
-	@Autowired
-    private StoreDao storeDao;
+    @Autowired
+	private StoreDao storeDao;
     @Override
-    public long getStoreRowCount(){
-        return storeDao.getStoreRowCount();
+    public long getStoreRowCount(Assist assist){
+        return storeDao.getStoreRowCount(assist);
     }
     @Override
-    public List<Store> selectStore(){
-        return storeDao.selectStore();
+    public List<Store> selectStore(Assist assist){
+        return storeDao.selectStore(assist);
     }
     @Override
     public Store selectStoreById(Integer id){
@@ -35,12 +36,24 @@ public class StoreServiceImpl implements StoreService{
         return storeDao.deleteStoreById(id);
     }
     @Override
+    public int deleteStore(Assist assist){
+        return storeDao.deleteStore(assist);
+    }
+    @Override
     public int updateStoreById(Store enti){
         return storeDao.updateStoreById(enti);
     }
     @Override
+    public int updateStore(Store value, Assist assist){
+        return storeDao.updateStore(value,assist);
+    }
+    @Override
     public int updateNonEmptyStoreById(Store enti){
         return storeDao.updateNonEmptyStoreById(enti);
+    }
+    @Override
+    public int updateNonEmptyStore(Store value, Assist assist){
+        return storeDao.updateNonEmptyStore(value,assist);
     }
 
     public StoreDao getStoreDao() {

@@ -1,10 +1,16 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.changjiang.dao.UserDao;
 import com.changjiang.entity.User;
 import com.changjiang.common.Assist;
+@Service
 public class UserServiceImpl implements UserService{
-    private UserDao userDao;
+    @Autowired
+	private UserDao userDao;
     @Override
     public long getUserRowCount(Assist assist){
         return userDao.getUserRowCount(assist);

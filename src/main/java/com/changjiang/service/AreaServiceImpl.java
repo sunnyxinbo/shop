@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.AreaDao;
 import com.changjiang.entity.Area;
+import com.changjiang.common.Assist;
 @Service
 public class AreaServiceImpl implements AreaService{
-	@Autowired
-    private AreaDao areaDao;
+    @Autowired
+	private AreaDao areaDao;
     @Override
-    public long getAreaRowCount(){
-        return areaDao.getAreaRowCount();
+    public long getAreaRowCount(Assist assist){
+        return areaDao.getAreaRowCount(assist);
     }
     @Override
-    public List<Area> selectArea(){
-        return areaDao.selectArea();
+    public List<Area> selectArea(Assist assist){
+        return areaDao.selectArea(assist);
     }
     @Override
     public Area selectAreaById(Integer id){
@@ -35,12 +36,24 @@ public class AreaServiceImpl implements AreaService{
         return areaDao.deleteAreaById(id);
     }
     @Override
+    public int deleteArea(Assist assist){
+        return areaDao.deleteArea(assist);
+    }
+    @Override
     public int updateAreaById(Area enti){
         return areaDao.updateAreaById(enti);
     }
     @Override
+    public int updateArea(Area value, Assist assist){
+        return areaDao.updateArea(value,assist);
+    }
+    @Override
     public int updateNonEmptyAreaById(Area enti){
         return areaDao.updateNonEmptyAreaById(enti);
+    }
+    @Override
+    public int updateNonEmptyArea(Area value, Assist assist){
+        return areaDao.updateNonEmptyArea(value,assist);
     }
 
     public AreaDao getAreaDao() {

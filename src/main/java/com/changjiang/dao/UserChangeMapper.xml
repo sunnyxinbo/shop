@@ -42,6 +42,22 @@
         <result column="UserChange37" property="number" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="user_change_Column">
         user_change.id as UserChange0
         ,user_change.realname as UserChange1
@@ -83,13 +99,22 @@
         ,user_change.number as UserChange37
     </sql>
 
-    <select id="getUserChangeRowCount" resultType="java.lang.Long">
+    <select id="getUserChangeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from user_change
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUserChange" resultMap="result_UserChange_Map">
-        select 
+    <select id="selectUserChange" parameterType="com.changjiang.common.Assist"  resultMap="result_UserChange_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="user_change_Column" /> 
+            </otherwise>
+        </choose>
         from user_change
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectUserChangeById" parameterType="java.lang.Integer" resultMap="result_UserChange_Map">
@@ -192,6 +217,11 @@
     <delete id="deleteUserChangeById" parameterType="java.lang.Integer">
         delete from user_change
         where id = #{id}
+    </delete>
+
+    <delete id="deleteUserChange" parameterType="com.changjiang.common.Assist">
+        delete from user_change
+        <if test="require!=null"><include refid="Assist" /></if>
     </delete>
 
     <update id="updateUserChangeById" parameterType="com.changjiang.entity.UserChange">
@@ -352,6 +382,172 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateUserChange" parameterType="map">
+        update user_change
+        <set>
+                id=#{enti.id},
+                realname=#{enti.realname},
+                nickname=#{enti.nickname},
+                id_number=#{enti.idNumber},
+                phone=#{enti.phone},
+                password=#{enti.password},
+                db_desc=#{enti.dbDesc},
+                sex=#{enti.sex},
+                icon=#{enti.icon},
+                address=#{enti.address},
+                qq=#{enti.qq},
+                wechat=#{enti.wechat},
+                email=#{enti.email},
+                user_id=#{enti.userId},
+                operate_time=#{enti.operateTime},
+                operator=#{enti.operator},
+                new_realname=#{enti.newRealname},
+                new_nickname=#{enti.newNickname},
+                new_id_number=#{enti.newIdNumber},
+                new_icon=#{enti.newIcon},
+                new_password=#{enti.newPassword},
+                new_desc=#{enti.newDesc},
+                new_sex=#{enti.newSex},
+                new_address=#{enti.newAddress},
+                new_qq=#{enti.newQq},
+                new_wechat=#{enti.newWechat},
+                new_email=#{enti.newEmail},
+                role=#{enti.role},
+                new_role=#{enti.newRole},
+                duty=#{enti.duty},
+                new_duty=#{enti.newDuty},
+                department=#{enti.department},
+                new_department=#{enti.newDepartment},
+                counter=#{enti.counter},
+                new_counter=#{enti.newCounter},
+                store=#{enti.store},
+                new_store=#{enti.newStore},
+                number=#{enti.number},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyUserChange" parameterType="map">
+        update user_change
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.realname != null">
+                realname=#{enti.realname},
+            </if>
+            <if test="enti.nickname != null">
+                nickname=#{enti.nickname},
+            </if>
+            <if test="enti.idNumber != null">
+                id_number=#{enti.idNumber},
+            </if>
+            <if test="enti.phone != null">
+                phone=#{enti.phone},
+            </if>
+            <if test="enti.password != null">
+                password=#{enti.password},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.sex != null">
+                sex=#{enti.sex},
+            </if>
+            <if test="enti.icon != null">
+                icon=#{enti.icon},
+            </if>
+            <if test="enti.address != null">
+                address=#{enti.address},
+            </if>
+            <if test="enti.qq != null">
+                qq=#{enti.qq},
+            </if>
+            <if test="enti.wechat != null">
+                wechat=#{enti.wechat},
+            </if>
+            <if test="enti.email != null">
+                email=#{enti.email},
+            </if>
+            <if test="enti.userId != null">
+                user_id=#{enti.userId},
+            </if>
+            <if test="enti.operateTime != null">
+                operate_time=#{enti.operateTime},
+            </if>
+            <if test="enti.operator != null">
+                operator=#{enti.operator},
+            </if>
+            <if test="enti.newRealname != null">
+                new_realname=#{enti.newRealname},
+            </if>
+            <if test="enti.newNickname != null">
+                new_nickname=#{enti.newNickname},
+            </if>
+            <if test="enti.newIdNumber != null">
+                new_id_number=#{enti.newIdNumber},
+            </if>
+            <if test="enti.newIcon != null">
+                new_icon=#{enti.newIcon},
+            </if>
+            <if test="enti.newPassword != null">
+                new_password=#{enti.newPassword},
+            </if>
+            <if test="enti.newDesc != null">
+                new_desc=#{enti.newDesc},
+            </if>
+            <if test="enti.newSex != null">
+                new_sex=#{enti.newSex},
+            </if>
+            <if test="enti.newAddress != null">
+                new_address=#{enti.newAddress},
+            </if>
+            <if test="enti.newQq != null">
+                new_qq=#{enti.newQq},
+            </if>
+            <if test="enti.newWechat != null">
+                new_wechat=#{enti.newWechat},
+            </if>
+            <if test="enti.newEmail != null">
+                new_email=#{enti.newEmail},
+            </if>
+            <if test="enti.role != null">
+                role=#{enti.role},
+            </if>
+            <if test="enti.newRole != null">
+                new_role=#{enti.newRole},
+            </if>
+            <if test="enti.duty != null">
+                duty=#{enti.duty},
+            </if>
+            <if test="enti.newDuty != null">
+                new_duty=#{enti.newDuty},
+            </if>
+            <if test="enti.department != null">
+                department=#{enti.department},
+            </if>
+            <if test="enti.newDepartment != null">
+                new_department=#{enti.newDepartment},
+            </if>
+            <if test="enti.counter != null">
+                counter=#{enti.counter},
+            </if>
+            <if test="enti.newCounter != null">
+                new_counter=#{enti.newCounter},
+            </if>
+            <if test="enti.store != null">
+                store=#{enti.store},
+            </if>
+            <if test="enti.newStore != null">
+                new_store=#{enti.newStore},
+            </if>
+            <if test="enti.number != null">
+                number=#{enti.number},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

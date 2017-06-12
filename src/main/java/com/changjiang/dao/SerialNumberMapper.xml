@@ -6,18 +6,43 @@
         <result column="SerialNumber1" property="lastSerialNum" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="serial_number_Column">
         serial_number.id as SerialNumber0
         ,serial_number.last_serial_num as SerialNumber1
     </sql>
 
-    <select id="getSerialNumberRowCount" resultType="java.lang.Long">
+    <select id="getSerialNumberRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from serial_number
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectSerialNumber" resultMap="result_SerialNumber_Map">
-        select 
+    <select id="selectSerialNumber" parameterType="com.changjiang.common.Assist"  resultMap="result_SerialNumber_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="serial_number_Column" /> 
+            </otherwise>
+        </choose>
         from serial_number
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectSerialNumberById" parameterType="java.lang.Integer" resultMap="result_SerialNumber_Map">
@@ -50,6 +75,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteSerialNumber" parameterType="com.changjiang.common.Assist">
+        delete from serial_number
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateSerialNumberById" parameterType="com.changjiang.entity.SerialNumber">
         update serial_number set
             last_serial_num=#{lastSerialNum}
@@ -64,6 +94,28 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateSerialNumber" parameterType="map">
+        update serial_number
+        <set>
+                id=#{enti.id},
+                last_serial_num=#{enti.lastSerialNum},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptySerialNumber" parameterType="map">
+        update serial_number
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.lastSerialNum != null">
+                last_serial_num=#{enti.lastSerialNum},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

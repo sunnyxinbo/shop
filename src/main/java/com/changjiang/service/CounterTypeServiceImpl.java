@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.CounterTypeDao;
 import com.changjiang.entity.CounterType;
+import com.changjiang.common.Assist;
 @Service
 public class CounterTypeServiceImpl implements CounterTypeService{
-	@Autowired
-    private CounterTypeDao counterTypeDao;
+    @Autowired
+	private CounterTypeDao counterTypeDao;
     @Override
-    public long getCounterTypeRowCount(){
-        return counterTypeDao.getCounterTypeRowCount();
+    public long getCounterTypeRowCount(Assist assist){
+        return counterTypeDao.getCounterTypeRowCount(assist);
     }
     @Override
-    public List<CounterType> selectCounterType(){
-        return counterTypeDao.selectCounterType();
+    public List<CounterType> selectCounterType(Assist assist){
+        return counterTypeDao.selectCounterType(assist);
     }
     @Override
     public CounterType selectCounterTypeById(Integer id){
@@ -35,12 +36,24 @@ public class CounterTypeServiceImpl implements CounterTypeService{
         return counterTypeDao.deleteCounterTypeById(id);
     }
     @Override
+    public int deleteCounterType(Assist assist){
+        return counterTypeDao.deleteCounterType(assist);
+    }
+    @Override
     public int updateCounterTypeById(CounterType enti){
         return counterTypeDao.updateCounterTypeById(enti);
     }
     @Override
+    public int updateCounterType(CounterType value, Assist assist){
+        return counterTypeDao.updateCounterType(value,assist);
+    }
+    @Override
     public int updateNonEmptyCounterTypeById(CounterType enti){
         return counterTypeDao.updateNonEmptyCounterTypeById(enti);
+    }
+    @Override
+    public int updateNonEmptyCounterType(CounterType value, Assist assist){
+        return counterTypeDao.updateNonEmptyCounterType(value,assist);
     }
 
     public CounterTypeDao getCounterTypeDao() {

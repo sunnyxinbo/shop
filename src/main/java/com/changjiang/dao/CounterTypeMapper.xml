@@ -8,6 +8,22 @@
         <result column="CounterType3" property="state" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="counter_type_Column">
         counter_type.id as CounterType0
         ,counter_type.name as CounterType1
@@ -15,13 +31,22 @@
         ,counter_type.state as CounterType3
     </sql>
 
-    <select id="getCounterTypeRowCount" resultType="java.lang.Long">
+    <select id="getCounterTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from counter_type
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectCounterType" resultMap="result_CounterType_Map">
-        select 
+    <select id="selectCounterType" parameterType="com.changjiang.common.Assist"  resultMap="result_CounterType_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="counter_type_Column" /> 
+            </otherwise>
+        </choose>
         from counter_type
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectCounterTypeById" parameterType="java.lang.Integer" resultMap="result_CounterType_Map">
@@ -58,6 +83,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteCounterType" parameterType="com.changjiang.common.Assist">
+        delete from counter_type
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateCounterTypeById" parameterType="com.changjiang.entity.CounterType">
         update counter_type set
             name=#{name}
@@ -80,6 +110,36 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateCounterType" parameterType="map">
+        update counter_type
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                db_desc=#{enti.dbDesc},
+                state=#{enti.state},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyCounterType" parameterType="map">
+        update counter_type
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.state != null">
+                state=#{enti.state},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

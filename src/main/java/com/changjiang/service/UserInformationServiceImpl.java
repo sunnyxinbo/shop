@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.UserInformationDao;
 import com.changjiang.entity.UserInformation;
+import com.changjiang.common.Assist;
 @Service
 public class UserInformationServiceImpl implements UserInformationService{
-	@Autowired
-    private UserInformationDao userInformationDao;
+    @Autowired
+	private UserInformationDao userInformationDao;
     @Override
-    public long getUserInformationRowCount(){
-        return userInformationDao.getUserInformationRowCount();
+    public long getUserInformationRowCount(Assist assist){
+        return userInformationDao.getUserInformationRowCount(assist);
     }
     @Override
-    public List<UserInformation> selectUserInformation(){
-        return userInformationDao.selectUserInformation();
+    public List<UserInformation> selectUserInformation(Assist assist){
+        return userInformationDao.selectUserInformation(assist);
     }
     @Override
     public UserInformation selectUserInformationById(Integer id){
@@ -35,12 +36,24 @@ public class UserInformationServiceImpl implements UserInformationService{
         return userInformationDao.deleteUserInformationById(id);
     }
     @Override
+    public int deleteUserInformation(Assist assist){
+        return userInformationDao.deleteUserInformation(assist);
+    }
+    @Override
     public int updateUserInformationById(UserInformation enti){
         return userInformationDao.updateUserInformationById(enti);
     }
     @Override
+    public int updateUserInformation(UserInformation value, Assist assist){
+        return userInformationDao.updateUserInformation(value,assist);
+    }
+    @Override
     public int updateNonEmptyUserInformationById(UserInformation enti){
         return userInformationDao.updateNonEmptyUserInformationById(enti);
+    }
+    @Override
+    public int updateNonEmptyUserInformation(UserInformation value, Assist assist){
+        return userInformationDao.updateNonEmptyUserInformation(value,assist);
     }
 
     public UserInformationDao getUserInformationDao() {

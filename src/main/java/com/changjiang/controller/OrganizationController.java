@@ -2,6 +2,7 @@ package com.changjiang.controller;
 
 
 
+import com.changjiang.common.Assist;
 import com.changjiang.entity.Organization;
 import com.changjiang.service.OrganizationService;
 
@@ -26,7 +27,8 @@ public class OrganizationController {
      */
     @RequestMapping(value = "/queryAll")
     public String queryAll(){
-        List<Organization> organizations = organizationService.selectOrganization();
+    	Assist assist = new Assist();
+        List<Organization> organizations = organizationService.selectOrganization(assist);
         if(organizations != null && organizations.size() > 0){
             for (Organization organization:organizations){
                 System.out.println(organization.getName());

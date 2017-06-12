@@ -8,6 +8,22 @@
         <result column="StoreType3" property="dbExplain" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="store_type_Column">
         store_type.id as StoreType0
         ,store_type.store_type_name as StoreType1
@@ -15,13 +31,22 @@
         ,store_type.db_explain as StoreType3
     </sql>
 
-    <select id="getStoreTypeRowCount" resultType="java.lang.Long">
+    <select id="getStoreTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from store_type
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectStoreType" resultMap="result_StoreType_Map">
-        select 
+    <select id="selectStoreType" parameterType="com.changjiang.common.Assist"  resultMap="result_StoreType_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="store_type_Column" /> 
+            </otherwise>
+        </choose>
         from store_type
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectStoreTypeById" parameterType="java.lang.Integer" resultMap="result_StoreType_Map">
@@ -30,6 +55,7 @@
         from store_type
         where store_type.id = #{id}
     </select> 
+
 
 <!-- 通过店面类型查询所有的店面  嵌套结果: 使用嵌套结果映射来处理重复的联合结果的子集 -->
     <select id="getStoresByStoreType" parameterType="int" resultMap="result_StoreType_Map2">
@@ -60,7 +86,6 @@
 
 
 
-
     <insert id="insertStoreType" parameterType="com.changjiang.entity.StoreType">
         insert into store_type(id,store_type_name,state,db_explain) 
         values(#{id},#{storeTypeName},#{state},#{dbExplain})
@@ -87,6 +112,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteStoreType" parameterType="com.changjiang.common.Assist">
+        delete from store_type
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateStoreTypeById" parameterType="com.changjiang.entity.StoreType">
         update store_type set
             store_type_name=#{storeTypeName}
@@ -109,6 +139,36 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateStoreType" parameterType="map">
+        update store_type
+        <set>
+                id=#{enti.id},
+                store_type_name=#{enti.storeTypeName},
+                state=#{enti.state},
+                db_explain=#{enti.dbExplain},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyStoreType" parameterType="map">
+        update store_type
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.storeTypeName != null">
+                store_type_name=#{enti.storeTypeName},
+            </if>
+            <if test="enti.state != null">
+                state=#{enti.state},
+            </if>
+            <if test="enti.dbExplain != null">
+                db_explain=#{enti.dbExplain},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

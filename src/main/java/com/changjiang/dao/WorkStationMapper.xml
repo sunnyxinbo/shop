@@ -10,6 +10,22 @@
         <result column="WorkStation5" property="departmentId" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="work_station_Column">
         work_station.id as WorkStation0
         ,work_station.name as WorkStation1
@@ -19,13 +35,22 @@
         ,work_station.department_id as WorkStation5
     </sql>
 
-    <select id="getWorkStationRowCount" resultType="java.lang.Long">
+    <select id="getWorkStationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from work_station
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectWorkStation" resultMap="result_WorkStation_Map">
-        select 
+    <select id="selectWorkStation" parameterType="com.changjiang.common.Assist"  resultMap="result_WorkStation_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="work_station_Column" /> 
+            </otherwise>
+        </choose>
         from work_station
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectWorkStationById" parameterType="java.lang.Integer" resultMap="result_WorkStation_Map">
@@ -66,6 +91,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteWorkStation" parameterType="com.changjiang.common.Assist">
+        delete from work_station
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateWorkStationById" parameterType="com.changjiang.entity.WorkStation">
         update work_station set
             name=#{name}
@@ -96,6 +126,44 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateWorkStation" parameterType="map">
+        update work_station
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                user_id=#{enti.userId},
+                go_work_time=#{enti.goWorkTime},
+                leave_work_time=#{enti.leaveWorkTime},
+                department_id=#{enti.departmentId},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyWorkStation" parameterType="map">
+        update work_station
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.userId != null">
+                user_id=#{enti.userId},
+            </if>
+            <if test="enti.goWorkTime != null">
+                go_work_time=#{enti.goWorkTime},
+            </if>
+            <if test="enti.leaveWorkTime != null">
+                leave_work_time=#{enti.leaveWorkTime},
+            </if>
+            <if test="enti.departmentId != null">
+                department_id=#{enti.departmentId},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

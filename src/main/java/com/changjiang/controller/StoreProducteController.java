@@ -1,5 +1,7 @@
 package com.changjiang.controller;
 
+import com.changjiang.common.Assist;
+
 /**
  * Created by a1996_000 on 2017/6/2.
  */
@@ -27,7 +29,8 @@ public class StoreProducteController {
      */
     @RequestMapping(value = "/queryall")
     public String queryAll(){
-        List<StoreProducte> storeProductes = storeProducteService.selectStoreProducte();
+    	Assist assist = new Assist();
+        List<StoreProducte> storeProductes = storeProducteService.selectStoreProducte(assist);
         System.out.println("storeProductes.size()  is :" + storeProductes.size());
         if (storeProductes != null && storeProductes.size() > 0){
             for (StoreProducte storeProducte : storeProductes){

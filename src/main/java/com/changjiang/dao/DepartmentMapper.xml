@@ -10,6 +10,22 @@
         <result column="Department5" property="departmentGrade" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="department_Column">
         department.id as Department0
         ,department.number as Department1
@@ -19,13 +35,22 @@
         ,department.department_grade as Department5
     </sql>
 
-    <select id="getDepartmentRowCount" resultType="java.lang.Long">
+    <select id="getDepartmentRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from department
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectDepartment" resultMap="result_Department_Map">
-        select 
+    <select id="selectDepartment" parameterType="com.changjiang.common.Assist"  resultMap="result_Department_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="department_Column" /> 
+            </otherwise>
+        </choose>
         from department
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectDepartmentById" parameterType="java.lang.Integer" resultMap="result_Department_Map">
@@ -66,6 +91,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteDepartment" parameterType="com.changjiang.common.Assist">
+        delete from department
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateDepartmentById" parameterType="com.changjiang.entity.Department">
         update department set
             number=#{number}
@@ -96,6 +126,44 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateDepartment" parameterType="map">
+        update department
+        <set>
+                id=#{enti.id},
+                number=#{enti.number},
+                name=#{enti.name},
+                db_desc=#{enti.dbDesc},
+                store_id=#{enti.storeId},
+                department_grade=#{enti.departmentGrade},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyDepartment" parameterType="map">
+        update department
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.number != null">
+                number=#{enti.number},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.storeId != null">
+                store_id=#{enti.storeId},
+            </if>
+            <if test="enti.departmentGrade != null">
+                department_grade=#{enti.departmentGrade},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.ProducteTypeDao;
 import com.changjiang.entity.ProducteType;
+import com.changjiang.common.Assist;
 @Service
 public class ProducteTypeServiceImpl implements ProducteTypeService{
-	@Autowired
-    private ProducteTypeDao producteTypeDao;
+    @Autowired
+	private ProducteTypeDao producteTypeDao;
     @Override
-    public long getProducteTypeRowCount(){
-        return producteTypeDao.getProducteTypeRowCount();
+    public long getProducteTypeRowCount(Assist assist){
+        return producteTypeDao.getProducteTypeRowCount(assist);
     }
     @Override
-    public List<ProducteType> selectProducteType(){
-        return producteTypeDao.selectProducteType();
+    public List<ProducteType> selectProducteType(Assist assist){
+        return producteTypeDao.selectProducteType(assist);
     }
     @Override
     public ProducteType selectProducteTypeById(Integer id){
@@ -35,12 +36,24 @@ public class ProducteTypeServiceImpl implements ProducteTypeService{
         return producteTypeDao.deleteProducteTypeById(id);
     }
     @Override
+    public int deleteProducteType(Assist assist){
+        return producteTypeDao.deleteProducteType(assist);
+    }
+    @Override
     public int updateProducteTypeById(ProducteType enti){
         return producteTypeDao.updateProducteTypeById(enti);
     }
     @Override
+    public int updateProducteType(ProducteType value, Assist assist){
+        return producteTypeDao.updateProducteType(value,assist);
+    }
+    @Override
     public int updateNonEmptyProducteTypeById(ProducteType enti){
         return producteTypeDao.updateNonEmptyProducteTypeById(enti);
+    }
+    @Override
+    public int updateNonEmptyProducteType(ProducteType value, Assist assist){
+        return producteTypeDao.updateNonEmptyProducteType(value,assist);
     }
 
     public ProducteTypeDao getProducteTypeDao() {
@@ -68,5 +81,4 @@ public class ProducteTypeServiceImpl implements ProducteTypeService{
     public List<ProducteType> selectStoreProductByTypeId(Integer id) {
         return producteTypeDao.selectStoreProductByTypeId(id);
     }
-
 }

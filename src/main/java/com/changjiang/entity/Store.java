@@ -10,10 +10,11 @@ public class Store {
     private String state;
     private String dbDesc;
     private Integer organizationId;
+    private String number;
     public Store() {
         super();
     }
-    public Store(Integer id,String name,Integer storeTypeId,String address,String phone,String legalName,String legalNamePhone,String state,String dbDesc,Integer organizationId) {
+    public Store(Integer id,String name,Integer storeTypeId,String address,String phone,String legalName,String legalNamePhone,String state,String dbDesc,Integer organizationId,String number) {
         super();
         this.id = id;
         this.name = name;
@@ -25,6 +26,7 @@ public class Store {
         this.state = state;
         this.dbDesc = dbDesc;
         this.organizationId = organizationId;
+        this.number = number;
     }
     public Integer getId() {
         return this.id;
@@ -104,6 +106,14 @@ public class Store {
 
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
 }

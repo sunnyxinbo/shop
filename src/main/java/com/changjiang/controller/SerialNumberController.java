@@ -1,5 +1,6 @@
 package com.changjiang.controller;
 
+import com.changjiang.common.Assist;
 import com.changjiang.entity.SerialNumber;
 import com.changjiang.service.SerialNumberService;
 
@@ -26,7 +27,8 @@ public class SerialNumberController {
      */
 	@RequestMapping(value = "/querySerialNumber")
     public String queryAllSerialNumbers() {
-        List<SerialNumber> serialNumbers =  serialNumberService.selectSerialNumber();
+		Assist assisit  = new Assist();
+        List<SerialNumber> serialNumbers =  serialNumberService.selectSerialNumber(assisit);
         if(serialNumbers != null && serialNumbers.size() > 0){
             for(SerialNumber serialNumber : serialNumbers){
                 System.out.println("流水号是  ：" + serialNumber.getLastSerialNum() + "流水号id是 ：" + serialNumber.getId());

@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.DutyDao;
 import com.changjiang.entity.Duty;
+import com.changjiang.common.Assist;
 @Service
 public class DutyServiceImpl implements DutyService{
-	@Autowired
-    private DutyDao dutyDao;
+    @Autowired
+	private DutyDao dutyDao;
     @Override
-    public long getDutyRowCount(){
-        return dutyDao.getDutyRowCount();
+    public long getDutyRowCount(Assist assist){
+        return dutyDao.getDutyRowCount(assist);
     }
     @Override
-    public List<Duty> selectDuty(){
-        return dutyDao.selectDuty();
+    public List<Duty> selectDuty(Assist assist){
+        return dutyDao.selectDuty(assist);
     }
     @Override
     public Duty selectDutyById(Integer id){
@@ -35,12 +36,24 @@ public class DutyServiceImpl implements DutyService{
         return dutyDao.deleteDutyById(id);
     }
     @Override
+    public int deleteDuty(Assist assist){
+        return dutyDao.deleteDuty(assist);
+    }
+    @Override
     public int updateDutyById(Duty enti){
         return dutyDao.updateDutyById(enti);
     }
     @Override
+    public int updateDuty(Duty value, Assist assist){
+        return dutyDao.updateDuty(value,assist);
+    }
+    @Override
     public int updateNonEmptyDutyById(Duty enti){
         return dutyDao.updateNonEmptyDutyById(enti);
+    }
+    @Override
+    public int updateNonEmptyDuty(Duty value, Assist assist){
+        return dutyDao.updateNonEmptyDuty(value,assist);
     }
 
     public DutyDao getDutyDao() {

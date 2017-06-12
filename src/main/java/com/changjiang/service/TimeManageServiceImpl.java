@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.TimeManageDao;
 import com.changjiang.entity.TimeManage;
+import com.changjiang.common.Assist;
 @Service
 public class TimeManageServiceImpl implements TimeManageService{
-	@Autowired
-    private TimeManageDao timeManageDao;
+    @Autowired
+	private TimeManageDao timeManageDao;
     @Override
-    public long getTimeManageRowCount(){
-        return timeManageDao.getTimeManageRowCount();
+    public long getTimeManageRowCount(Assist assist){
+        return timeManageDao.getTimeManageRowCount(assist);
     }
     @Override
-    public List<TimeManage> selectTimeManage(){
-        return timeManageDao.selectTimeManage();
+    public List<TimeManage> selectTimeManage(Assist assist){
+        return timeManageDao.selectTimeManage(assist);
     }
     @Override
     public TimeManage selectTimeManageById(Integer id){
@@ -35,12 +36,24 @@ public class TimeManageServiceImpl implements TimeManageService{
         return timeManageDao.deleteTimeManageById(id);
     }
     @Override
+    public int deleteTimeManage(Assist assist){
+        return timeManageDao.deleteTimeManage(assist);
+    }
+    @Override
     public int updateTimeManageById(TimeManage enti){
         return timeManageDao.updateTimeManageById(enti);
     }
     @Override
+    public int updateTimeManage(TimeManage value, Assist assist){
+        return timeManageDao.updateTimeManage(value,assist);
+    }
+    @Override
     public int updateNonEmptyTimeManageById(TimeManage enti){
         return timeManageDao.updateNonEmptyTimeManageById(enti);
+    }
+    @Override
+    public int updateNonEmptyTimeManage(TimeManage value, Assist assist){
+        return timeManageDao.updateNonEmptyTimeManage(value,assist);
     }
 
     public TimeManageDao getTimeManageDao() {

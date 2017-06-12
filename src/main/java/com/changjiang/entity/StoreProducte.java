@@ -6,13 +6,14 @@ public class StoreProducte {
     private String video;
     private String rawMaterial;
     private Double price;
-    private Double specialPrice;
+    private Integer privilege;
     private Integer officialTrade;
     private Integer type;
+    private Integer storeId;
     public StoreProducte() {
         super();
     }
-    public StoreProducte(Integer id,String name,String dbDesc,String video,String rawMaterial,Double price,Double specialPrice,Integer officialTrade,Integer type) {
+    public StoreProducte(Integer id,String name,String dbDesc,String video,String rawMaterial,Double price,Integer privilege,Integer officialTrade,Integer type,Integer storeId) {
         super();
         this.id = id;
         this.name = name;
@@ -20,9 +21,10 @@ public class StoreProducte {
         this.video = video;
         this.rawMaterial = rawMaterial;
         this.price = price;
-        this.specialPrice = specialPrice;
+        this.privilege = privilege;
         this.officialTrade = officialTrade;
         this.type = type;
+        this.storeId = storeId;
     }
     public Integer getId() {
         return this.id;
@@ -72,12 +74,12 @@ public class StoreProducte {
         this.price = price;
     }
 
-    public Double getSpecialPrice() {
-        return this.specialPrice;
+    public Integer getPrivilege() {
+        return this.privilege;
     }
 
-    public void setSpecialPrice(Double specialPrice) {
-        this.specialPrice = specialPrice;
+    public void setPrivilege(Integer privilege) {
+        this.privilege = privilege;
     }
 
     public Integer getOfficialTrade() {
@@ -94,6 +96,14 @@ public class StoreProducte {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getStoreId() {
+        return this.storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
 }

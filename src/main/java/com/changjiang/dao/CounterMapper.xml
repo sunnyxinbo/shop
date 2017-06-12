@@ -11,6 +11,22 @@
         <result column="Counter6" property="area" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="counter_Column">
         counter.id as Counter0
         ,counter.name as Counter1
@@ -21,13 +37,22 @@
         ,counter.area as Counter6
     </sql>
 
-    <select id="getCounterRowCount" resultType="java.lang.Long">
+    <select id="getCounterRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from counter
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectCounter" resultMap="result_Counter_Map">
-        select 
+    <select id="selectCounter" parameterType="com.changjiang.common.Assist"  resultMap="result_Counter_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="counter_Column" /> 
+            </otherwise>
+        </choose>
         from counter
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectCounterById" parameterType="java.lang.Integer" resultMap="result_Counter_Map">
@@ -70,6 +95,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteCounter" parameterType="com.changjiang.common.Assist">
+        delete from counter
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateCounterById" parameterType="com.changjiang.entity.Counter">
         update counter set
             name=#{name}
@@ -104,6 +134,48 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateCounter" parameterType="map">
+        update counter
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                db_desc=#{enti.dbDesc},
+                type=#{enti.type},
+                store=#{enti.store},
+                state=#{enti.state},
+                area=#{enti.area},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyCounter" parameterType="map">
+        update counter
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.type != null">
+                type=#{enti.type},
+            </if>
+            <if test="enti.store != null">
+                store=#{enti.store},
+            </if>
+            <if test="enti.state != null">
+                state=#{enti.state},
+            </if>
+            <if test="enti.area != null">
+                area=#{enti.area},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

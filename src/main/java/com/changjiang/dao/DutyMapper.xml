@@ -10,6 +10,22 @@
         <result column="Duty5" property="state" />
     </resultMap>
 
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value}
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="duty_Column">
         duty.id as Duty0
         ,duty.name as Duty1
@@ -19,13 +35,22 @@
         ,duty.state as Duty5
     </sql>
 
-    <select id="getDutyRowCount" resultType="java.lang.Long">
+    <select id="getDutyRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
         select count(id) from duty
+        <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectDuty" resultMap="result_Duty_Map">
-        select 
+    <select id="selectDuty" parameterType="com.changjiang.common.Assist"  resultMap="result_Duty_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
         <include refid="duty_Column" /> 
+            </otherwise>
+        </choose>
         from duty
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">${order}</if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
     </select> 
 
     <select id="selectDutyById" parameterType="java.lang.Integer" resultMap="result_Duty_Map">
@@ -66,6 +91,11 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteDuty" parameterType="com.changjiang.common.Assist">
+        delete from duty
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
     <update id="updateDutyById" parameterType="com.changjiang.entity.Duty">
         update duty set
             name=#{name}
@@ -96,6 +126,44 @@
             </if>
         </set>
         where id=#{id}
+    </update>
+
+    <update id="updateDuty" parameterType="map">
+        update duty
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                db_desc=#{enti.dbDesc},
+                grade_id=#{enti.gradeId},
+                store_id=#{enti.storeId},
+                state=#{enti.state},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <update id="updateNonEmptyDuty" parameterType="map">
+        update duty
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.dbDesc != null">
+                db_desc=#{enti.dbDesc},
+            </if>
+            <if test="enti.gradeId != null">
+                grade_id=#{enti.gradeId},
+            </if>
+            <if test="enti.storeId != null">
+                store_id=#{enti.storeId},
+            </if>
+            <if test="enti.state != null">
+                state=#{enti.state},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
 </mapper>

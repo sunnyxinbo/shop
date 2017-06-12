@@ -1,5 +1,7 @@
 package com.changjiang.controller;
 
+import com.changjiang.common.Assist;
+
 /**
  * Created by a1996_000 on 2017/6/2.
  */
@@ -29,7 +31,8 @@ public class StoreTypeController {
      */
     @RequestMapping(value = "/queryAll")
     public String queryAllStoreTypes(){
-        List<StoreType> storeTypes =  storeTypeService.selectStoreType();
+    	Assist assist = new Assist();
+        List<StoreType> storeTypes =  storeTypeService.selectStoreType(assist);
         if(storeTypes != null && storeTypes.size() > 0){
             for (StoreType storeType:storeTypes){
                 System.out.println(storeType.getStoreTypeName());
