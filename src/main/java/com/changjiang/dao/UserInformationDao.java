@@ -15,4 +15,8 @@ public interface UserInformationDao{
     int updateUserInformation(@Param("enti") UserInformation value, @Param("assist") Assist assist);
     int updateNonEmptyUserInformationById(UserInformation enti);
     int updateNonEmptyUserInformation(@Param("enti") UserInformation value, @Param("assist") Assist assist);
+    /**
+	 * 查询用户信息和他的所有评价
+	 */
+    List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id);
 }

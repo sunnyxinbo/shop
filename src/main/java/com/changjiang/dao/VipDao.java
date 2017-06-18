@@ -15,4 +15,10 @@ public interface VipDao{
     int updateVip(@Param("enti") Vip value, @Param("assist") Assist assist);
     int updateNonEmptyVipById(Vip enti);
     int updateNonEmptyVip(@Param("enti") Vip value, @Param("assist") Assist assist);
+	/**
+	 * 通过店面id查找其下所有的会员信息
+	 * @param id
+	 * @return
+	 */
+    List<Vip> queryVipsByStoreId(Integer id);
 }

@@ -63,5 +63,13 @@ public class OrderTypeServiceImpl implements OrderTypeService{
     public void setOrderTypeDao(OrderTypeDao orderTypeDao) {
         this.orderTypeDao = orderTypeDao;
     }
+    /**
+     * 根据订单类型order_type查询订单信息db_order
+     */
+	@Override
+	public OrderType queryOrderInfoByOrderTypeId(Integer ordertypeid) {
+		// TODO Auto-generated method stub
+		return orderTypeDao.queryOrderInfoByOrderTypeId(ordertypeid);
+	}
 
 }

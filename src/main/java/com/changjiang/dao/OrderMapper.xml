@@ -34,23 +34,23 @@
     </sql>
 
     <sql id="order_Column">
-        order.id as Order0
-        ,order.number as Order1
-        ,order.type_id as Order2
-        ,order.counter_id as Order3
-        ,order.order_time as Order4
-        ,order.checkout_time as Order5
-        ,order.receivables as Order6
-        ,order.paidin_account as Order7
-        ,order.reminder_number as Order8
-        ,order.operator_id as Order9
-        ,order.vip_id as Order10
-        ,order.one_bill_for_all_id as Order11
-        ,order.store_number as Order12
+        db_order.id as Order0
+        ,db_order.number as Order1
+        ,db_order.type_id as Order2
+        ,db_order.counter_id as Order3
+        ,db_order.order_time as Order4
+        ,db_order.checkout_time as Order5
+        ,db_order.receivables as Order6
+        ,db_order.paidin_account as Order7
+        ,db_order.reminder_number as Order8
+        ,db_order.operator_id as Order9
+        ,db_order.vip_id as Order10
+        ,db_order.one_bill_for_all_id as Order11
+        ,db_order.store_number as Order12
     </sql>
 
     <select id="getOrderRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
-        select count(id) from order
+        select count(id) from db_order
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
     <select id="selectOrder" parameterType="com.changjiang.common.Assist"  resultMap="result_Order_Map">
@@ -61,7 +61,7 @@
         <include refid="order_Column" /> 
             </otherwise>
         </choose>
-        from order
+        from db_order
         <if test="require!=null"><include refid="Assist" /></if>
         <if test="order !=null">${order}</if>
         <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
@@ -70,18 +70,27 @@
     <select id="selectOrderById" parameterType="java.lang.Integer" resultMap="result_Order_Map">
         select 
             <include refid="order_Column" /> 
-        from order
-        where order.id = #{id}
+        from db_order
+        where db_order.id = #{id}
     </select> 
 
 
+
+
+	<select id="selectAllOrder"  resultMap="result_Order_Map">
+        select 
+            <include refid="order_Column" /> 
+        from db_order
+        
+    </select> 
+
     <insert id="insertOrder" parameterType="com.changjiang.entity.Order">
-        insert into order(id,number,type_id,counter_id,order_time,checkout_time,receivables,paidin_account,reminder_number,operator_id,vip_id,one_bill_for_all_id,store_number) 
+        insert into db_order(id,number,type_id,counter_id,order_time,checkout_time,receivables,paidin_account,reminder_number,operator_id,vip_id,one_bill_for_all_id,store_number) 
         values(#{id},#{number},#{typeId},#{counterId},#{orderTime},#{checkoutTime},#{receivables},#{paidinAccount},#{reminderNumber},#{operatorId},#{vipId},#{oneBillForAllId},#{storeNumber})
     </insert>
 
     <insert id="insertNonEmptyOrder" parameterType="com.changjiang.entity.Order">
-        insert into order
+        insert into db_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="number != null">number,</if>
@@ -115,17 +124,17 @@
     </insert>
 
     <delete id="deleteOrderById" parameterType="java.lang.Integer">
-        delete from order
+        delete from db_order
         where id = #{id}
     </delete>
 
     <delete id="deleteOrder" parameterType="com.changjiang.common.Assist">
-        delete from order
+        delete from db_order
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>
 
     <update id="updateOrderById" parameterType="com.changjiang.entity.Order">
-        update order set
+        update db_order set
             number=#{number}
             ,type_id=#{typeId}
             ,counter_id=#{counterId}
@@ -142,7 +151,7 @@
     </update>
 
     <update id="updateNonEmptyOrderById" parameterType="com.changjiang.entity.Order">
-        update order
+        update db_order
         <set>
             <if test="number != null">
                 number=#{number},
@@ -185,7 +194,7 @@
     </update>
 
     <update id="updateOrder" parameterType="map">
-        update order
+        update db_order
         <set>
                 id=#{enti.id},
                 number=#{enti.number},
@@ -205,7 +214,7 @@
     </update>
 
     <update id="updateNonEmptyOrder" parameterType="map">
-        update order
+        update db_order
         <set>
             <if test="enti.id != null">
                 id=#{enti.id},

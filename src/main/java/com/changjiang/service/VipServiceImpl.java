@@ -63,5 +63,23 @@ public class VipServiceImpl implements VipService{
     public void setVipDao(VipDao vipDao) {
         this.vipDao = vipDao;
     }
-
+    /**
+	 * 查询所有的会员信息
+	 * @return
+	 */
+    public List<Vip> queryAllVips(){
+    	
+    	Assist assist = new Assist();
+    	return vipDao.selectVip(assist);
+    }
+    /**
+     * 通过店面id查找其下所有的会员信息
+     */
+	@Override
+	public List<Vip> queryVipsByStoreId(String storeid) {
+		Integer id = Integer.parseInt(storeid);
+		List<Vip> vips = vipDao.queryVipsByStoreId(id);
+		return vips;
+	}
+    
 }

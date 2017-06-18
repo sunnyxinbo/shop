@@ -69,6 +69,33 @@
         from store
         where store.id = #{id}
     </select> 
+    <!-- 通过店面id查询店面产品 -->
+    <select id="queryStoreProducteByStoreId" parameterType="java.lang.Integer" resultMap="result_Store_Map2">
+        select 
+            *
+        from store
+        where store.id = #{id}
+    </select> 
+	<resultMap id="result_Store_Map2" type="com.changjiang.entity.Store">
+        <id column="Store0" property="id" />
+        <result column="Store1" property="name" />
+        <result column="Store2" property="storeTypeId" />
+        <result column="Store3" property="address" />
+        <result column="Store4" property="phone" />
+        <result column="Store5" property="legalName" />
+        <result column="Store6" property="legalNamePhone" />
+        <result column="Store7" property="state" />
+        <result column="Store8" property="dbDesc" />
+        <result column="Store9" property="organizationId" />
+        <result column="Store10" property="number" />
+        <collection property="storeProducte" ofType="com.changjiang.entity.StoreProducte" column="id" select="getStoreProducts">
+        </collection>
+    </resultMap>
+	<select id="getStoreProducts" parameterType="int" resultType="com.changjiang.entity.StoreProducte">
+        SELECT * FROM store_producte WHERE store_id=#{id}
+     </select>
+
+
 
 
     <insert id="insertStore" parameterType="com.changjiang.entity.Store">

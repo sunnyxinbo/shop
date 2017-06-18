@@ -7,10 +7,12 @@ import com.changjiang.common.Assist;
  */
 
 import com.changjiang.entity.Store;
+import com.changjiang.entity.StoreProducte;
 import com.changjiang.service.StoreService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -38,6 +40,15 @@ public class StoreController {
                 System.out.println(store.getName());
             }
         }
+        return "index";
+    }
+    /**
+     * 通过店面id查询某个店中所有的产品
+     */
+    @RequestMapping(value = "/querystoreproductebystoreid/{storeid}")
+    public String queryStoreProducteByStoreId(@PathVariable Integer storeid){
+    	List<StoreProducte>  storeProductes= storeService.queryStoreProducteByStoreId(storeid);
+    	System.out.println(storeid + "对应店面产品数是" + storeProductes.size());
         return "index";
     }
 }

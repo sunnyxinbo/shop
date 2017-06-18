@@ -14,4 +14,8 @@ public interface UserInformationService{
     int updateUserInformation(UserInformation value, Assist assist);
     int updateNonEmptyUserInformationById(UserInformation enti);
     int updateNonEmptyUserInformation(UserInformation value, Assist assist);
+    /**
+	 * 查询用户信息和他的所有评价
+	 */
+	List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id);
 }

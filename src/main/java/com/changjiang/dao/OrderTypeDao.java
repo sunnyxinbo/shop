@@ -15,4 +15,10 @@ public interface OrderTypeDao{
     int updateOrderType(@Param("enti") OrderType value, @Param("assist") Assist assist);
     int updateNonEmptyOrderTypeById(OrderType enti);
     int updateNonEmptyOrderType(@Param("enti") OrderType value, @Param("assist") Assist assist);
+	/**
+	 * 根据订单类型order_type查询订单信息db_order
+	 * @param ordertypeid
+	 * @return
+	 */
+    OrderType queryOrderInfoByOrderTypeId(Integer ordertypeid);
 }

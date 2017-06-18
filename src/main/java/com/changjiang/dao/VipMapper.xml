@@ -78,7 +78,13 @@
         where vip.id = #{id}
     </select> 
 
-
+	<!-- 通过店面id查找其下所有的会员信息 -->
+	<select id="queryVipsByStoreId" parameterType="java.lang.Integer" resultMap="result_Vip_Map">
+        select 
+            <include refid="vip_Column" /> 
+        from vip
+        where vip.store_id = #{id}
+    </select> 
     <insert id="insertVip" parameterType="com.changjiang.entity.Vip">
         insert into vip(id,number,password,vip_type_id,name,telephone,gender,QQ,WeChat,email,personalized_signature,store_id,state,type,score) 
         values(#{id},#{number},#{password},#{vipTypeId},#{name},#{telephone},#{gender},#{qq},#{wechat},#{email},#{personalizedSignature},#{storeId},#{state},#{type},#{score})

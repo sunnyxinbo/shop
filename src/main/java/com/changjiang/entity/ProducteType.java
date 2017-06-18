@@ -1,14 +1,22 @@
 package com.changjiang.entity;
 
 import java.util.List;
-
+/**
+ * 产品类型
+ * @author a1996_000
+ *
+ */
 public class ProducteType {
+	//产品类型id
     private Integer id;
+    //产品类型名称
     private String name;
+    //产品类型描述
     private String dbDesc;
+    //产品类型店面编号
     private String storeNumber;
     /**
-     * 使用一个List<OfficialTrade>集合属性表示产品类型拥有的办公贸易
+     * 使用一个List<OfficialTrade>集合属性表示产品类型拥有的官方商品
      */
     List<OfficialTrade> officialTrades;
     /**

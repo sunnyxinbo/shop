@@ -15,4 +15,9 @@ public interface OrderDao{
     int updateOrder(@Param("enti") Order value, @Param("assist") Assist assist);
     int updateNonEmptyOrderById(Order enti);
     int updateNonEmptyOrder(@Param("enti") Order value, @Param("assist") Assist assist);
+	/**
+	 * 查询所有订单信息
+	 * @return
+	 */
+    List<Order> selectAllOrder();
 }

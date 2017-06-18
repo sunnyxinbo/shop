@@ -60,6 +60,28 @@
         where order_type.id = #{id}
     </select> 
 
+	<!-- 根据订单类型order_type查询订单信息db_order -->
+	<select id="queryOrderInfoByOrderTypeId" parameterType="java.lang.Integer" resultMap="result_OrderType_Map2">
+        select 
+            *
+        from order_type
+        where order_type.id = #{id}
+    </select> 
+	<resultMap id="result_OrderType_Map2" type="com.changjiang.entity.OrderType">
+        <id column="id" property="id" />
+        <result column="number" property="number" />
+        <result column="name" property="name" />
+        <result column="db_desc" property="dbDesc" />
+        <result column="store_number" property="storeNumber" />
+        <result column="state" property="state" />
+        <collection property="orders" ofType="com.changjiang.entity.Order" column="id" select="getOrders">
+        </collection>
+    </resultMap>
+	<select id="getOrders" parameterType="int" resultType="com.changjiang.entity.Order">
+        SELECT * FROM db_order WHERE type_id=#{id}
+     </select>
+
+
 
     <insert id="insertOrderType" parameterType="com.changjiang.entity.OrderType">
         insert into order_type(id,number,name,db_desc,store_number,state) 

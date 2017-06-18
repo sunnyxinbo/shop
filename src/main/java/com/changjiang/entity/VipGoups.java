@@ -1,12 +1,27 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
+/**
+ * 会员组信息
+ */
 public class VipGoups {
+	//会员组id
     private Integer id;
+    //编号
     private String number;
+    //名称
     private String name;
+    //描述
     private String dbDesc;
+    //折扣
     private Integer discount;
+    //所属店面编号
     private Integer storeNumber;
+    //状态
     private String state;
+    //会员组所包含的会员
+    private List<Vip> vips;
     public VipGoups() {
         super();
     }
@@ -75,5 +90,11 @@ public class VipGoups {
     public void setState(String state) {
         this.state = state;
     }
+	public List<Vip> getVips() {
+		return vips;
+	}
+	public void setVips(List<Vip> vips) {
+		this.vips = vips;
+	}
 
 }

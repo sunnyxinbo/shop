@@ -1,4 +1,12 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
+/**
+ * 
+ * 用户信息表
+ *
+ */
 public class UserInformation {
     private Integer id;
     private String realname;
@@ -17,6 +25,8 @@ public class UserInformation {
     private Integer departmentId;
     private String state;
     private Integer storeId;
+    //一个用户对应多个评价
+    List<UserEvaluation> userEvaluations;
     public UserInformation() {
         super();
     }
@@ -175,5 +185,11 @@ public class UserInformation {
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
+	public List<UserEvaluation> getUserEvaluations() {
+		return userEvaluations;
+	}
+	public void setUserEvaluations(List<UserEvaluation> userEvaluations) {
+		this.userEvaluations = userEvaluations;
+	}
 
 }

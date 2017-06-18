@@ -63,5 +63,13 @@ public class UserInformationServiceImpl implements UserInformationService{
     public void setUserInformationDao(UserInformationDao userInformationDao) {
         this.userInformationDao = userInformationDao;
     }
+    /**
+	 * 查询用户信息和他的所有评价
+	 */
+	@Override
+	public List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id) {
+		List<UserInformation> userInformations = userInformationDao.queryUserInformationAndEvaluations(user_information_id);
+		return userInformations;
+	}
 
 }

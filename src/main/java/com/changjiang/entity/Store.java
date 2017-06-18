@@ -1,4 +1,7 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
 public class Store {
     private Integer id;
     private String name;
@@ -11,6 +14,8 @@ public class Store {
     private String dbDesc;
     private Integer organizationId;
     private String number;
+    //该店面所具有的商品
+    List<StoreProducte> storeProducte;
     public Store() {
         super();
     }
@@ -115,5 +120,11 @@ public class Store {
     public void setNumber(String number) {
         this.number = number;
     }
+	public List<StoreProducte> getStoreProducte() {
+		return storeProducte;
+	}
+	public void setStoreProducte(List<StoreProducte> storeProducte) {
+		this.storeProducte = storeProducte;
+	}
 
 }

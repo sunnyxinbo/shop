@@ -1,11 +1,41 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
+/**
+ * 
+ * 订单类型 
+ */
 public class OrderType {
+	/**
+	 * 订单类型 id
+	 */
     private Integer id;
+    /**
+     * 订单类型 编号
+     */
     private String number;
+    /**
+     * 订单类型 名称
+     */
     private String name;
+    /**
+     * 订单类型 描述
+     */
     private String dbDesc;
+    /**
+     * 订单类型 店面编号
+     */
     private String storeNumber;
+    /**
+     * 订单类型 状态
+     */
     private String state;
+    /**
+     * 一种订单类型对应多个订单
+     */
+    List<Order> orders;
+    
     public OrderType() {
         super();
     }
@@ -65,5 +95,11 @@ public class OrderType {
     public void setState(String state) {
         this.state = state;
     }
+	public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 
 }

@@ -81,7 +81,40 @@
         from user_information
         where user_information.id = #{id}
     </select> 
-
+    <!-- 查询用户信息和他的所有评价 -->
+	<select id="queryUserInformationAndEvaluations" parameterType="java.lang.Integer" resultMap="result_UserInformation_Map2">
+        select 
+            *
+        from user_information
+        where user_information.id = #{id}
+    </select> 
+    <resultMap id="result_UserInformation_Map2" type="com.changjiang.entity.UserInformation">
+        <id column="UserInformation0" property="id" />
+        <result column="UserInformation1" property="realname" />
+        <result column="UserInformation2" property="nickname" />
+        <result column="UserInformation3" property="idNumber" />
+        <result column="UserInformation4" property="phone" />
+        <result column="UserInformation5" property="password" />
+        <result column="UserInformation6" property="dbDesc" />
+        <result column="UserInformation7" property="sex" />
+        <result column="UserInformation8" property="icon" />
+        <result column="UserInformation9" property="address" />
+        <result column="UserInformation10" property="qq" />
+        <result column="UserInformation11" property="wechat" />
+        <result column="UserInformation12" property="email" />
+        <result column="UserInformation13" property="dutyId" />
+        <result column="UserInformation14" property="departmentId" />
+        <result column="UserInformation15" property="state" />
+        <result column="UserInformation16" property="storeId" />
+        <collection property="userEvaluations" ofType="com.changjiang.entity.UserInformation" column="id" select="getUserEvaluations">
+        </collection>
+    </resultMap>
+    
+    <select id="getUserEvaluations" parameterType="int" resultType="com.changjiang.entity.UserInformation">
+        SELECT * FROM user_evaluation WHERE user_id=#{id}
+     </select>
+    
+    
 
     <insert id="insertUserInformation" parameterType="com.changjiang.entity.UserInformation">
         insert into user_information(id,realname,nickname,id_number,phone,password,db_desc,sex,icon,address,qq,wechat,email,duty_id,department_id,state,store_id) 

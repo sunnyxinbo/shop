@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.StoreDao;
 import com.changjiang.entity.Store;
+import com.changjiang.entity.StoreProducte;
 import com.changjiang.common.Assist;
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -63,5 +64,16 @@ public class StoreServiceImpl implements StoreService{
     public void setStoreDao(StoreDao storeDao) {
         this.storeDao = storeDao;
     }
+    /**
+     * 通过店面id查询店面具有的所有产品
+     * @param storeid
+     * @return
+     */
+	@Override
+	public List<StoreProducte> queryStoreProducteByStoreId(Integer storeid) {
+		Store store = storeDao.queryStoreProducteByStoreId(storeid);
+		List<StoreProducte> storeProductes = store.getStoreProducte();
+		return storeProductes;
+	}
 
 }

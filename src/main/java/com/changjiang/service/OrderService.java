@@ -14,4 +14,9 @@ public interface OrderService{
     int updateOrder(Order value, Assist assist);
     int updateNonEmptyOrderById(Order enti);
     int updateNonEmptyOrder(Order value, Assist assist);
+    /**
+     * 查询所有订单信息
+     * @return
+     */
+	List<Order> selectAllOrder();
 }

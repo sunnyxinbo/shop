@@ -63,5 +63,13 @@ public class OrderServiceImpl implements OrderService{
     public void setOrderDao(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
+    /**
+     * 查询所有订单信息
+     */
+	@Override
+	public List<Order> selectAllOrder() {
+		List<Order> orders = orderDao.selectAllOrder();
+		return orders;
+	}
 
 }

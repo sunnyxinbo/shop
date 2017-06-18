@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.VipGoupsDao;
+import com.changjiang.entity.Vip;
 import com.changjiang.entity.VipGoups;
 import com.changjiang.common.Assist;
 @Service
@@ -63,5 +64,26 @@ public class VipGoupsServiceImpl implements VipGoupsService{
     public void setVipGoupsDao(VipGoupsDao vipGoupsDao) {
         this.vipGoupsDao = vipGoupsDao;
     }
+    /**
+	 * 查询所有的会员组信息
+	 * @return
+	 */
+	@Override
+	public List<VipGoups> queryAllVipGoups() {
+		Assist assist = new Assist();
+		return vipGoupsDao.selectVipGoups(assist);
+	}
+	/**
+	 * 通过会员组id查询其下所有的会员信息
+	 * @param vipgoupsid  会员组id
+	 * @return
+	 */
+	@Override
+	public List<Vip> queryAllVipsByVipGoupid(String vipgoupsid) {
+		Integer id = Integer.parseInt(vipgoupsid);
+		VipGoups vipGoups = vipGoupsDao.selectVipGoupsByGoupId(id);
+		List vips = vipGoups.getVips();
+		return vips;
+	}
 
 }
