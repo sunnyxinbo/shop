@@ -3,6 +3,11 @@ import com.changjiang.entity.Users;
 import java.util.List;
 import com.changjiang.common.Assist;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.mapping.FetchType;
 public interface UsersDao{
     long getUsersRowCount(Assist assist);
     List<Users> selectUsers(Assist assist);
@@ -15,4 +20,19 @@ public interface UsersDao{
     int updateUsers(@Param("enti") Users value, @Param("assist") Assist assist);
     int updateNonEmptyUsersById(Users enti);
     int updateNonEmptyUsers(@Param("enti") Users value, @Param("assist") Assist assist);
+    //关联查询users中的Role和UserInformation
+    @Select("SELECT * FROM users WHERE id=#{id}")
+    @Results({
+    	@Result(id=true,column="id",property="id"),
+    	@Result(column="username",property="username"),
+    	@Result(column="password",property="password"),
+    	@Result(column="role_id",property="role",
+    	one=@One(select="com.changjiang.dao.RoleDao.selectRoleById",
+    	fetchType=FetchType.EAGER)),
+    	@Result(column="store",property="store"),
+    	@Result(column="user_information",property="user",
+    	one=@One(select="com.changjiang.dao.UserInformationDao."
+    			+ "selectUserInformation",fetchType=FetchType.EAGER))
+    })
+    Users selectUsersHaveAll(Integer id);
 }

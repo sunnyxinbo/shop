@@ -27,7 +27,6 @@ public class Assist {
 	public class whereRequire {
 		private String require;
 		private String value;
-
 		public whereRequire(String require, String value) {
 			super();
 			this.require = require;
@@ -51,10 +50,10 @@ public class Assist {
 		}
 
 	}
-	
 
 	/**
-	 * 添加查询条件,参数为Assist的内部类whereRequire,推荐使用Assist的静态条件方法添加条件;
+	 * 添加查询条件,参数为Assist的内部类whereRequire,推荐使用Assist的静态条件方法
+	 * 添加条件;
 	 * @param require 示例:Assist.and_lt("id",10),...
 	 */
 	public void setRequires(whereRequire... require) {
@@ -67,7 +66,8 @@ public class Assist {
 	}
 
 	/**
-	 * 参数(列名)1 = 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 = 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同
+	 * 列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -78,7 +78,8 @@ public class Assist {
 
 
 	/**
-	 * 参数(列名)1 = 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 = 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同
+	 * 列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -89,7 +90,8 @@ public class Assist {
 
 
 	/**
-	 * 参数(列名)1 <>(不等于) 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 <>(不等于) 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不
+	 * 存在相同列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -100,7 +102,8 @@ public class Assist {
 
 
 	/**
-	 * 参数(列名)1 <>(不等于) 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 <>(不等于) 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不
+	 * 存在相同列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -110,7 +113,8 @@ public class Assist {
 	}
 
 	/**
-	 * 参数(列名)1 < 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 < 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同
+	 * 列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -120,7 +124,8 @@ public class Assist {
 	}
 
 	/**
-	 * 参数(列名)1 < 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 < 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同
+	 * 列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -130,7 +135,8 @@ public class Assist {
 	}
 
 	/**
-	 * 参数(列名)1 <= 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 <= 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同
+	 * 列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return
@@ -141,7 +147,8 @@ public class Assist {
 
 	
 	/**
-	 * 参数(列名)1 <= 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名
+	 * 参数(列名)1 <= 参数(条件)2 ;如果表中存在相同列名使用表名.列名,如果不存在相同
+	 * 列名可以直接列名
 	 * @param column
 	 * @param req
 	 * @return

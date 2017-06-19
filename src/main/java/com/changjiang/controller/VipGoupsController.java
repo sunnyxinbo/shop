@@ -27,7 +27,7 @@ public class VipGoupsController {
 	 * 查询所有的会员组信息
 	 * @return
 	 */
-	@RequestMapping(value="/queryallvipgoups")
+	@RequestMapping(value="/queryAllVipGoups")
 	public String queryAllVipGoups(){
 		//System.out.println("vipGoupsService is :" + vipGoupsService);
 		List<VipGoups> vipListGoups = vipGoupsService.queryAllVipGoups();

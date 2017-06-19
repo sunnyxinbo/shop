@@ -7,7 +7,22 @@ public class Users {
     private String store;
     private Integer userInformation;
     private String enabled;
-    public Users() {
+    private Role role;
+    private UserInformation user;
+    
+    public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	public UserInformation getUser() {
+		return user;
+	}
+	public void setUser(UserInformation user) {
+		this.user = user;
+	}
+	public Users() {
         super();
     }
     public Users(Integer id,String username,String password,Integer roleId,String store,Integer userInformation,String enabled) {

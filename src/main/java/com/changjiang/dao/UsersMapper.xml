@@ -37,11 +37,13 @@
         ,users.enabled as Users6
     </sql>
 
-    <select id="getUsersRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getUsersRowCount" parameterType="com.changjiang.common.Assist" 
+    resultType="java.lang.Long">
         select count(id) from users
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUsers" parameterType="com.changjiang.common.Assist"  resultMap="result_Users_Map">
+    <select id="selectUsers" parameterType="com.changjiang.common.Assist"  
+    resultMap="result_Users_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -52,20 +54,23 @@
         from users
         <if test="require!=null"><include refid="Assist" /></if>
         <if test="order !=null">${order}</if>
-        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null"> OFFSET #{startRow}</if></if>
+        <if test="rowSize !=null"> LIMIT #{rowSize} <if test="startRow !=null">
+         OFFSET #{startRow}</if></if>
     </select> 
 
-    <select id="selectUsersById" parameterType="java.lang.Integer" resultMap="result_Users_Map">
+    <select id="selectUsersById" parameterType="java.lang.Integer" 
+    resultMap="result_Users_Map">
         select 
             <include refid="users_Column" /> 
         from users
         where users.id = #{id}
     </select> 
 
-
     <insert id="insertUsers" parameterType="com.changjiang.entity.Users">
-        insert into users(id,username,password,role_id,store,user_information,enabled) 
-        values(#{id},#{username},#{password},#{roleId},#{store},#{userInformation},#{enabled})
+        insert into users(id,username,password,role_id,store,user_information,
+        enabled) 
+        values(#{id},#{username},#{password},#{roleId},#{store},
+        #{userInformation},#{enabled})
     </insert>
 
     <insert id="insertNonEmptyUsers" parameterType="com.changjiang.entity.Users">
