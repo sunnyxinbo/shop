@@ -93,8 +93,10 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 	  }
 	  //JDBC事物管理
 	  @Bean
-	  public DataSourceTransactionManager transactionManager(DruidDataSource dataSource){
-		  DataSourceTransactionManager manager=new DataSourceTransactionManager(dataSource);
+	  public DataSourceTransactionManager transactionManager(DruidDataSource 
+			  dataSource){
+		  DataSourceTransactionManager manager=new DataSourceTransactionManager
+				  (dataSource);
 		  return manager;
 	  }
 	  //获取Mybatis的SqlSessionFactory
@@ -130,7 +132,8 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 	  }
 	@Bean
 	public ITemplateResolver templateResolver(){
-		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+		SpringResourceTemplateResolver resolver = new 
+				SpringResourceTemplateResolver();
 		resolver.setApplicationContext(applicationContext);
 		resolver.setPrefix("/WEB-INF/classes/views/");
 		resolver.setSuffix(".html");
@@ -146,11 +149,10 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 	//需要特别注意的是：/css/**的意思是这个文件夹下的文件为静态资源，它下面的文件夹不是静态资源，所以要单独的进行设置
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry){
-		registry.addResourceHandler("css/**").addResourceLocations("classpath:/css/");
-		registry.addResourceHandler("js/**").addResourceLocations("classpath:/js/");
-		registry.addResourceHandler("img/**").addResourceLocations("classpath:/img/");
-		registry.addResourceHandler("lib/**").addResourceLocations("classpath:/lib/");
-		registry.addResourceHandler("static/**").addResourceLocations("classpath:/static/");
+		registry.addResourceHandler("assets/**").addResourceLocations("classpath:"
+				+ "/assets/");
+		registry.addResourceHandler("yangtze_assets/**").addResourceLocations
+		("classpath:/yangtze_assets/");
 	}
 	/**
 	 * 对于/index访问参数视图解析器返回逻辑名称为index的视图用于显示
@@ -158,8 +160,5 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry){
 		registry.addViewController("/index").setViewName("/login");
-		registry.addViewController("/toUpload").setViewName("/upload");
-		registry.addViewController("/sse").setViewName("/sse");
-		registry.addViewController("/async").setViewName("/async");
 	}
 }
