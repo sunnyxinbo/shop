@@ -32,7 +32,8 @@ public interface UsersDao{
     	@Result(column="store",property="store"),
     	@Result(column="user_information",property="user",
     	one=@One(select="com.changjiang.dao.UserInformationDao."
-    			+ "selectUserInformation",fetchType=FetchType.EAGER))
+    			+ "selectUserInformationById",fetchType=FetchType.EAGER))
     })
-    Users selectUsersHaveAll(Integer id);
+    Users selectSingleUserHaveAll(Integer id);
+    
 }

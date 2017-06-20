@@ -4,7 +4,15 @@ public class RolePower {
     private String functionName;
     private Integer roleId;
     private Integer functionId;
-    public RolePower() {
+    private Function function;
+
+	public Function getFunction() {
+		return function;
+	}
+	public void setFunction(Function function) {
+		this.function = function;
+	}
+	public RolePower() {
         super();
     }
     public RolePower(Integer id,String functionName,Integer roleId,Integer functionId) {

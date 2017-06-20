@@ -15,4 +15,5 @@ public interface FunctionDao{
     int updateFunction(@Param("enti") Function value, @Param("assist") Assist assist);
     int updateNonEmptyFunctionById(Function enti);
     int updateNonEmptyFunction(@Param("enti") Function value, @Param("assist") Assist assist);
+    
 }

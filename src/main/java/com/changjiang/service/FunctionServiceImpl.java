@@ -1,16 +1,28 @@
 package com.changjiang.service;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.FunctionDao;
+import com.changjiang.dao.RolePowerDao;
+import com.changjiang.dao.UsersDao;
 import com.changjiang.entity.Function;
+import com.changjiang.entity.RolePower;
+import com.changjiang.entity.Users;
+import com.changjiang.model.Node;
 import com.changjiang.common.Assist;
 @Service
 public class FunctionServiceImpl implements FunctionService{
     @Autowired
 	private FunctionDao functionDao;
+    @Autowired
+    private UsersDao usersDao;
+    @Autowired
+    private RolePowerDao rolePowerDao;
     @Override
     public long getFunctionRowCount(Assist assist){
         return functionDao.getFunctionRowCount(assist);
@@ -63,5 +75,67 @@ public class FunctionServiceImpl implements FunctionService{
     public void setFunctionDao(FunctionDao functionDao) {
         this.functionDao = functionDao;
     }
+    //这个获得排序后节点的方法基于表中数据是有序的形式
+	@Override
+	public List<Node> getFunctionByUserId(Integer id) {
+		List<RolePower> rolePowers=new ArrayList<>();
+		Users user=usersDao.selectUsersById(id);
+		rolePowers=rolePowerDao.selectRolePowerByRoleId(user.getRoleId());
+		List<Function> functionsOnFirst=new ArrayList<>();
+		List<Function> functionsOnSecond=new ArrayList<>();
+		//一个集合存所有，有子节点的Function的id
+		Set<Integer> parents=new HashSet<>();
+		for(RolePower rolePower:rolePowers){
+			//将功能分为一级和二级
+			if(rolePower.getFunction().getCurrentLevel().equals("1")){
+				//根据索引对其进行排序
+				functionsOnFirst.add(rolePower.getFunction().getOrderId()-1,
+						rolePower.getFunction());
+			}else{
+				functionsOnSecond.add(rolePower.getFunction());
+				parents.add(rolePower.getFunction().getUpperLevelId());
+			}
+		}
+		List<Node> nodes=new ArrayList<>(functionsOnFirst.size());
+		for(Function function:functionsOnFirst){
+			Node node=new Node();
+			//说明有子节点
+			if(parents.contains(function.getId())){
+				//查出这个节点的所有子节点
+				List<Function> functions=new ArrayList<>();
+				for(Function f:functionsOnSecond){
+					if(f.getUpperLevelId().equals(function.getId())){
+						functions.add(f.getOrderId()-1,f);
+						functionsOnSecond.remove(f);
+					}
+				}
+				//得到这个节点的所有子节点
+				List<Node> childNodes=new ArrayList<>(functions.size());
+				for(int i=0;i<functions.size();i++){
+					Node childNode=new Node();
+					childNode.setId(childNodes.get(i).getId());
+					childNode.setIcon(childNodes.get(i).getIcon());
+					childNode.setName(childNodes.get(i).getName());
+					childNode.setChild(0);
+					childNodes.add(childNode);
+				}
+				//得到这个节点的子节点属性
+				node.setNodes(childNodes);
+				node.setChild(1);
+				node.setIcon(function.getIcon());
+				node.setName(function.getFunctionName());
+				node.setId(function.getId());
+				nodes.add(node);
+			}else{
+				node.setChild(0);
+				node.setIcon(function.getIcon());
+				node.setName(function.getFunctionName());
+				node.setId(function.getId());
+				nodes.add(node);
+			}
+		}
+		// TODO Auto-generated method stub
+		return nodes;
+	}
 
 }

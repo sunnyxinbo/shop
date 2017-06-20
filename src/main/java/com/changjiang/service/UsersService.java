@@ -14,4 +14,6 @@ public interface UsersService{
     int updateUsers(Users value, Assist assist);
     int updateNonEmptyUsersById(Users enti);
     int updateNonEmptyUsers(Users value, Assist assist);
+    Users selectUsersHaveAll(Integer id);
+    Users login(String username,String password);
 }

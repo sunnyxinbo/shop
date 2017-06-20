@@ -12,8 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.changjiang.config.MyMvcConfig;
-//import com.changjiang.dao.StoreDao;
-//import com.changjiang.entity.Store;
+import com.changjiang.dao.StoreDao;
+import com.changjiang.entity.Store;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,7 +21,7 @@ import com.changjiang.config.MyMvcConfig;
 @WebAppConfiguration("src/main/resources")
 public class TestReidsCache {
 	@Resource(name="StoreDao")
-	//private StoreDao dao;
+	private StoreDao dao;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {	
 	}

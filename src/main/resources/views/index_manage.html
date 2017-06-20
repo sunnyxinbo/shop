@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -19,8 +19,8 @@
 </head>
 <body ng-app="app">
     <!--初始化一组参数-->
-    <input style="display: none" id="user_id" th:value="user_id">
-    <input style="display: none" id="user_role" th:value="user_role">
+    <input style="display: none" id="user_id" th:value="${user.id}">
+    <input style="display: none" id="user_role" th:value="${user.roleId}">
     <header class="am-topbar am-topbar-inverse admin-header">
         <div class="am-topbar-brand">
             <a href="javascript:" class="tpl-logo">

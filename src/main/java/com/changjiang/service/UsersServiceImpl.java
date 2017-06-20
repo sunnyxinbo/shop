@@ -63,5 +63,23 @@ public class UsersServiceImpl implements UsersService{
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
+	@Override
+	public Users selectUsersHaveAll(Integer id) {
+		// TODO Auto-generated method stub
+		return this.usersDao.selectSingleUserHaveAll(id);
+	}
+	@Override
+	public Users login(String username, String password) {
+		List<Users> users=usersDao.selectUsers(new Assist());
+		for(Users u:users){
+			if(username!=null&&password!=null&&u.getUsername().equals(username)&&
+					u.getPassword().equals(password)){
+				return u;
+			}
+		}
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

@@ -48,7 +48,7 @@
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
             <otherwise>
-        <include refid="users_Column" /> 
+        		<include refid="users_Column" /> 
             </otherwise>
         </choose>
         from users
