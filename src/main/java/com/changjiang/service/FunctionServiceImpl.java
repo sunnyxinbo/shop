@@ -1,5 +1,7 @@
 package com.changjiang.service;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,8 +16,9 @@ import com.changjiang.entity.Function;
 import com.changjiang.entity.RolePower;
 import com.changjiang.entity.Users;
 import com.changjiang.model.Node;
+
 import com.changjiang.common.Assist;
-@Service
+@Service("functionService")
 public class FunctionServiceImpl implements FunctionService{
     @Autowired
 	private FunctionDao functionDao;
@@ -80,6 +83,7 @@ public class FunctionServiceImpl implements FunctionService{
 	public List<Node> getFunctionByUserId(Integer id) {
 		List<RolePower> rolePowers=new ArrayList<>();
 		Users user=usersDao.selectUsersById(id);
+		System.out.println(user.getUsername());
 		rolePowers=rolePowerDao.selectRolePowerByRoleId(user.getRoleId());
 		List<Function> functionsOnFirst=new ArrayList<>();
 		List<Function> functionsOnSecond=new ArrayList<>();
@@ -87,13 +91,26 @@ public class FunctionServiceImpl implements FunctionService{
 		Set<Integer> parents=new HashSet<>();
 		for(RolePower rolePower:rolePowers){
 			//将功能分为一级和二级
-			if(rolePower.getFunction().getCurrentLevel().equals("1")){
+			if(rolePower.getFunction().getCurrentLevel().equals(1)){
 				//根据索引对其进行排序
-				functionsOnFirst.add(rolePower.getFunction().getOrderId()-1,
-						rolePower.getFunction());
+				functionsOnFirst.add(rolePower.getFunction());
+				Collections.sort(functionsOnFirst,new Comparator<Function>(){
+					@Override
+					public int compare(Function o1, Function o2) {
+						//根据order进行排序
+						return o1.getOrderId()-o2.getOrderId();
+					}
+				});
 			}else{
 				functionsOnSecond.add(rolePower.getFunction());
 				parents.add(rolePower.getFunction().getUpperLevelId());
+				Collections.sort(functionsOnSecond,new Comparator<Function>(){
+					@Override
+					public int compare(Function o1, Function o2) {
+						// TODO Auto-generated method stub
+						return o1.getOrderId()-o2.getOrderId();
+					}
+				});
 			}
 		}
 		List<Node> nodes=new ArrayList<>(functionsOnFirst.size());
@@ -105,17 +122,24 @@ public class FunctionServiceImpl implements FunctionService{
 				List<Function> functions=new ArrayList<>();
 				for(Function f:functionsOnSecond){
 					if(f.getUpperLevelId().equals(function.getId())){
-						functions.add(f.getOrderId()-1,f);
-						functionsOnSecond.remove(f);
+						functions.add(f);
 					}
 				}
+				functionsOnSecond.removeAll(functions);
+				Collections.sort(functions,new Comparator<Function>(){
+					@Override
+					public int compare(Function o1, Function o2) {
+						// TODO Auto-generated method stub
+						return o1.getOrderId()-o2.getOrderId();
+					}
+				});
 				//得到这个节点的所有子节点
 				List<Node> childNodes=new ArrayList<>(functions.size());
 				for(int i=0;i<functions.size();i++){
 					Node childNode=new Node();
-					childNode.setId(childNodes.get(i).getId());
-					childNode.setIcon(childNodes.get(i).getIcon());
-					childNode.setName(childNodes.get(i).getName());
+					childNode.setId(functions.get(i).getId());
+					childNode.setIcon(functions.get(i).getIcon());
+					childNode.setName(functions.get(i).getFunctionName());
 					childNode.setChild(0);
 					childNodes.add(childNode);
 				}
