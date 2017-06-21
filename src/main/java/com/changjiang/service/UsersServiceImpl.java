@@ -68,6 +68,7 @@ public class UsersServiceImpl implements UsersService{
 		// TODO Auto-generated method stub
 		return this.usersDao.selectSingleUserHaveAll(id);
 	}
+	//如果登录成功，返回这个成功登录的user对象
 	@Override
 	public Users login(String username, String password) {
 		List<Users> users=usersDao.selectUsers(new Assist());
@@ -80,6 +81,21 @@ public class UsersServiceImpl implements UsersService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Users> selectAllUsersByUserId(Integer id) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+	@Override
+	public List<Users> selectEnabledUsersByUserId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Users> selectDisabledUsersByUserId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
-
 }

@@ -16,4 +16,10 @@ public interface UsersService{
     int updateNonEmptyUsers(Users value, Assist assist);
     Users selectUsersHaveAll(Integer id);
     Users login(String username,String password);
+    //根据userId，查出用户所在店的所有用户
+    List<Users> selectAllUsersByUserId(Integer id);
+    //查出所有启用的用户
+    List<Users> selectEnabledUsersByUserId(Integer id);
+    //查出所有未启用的用户
+    List<Users> selectDisabledUsersByUserId(Integer id);
 }
