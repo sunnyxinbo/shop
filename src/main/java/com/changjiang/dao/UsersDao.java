@@ -63,5 +63,17 @@ public interface UsersDao{
     	@Result(column="user_information",property="userInformation")
     })
     List<Users> selectEnabledUsersByUserId(String number);
-    
+    //根据店铺的编号查出未启用的user
+    @Select("SELECT * FROM users WHERE store=#{number},enabled=1")
+    @Results({
+    	@Result(id=true,column="id",property="id"),
+    	@Result(column="username",property="username"),
+    	@Result(column="password",property="password"),
+    	@Result(column="role_id",property="role",
+    	one=@One(select="com.changjiang.dao.RoleDao.selectRoleById",
+    	fetchType=FetchType.EAGER)),
+    	@Result(column="store",property="store"),
+    	@Result(column="user_information",property="userInformation")
+    })
+    List<Users> selectDisabledUsersByUserId(String number);
 }

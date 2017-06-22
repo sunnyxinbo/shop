@@ -2,7 +2,6 @@ package com.changjiang.config;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +100,8 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 	  }
 	  //获取Mybatis的SqlSessionFactory
 	  @Bean
-	  public SqlSessionFactoryBean sqlSessionFactory(DruidDataSource dataSource) throws IOException{
+	  public SqlSessionFactoryBean sqlSessionFactory(DruidDataSource dataSource) throws 
+	  IOException{
 		  SqlSessionFactoryBean b=new SqlSessionFactoryBean();
 		  b.setDataSource(dataSource);
 		  //将mybatis-config.xml配置文件注入到SqlSessionFactory

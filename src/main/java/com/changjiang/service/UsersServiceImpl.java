@@ -82,20 +82,30 @@ public class UsersServiceImpl implements UsersService{
 		return null;
 	}
 	@Override
+	//获得当前用户所在店铺的所有用户
 	public List<Users> selectAllUsersByUserId(Integer id) {
+		Users user=usersDao.selectUsersById(id);
+		//根据user的id来查店铺编号
+		List<Users> users=usersDao.selectAllUsersByUserId(user.getStore());
 		// TODO Auto-generated method stub
-		
-		return null;
+		return users;
 	}
 	@Override
+	//获得当前用户所在店铺的启用用户
 	public List<Users> selectEnabledUsersByUserId(Integer id) {
+		Users user=usersDao.selectUsersById(id);
+		//根据user的id来查店铺编号
+		List<Users> users=usersDao.selectEnabledUsersByUserId(user.getStore());
 		// TODO Auto-generated method stub
-		return null;
+		return users;
 	}
 	@Override
+	//获得当前用户所在店铺的未启用用户
 	public List<Users> selectDisabledUsersByUserId(Integer id) {
+		Users user=usersDao.selectUsersById(id);
+		//根据user的id来查店铺编号
+		List<Users> users=usersDao.selectDisabledUsersByUserId(user.getStore());
 		// TODO Auto-generated method stub
-		return null;
+		return users;
 	}
-	
 }

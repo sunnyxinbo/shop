@@ -1,8 +1,47 @@
 /**
  * Created by Administrator on 2017/6/9 0009.
  */
-app.controller('SidebarController',function ($rootScope,$http,$scope) {
-    $scope.nodes=$rootScope.nodes;
+app.controller('SidebarController',function ($rootScope, $http, $scope) {
+    //获取用户的id和权限
+    let user_id = Number(document.getElementById("user_id").value);
+    let user_role = Number(document.getElementById("user_role").value);
+    //存入$rootScope
+    $rootScope.user_id=user_id;
+    $rootScope.user_role=user_role;
+    let nodes = [];
+    $http.post('/functions',$.param({user_id:user_id}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data){
+            angular.forEach(data,function (f,index) {
+                var node={};
+                node.id=f.id;
+                node.name=f.name;
+                node.icon=f.icon;
+                node.url=f.urls;
+                node.child=String();
+                node.child=f.child;
+                var child=Number(f.child);
+                //有子节点将url改为#
+                if (child==1){
+                    node.url="#";
+                    node.sons=f.sons;
+                }else{
+                }
+                nodes.push(node);
+            });
+            $rootScope.nodes=nodes;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    $http.post('/storeNumber',$.param({user_id:user_id}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data){
+            angular.forEach(data,function (f,index) {
+                $rootScope.storeNumber=String(f);
+            });
+        }).error(function () {
+        alert("服务端错误");
+    });
 });
 app.controller('TopMessageController',function ($rootScope,$http,$scope) {
     $scope.messageNumber=Number();//消息数量
@@ -11,13 +50,81 @@ app.controller('TopMessageController',function ($rootScope,$http,$scope) {
     $scope.user_role=$rootScope.user_role;
 });
 app.controller('UserController',function ($scope,$rootScope,$http) {
-
+    let user_id = $rootScope.user_id;
+    $http.post('/AllUsers',$.param({user_id:user_id}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data){
+            angular.forEach(data,function (f,index) {
+                if(f.enabled==0){
+                    f.enabled=String("启用");
+                }else {
+                    f.enabled=String("未启用");
+                }
+            });
+            $scope.users=data;
+            $rootScope.users=$scope.users;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    $scope.changeData=function (style) {
+        let parameter=Number(style);
+        //获取启用的数据
+        if (parameter==0){
+            $http.post('/EnabledUsers',$.param({user_id:user_id}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.enabled=String("启用");
+                    });
+                    $scope.users=data;
+                }).error(function () {
+                    alert("服务端错误");
+            });
+        }else{
+            $http.post('/DisabledUsers',$.param({user_id:user_id}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.enabled=String("未启用");
+                    });
+                    $scope.users=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+});
+app.controller('AddUserController',function ($scope,$rootScope,$http,$state) {
+    $scope.cancel=function () {
+        $state.go("user");
+    }
+});
+app.controller('UserDetailsController',function ($stateParams,$http,$scope,$rootScope) {
+    let id=Number($stateParams.id);
+    let users=$rootScope.users;
+    for (let i=0;i<users.length;i++){
+        if(users[i].id==id){
+            $scope.user=user[i];
+            break;
+        }
+    }
+    //获取这个店铺所有的role
+    $http.post('/DisabledUsers',$.param({user_id:user_id}),
+        {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            angular.forEach(data,function (f,index) {
+                f.enabled=String("未启用");
+            });
+            $scope.users=data;
+        }).error(function () {
+        alert("服务端错误");
+    });
 });
 app.controller('RoleController',function ($scope,$rootScope,$http) {
 
 });
 app.controller('MenuController',function ($scope,$rootScope,$http) {
-    const setting = {
+    let setting = {
         view: {
             addHoverDom: addHoverDom,
             removeHoverDom: removeHoverDom,
@@ -44,7 +151,7 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
         }
     };
 
-    const zNodes = [
+    let zNodes = [
         {id: 1, pId: 0, name: "父节点 1", open: true},
         {id: 11, pId: 1, name: "叶子节点 1-1"},
         {id: 12, pId: 1, name: "叶子节点 1-2"},

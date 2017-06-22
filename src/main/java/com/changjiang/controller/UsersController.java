@@ -47,10 +47,36 @@ public class UsersController {
 		
 		return "success";
 	}
-	@RequestMapping(value="/users",method=RequestMethod.POST,
+	//根据userId获取店的所有用户
+	@RequestMapping(value="/AllUsers",method=RequestMethod.POST,
 			produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public List<Users> getAllUsersByUserId(@RequestParam("user_id") Integer userId){
-		
+		List<Users> users=service.selectAllUsersByUserId(userId);
+		return users;
+	}
+	//根据userId获取店启用用户
+	@RequestMapping(value="/EnabledUsers",method=RequestMethod.POST,
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<Users> getEnabledUsersByUserId(@RequestParam("user_id") Integer 
+			userId){
+		List<Users> users=service.selectAllUsersByUserId(userId);
+		return users;
+	}
+	@RequestMapping(value="/DisabledUsers",method=RequestMethod.POST,
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<Users> getDisabledUsersByUserId(@RequestParam("user_id") Integer 
+			userId){
+		List<Users> users=service.selectAllUsersByUserId(userId);
+		return users;
+	}
+	//根据用户id
+	@RequestMapping(value="/storeNumber",method=RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getStoreNmberByUserId(@RequestParam("user_id") Integer id){
+		return service.selectUsersById(id).getStore();
 	}
 }
