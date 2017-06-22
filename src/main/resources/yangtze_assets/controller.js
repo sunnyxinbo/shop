@@ -9,18 +9,17 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
     $rootScope.user_id=user_id;
     $rootScope.user_role=user_role;
     let nodes = [];
-    $http.post('/functions',$.param({user_id:user_id}),
-        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+    $http.post('functions',$.param({user_id:user_id}),{headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
             angular.forEach(data,function (f,index) {
-                var node={};
+                let node = {};
                 node.id=f.id;
                 node.name=f.name;
                 node.icon=f.icon;
                 node.url=f.urls;
                 node.child=String();
                 node.child=f.child;
-                var child=Number(f.child);
+                let child = Number(f.child);
                 //有子节点将url改为#
                 if (child==1){
                     node.url="#";
@@ -30,10 +29,11 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
                 nodes.push(node);
             });
             $rootScope.nodes=nodes;
+            $scope.nodes=nodes;
         }).error(function () {
         alert("服务端错误");
     });
-    $http.post('/storeNumber',$.param({user_id:user_id}),
+    $http.post('storeNumber',$.param({user_id:user_id}),
         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
             angular.forEach(data,function (f,index) {
@@ -51,7 +51,7 @@ app.controller('TopMessageController',function ($rootScope,$http,$scope) {
 });
 app.controller('UserController',function ($scope,$rootScope,$http) {
     let user_id = $rootScope.user_id;
-    $http.post('/AllUsers',$.param({user_id:user_id}),
+    $http.post('AllUsers',$.param({user_id:user_id}),
         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
             angular.forEach(data,function (f,index) {
@@ -70,7 +70,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
         let parameter=Number(style);
         //获取启用的数据
         if (parameter==0){
-            $http.post('/EnabledUsers',$.param({user_id:user_id}),
+            $http.post('EnabledUsers',$.param({user_id:user_id}),
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                 .success(function (data) {
                     angular.forEach(data,function (f,index) {
@@ -78,10 +78,10 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
                     });
                     $scope.users=data;
                 }).error(function () {
-                    alert("服务端错误");
+                alert("服务端错误");
             });
         }else{
-            $http.post('/DisabledUsers',$.param({user_id:user_id}),
+            $http.post('DisabledUsers',$.param({user_id:user_id}),
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                 .success(function (data) {
                     angular.forEach(data,function (f,index) {
@@ -109,7 +109,7 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
         }
     }
     //获取这个店铺所有的role
-    $http.post('/DisabledUsers',$.param({user_id:user_id}),
+    $http.post('DisabledUsers',$.param({user_id:user_id}),
         {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data) {
             angular.forEach(data,function (f,index) {

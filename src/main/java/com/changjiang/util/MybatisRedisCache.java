@@ -32,10 +32,6 @@ public class MybatisRedisCache implements Cache {
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();   
     private String id;  
 	  //用于读取配置文件
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertyConfigure(){
-		return new PropertySourcesPlaceholderConfigurer();
-	}
     public MybatisRedisCache(final String id) throws IOException {
     	redisClient=createRedis();
         if (id == null) {  

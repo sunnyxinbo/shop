@@ -21,16 +21,25 @@ public class UsersController {
 	//登录post请求处理
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(@RequestParam("username") String username,@RequestParam
-			("password") String password,RedirectAttributes model){
+			("password") String password,RedirectAttributes model,Model m){
 		Users u=service.login(username, password);
 		//验证成功
 		if(u!=null){
 			model.addFlashAttribute("user",u);
-			return "redirect:/index/";
+			return "redirect:/indexManage";
 		}else{
-			model.addAttribute("login","1");//验证失败
+			m.addAttribute("result","1");//验证失败
 			return "login";
 		}
+	}
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String toLogin(Model model){
+		model.addAttribute("result","0");
+		return "login";
+	}
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String all(){
+		return "redirect:/login";
 	}
 	//要求在session中可以找到user，才可以登录到index首页
 	@RequestMapping(value="/indexManage",method=RequestMethod.GET)
