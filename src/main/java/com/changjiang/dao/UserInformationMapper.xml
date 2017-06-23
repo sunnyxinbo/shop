@@ -4,10 +4,8 @@
     <resultMap id="result_UserInformation_Map" type="com.changjiang.entity.UserInformation">
         <id column="UserInformation0" property="id" />
         <result column="UserInformation1" property="realname" />
-        <result column="UserInformation2" property="nickname" />
         <result column="UserInformation3" property="idNumber" />
         <result column="UserInformation4" property="phone" />
-        <result column="UserInformation5" property="password" />
         <result column="UserInformation6" property="dbDesc" />
         <result column="UserInformation7" property="sex" />
         <result column="UserInformation8" property="icon" />
@@ -40,10 +38,8 @@
     <sql id="user_information_Column">
         user_information.id as UserInformation0
         ,user_information.realname as UserInformation1
-        ,user_information.nickname as UserInformation2
         ,user_information.id_number as UserInformation3
         ,user_information.phone as UserInformation4
-        ,user_information.password as UserInformation5
         ,user_information.db_desc as UserInformation6
         ,user_information.sex as UserInformation7
         ,user_information.icon as UserInformation8
@@ -91,10 +87,8 @@
     <resultMap id="result_UserInformation_Map2" type="com.changjiang.entity.UserInformation">
         <id column="UserInformation0" property="id" />
         <result column="UserInformation1" property="realname" />
-        <result column="UserInformation2" property="nickname" />
         <result column="UserInformation3" property="idNumber" />
         <result column="UserInformation4" property="phone" />
-        <result column="UserInformation5" property="password" />
         <result column="UserInformation6" property="dbDesc" />
         <result column="UserInformation7" property="sex" />
         <result column="UserInformation8" property="icon" />
@@ -118,7 +112,7 @@
 
     <insert id="insertUserInformation" parameterType="com.changjiang.entity.UserInformation">
         insert into user_information(id,realname,nickname,id_number,phone,password,db_desc,sex,icon,address,qq,wechat,email,duty_id,department_id,state,store_id) 
-        values(#{id},#{realname},#{nickname},#{idNumber},#{phone},#{password},#{dbDesc},#{sex},#{icon},#{address},#{qq},#{wechat},#{email},#{dutyId},#{departmentId},#{state},#{storeId})
+        values(#{id},#{realname},#{idNumber},#{phone},#{dbDesc},#{sex},#{icon},#{address},#{qq},#{wechat},#{email},#{dutyId},#{departmentId},#{state},#{storeId})
     </insert>
 
     <insert id="insertNonEmptyUserInformation" parameterType="com.changjiang.entity.UserInformation">
@@ -126,10 +120,8 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="realname != null">realname,</if>
-            <if test="nickname != null">nickname,</if>
             <if test="idNumber != null">id_number,</if>
             <if test="phone != null">phone,</if>
-            <if test="password != null">password,</if>
             <if test="dbDesc != null">db_desc,</if>
             <if test="sex != null">sex,</if>
             <if test="icon != null">icon,</if>
@@ -145,10 +137,8 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null"> #{id},</if>
             <if test="realname != null"> #{realname},</if>
-            <if test="nickname != null"> #{nickname},</if>
             <if test="idNumber != null"> #{idNumber},</if>
             <if test="phone != null"> #{phone},</if>
-            <if test="password != null"> #{password},</if>
             <if test="dbDesc != null"> #{dbDesc},</if>
             <if test="sex != null"> #{sex},</if>
             <if test="icon != null"> #{icon},</if>
@@ -176,10 +166,8 @@
     <update id="updateUserInformationById" parameterType="com.changjiang.entity.UserInformation">
         update user_information set
             realname=#{realname}
-            ,nickname=#{nickname}
             ,id_number=#{idNumber}
             ,phone=#{phone}
-            ,password=#{password}
             ,db_desc=#{dbDesc}
             ,sex=#{sex}
             ,icon=#{icon}
@@ -200,17 +188,11 @@
             <if test="realname != null">
                 realname=#{realname},
             </if>
-            <if test="nickname != null">
-                nickname=#{nickname},
-            </if>
             <if test="idNumber != null">
                 id_number=#{idNumber},
             </if>
             <if test="phone != null">
                 phone=#{phone},
-            </if>
-            <if test="password != null">
-                password=#{password},
             </if>
             <if test="dbDesc != null">
                 db_desc=#{dbDesc},
@@ -254,10 +236,8 @@
         <set>
                 id=#{enti.id},
                 realname=#{enti.realname},
-                nickname=#{enti.nickname},
                 id_number=#{enti.idNumber},
                 phone=#{enti.phone},
-                password=#{enti.password},
                 db_desc=#{enti.dbDesc},
                 sex=#{enti.sex},
                 icon=#{enti.icon},
@@ -282,17 +262,11 @@
             <if test="enti.realname != null">
                 realname=#{enti.realname},
             </if>
-            <if test="enti.nickname != null">
-                nickname=#{enti.nickname},
-            </if>
             <if test="enti.idNumber != null">
                 id_number=#{enti.idNumber},
             </if>
             <if test="enti.phone != null">
                 phone=#{enti.phone},
-            </if>
-            <if test="enti.password != null">
-                password=#{enti.password},
             </if>
             <if test="enti.dbDesc != null">
                 db_desc=#{enti.dbDesc},

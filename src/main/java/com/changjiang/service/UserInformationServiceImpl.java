@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.UserInformationDao;
 import com.changjiang.entity.UserInformation;
+import com.changjiang.model.UserInformationModel;
 import com.changjiang.common.Assist;
 @Service
 public class UserInformationServiceImpl implements UserInformationService{
@@ -70,6 +71,15 @@ public class UserInformationServiceImpl implements UserInformationService{
 	public List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id) {
 		List<UserInformation> userInformations = userInformationDao.queryUserInformationAndEvaluations(user_information_id);
 		return userInformations;
+	}
+	@Override
+	public Integer addUserInformation(UserInformationModel model) {
+		UserInformation userInformation=new UserInformation();
+		userInformation.setUserInformaton(model);
+		userInformationDao.insertNonEmptyUserInformation(userInformation);
+		Integer id=userInformationDao.selectUserInformationIdByIdNumber(model.getIdNumber());
+		// TODO Auto-generated method stub
+		return id;
 	}
 
 }

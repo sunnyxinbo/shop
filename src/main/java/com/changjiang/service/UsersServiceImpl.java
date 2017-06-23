@@ -36,7 +36,8 @@ public class UsersServiceImpl implements UsersService{
         return usersDao.deleteUsersById(id);
     }
     @Override
-    public int deleteUsers(Assist assist){
+    public int deleteUsers(Integer[] users){
+    	Assist assist=new Assist();
         return usersDao.deleteUsers(assist);
     }
     @Override
@@ -107,5 +108,18 @@ public class UsersServiceImpl implements UsersService{
 		List<Users> users=usersDao.selectDisabledUsersByUserId(user.getStore());
 		// TODO Auto-generated method stub
 		return users;
+	}
+	@Override
+	public boolean deleteManyUser(Integer[] users) {
+		try{
+			for(Integer i:users){
+				usersDao.deleteUsersById(i);
+			}
+			// TODO Auto-generated method stub
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

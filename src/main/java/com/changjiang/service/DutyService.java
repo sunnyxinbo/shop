@@ -4,7 +4,7 @@ import com.changjiang.entity.Duty;
 import com.changjiang.common.Assist;
 public interface DutyService{
     long getDutyRowCount(Assist assist);
-    List<Duty> selectDuty(Assist assist);
+    List<Duty> selectDutyByStoreNumber(String storeNumber);
     Duty selectDutyById(Integer id);
     int insertDuty(Duty value);
     int insertNonEmptyDuty(Duty value);

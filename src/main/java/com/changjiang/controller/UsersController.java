@@ -88,4 +88,44 @@ public class UsersController {
 	public String getStoreNmberByUserId(@RequestParam("user_id") Integer id){
 		return service.selectUsersById(id).getStore();
 	}
+	@RequestMapping(value="deleteSingleUser",method=RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String deleteSingleUser(@RequestParam("user_id") Integer id){
+		int result=service.deleteUsersById(id);
+		if(result==1){
+			return "success";
+		}else{
+			return "false";
+		}
+	}
+	@RequestMapping(value="deleteManyUser",method=RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String deleteManyUser(@RequestParam("deleteUsers") Integer[] users){
+		boolean sign=service.deleteManyUser(users);
+		if(sign){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
+	//添加用户
+	@RequestMapping(value="addUser",method=RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String addUser(@RequestParam("username") String username,@RequestParam("passowrd")
+	String password,@RequestParam("role") Integer role,@RequestParam("store") String store,
+	@RequestParam("userInformation") Integer userInformation){
+		Users user=new Users();
+		user.setPassword(password);
+		user.setRoleId(role);
+		user.setStore(store);//店编号
+		user.setUserInformation(userInformation);//userInformationID
+		user.setUsername(username);
+		try{
+			service.insertNonEmptyUsers(user);
+		}catch(Exception e){
+			e.printStackTrace();
+			return "defeat";
+		}
+		return "success";
+	}
 }

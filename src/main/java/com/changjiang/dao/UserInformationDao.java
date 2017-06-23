@@ -3,6 +3,9 @@ import com.changjiang.entity.UserInformation;
 import java.util.List;
 import com.changjiang.common.Assist;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 public interface UserInformationDao{
     long getUserInformationRowCount(Assist assist);
     List<UserInformation> selectUserInformation(Assist assist);
@@ -19,4 +22,9 @@ public interface UserInformationDao{
 	 * 查询用户信息和他的所有评价
 	 */
     List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id);
+    @Select("SELECT id from userInformation WHERE idNumber=#{IdNumber}")
+    @Results({
+    	@Result(id=true,column="id",property="id")
+    })
+    Integer selectUserInformationIdByIdNumber(String IdNumber);
 }

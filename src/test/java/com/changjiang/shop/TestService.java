@@ -1,8 +1,9 @@
 package com.changjiang.shop;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,8 +49,7 @@ public class TestService {
 //		System.out.println(s.toString());
 //		s=dao.selectStoreById(1);
 		Users users=service.selectUsersHaveAll(1);
-		Assert.assertNotNull(users.getUser());
-		System.out.println(users.getUser().getNickname());
+		assertNotNull(users.getUser());
 	}
 
 }

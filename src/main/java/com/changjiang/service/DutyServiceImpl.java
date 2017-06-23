@@ -5,19 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.DutyDao;
+import com.changjiang.dao.StoreDao;
 import com.changjiang.entity.Duty;
 import com.changjiang.common.Assist;
 @Service
 public class DutyServiceImpl implements DutyService{
     @Autowired
 	private DutyDao dutyDao;
+    @Autowired
+    private StoreDao storeDao;
     @Override
     public long getDutyRowCount(Assist assist){
         return dutyDao.getDutyRowCount(assist);
-    }
-    @Override
-    public List<Duty> selectDuty(Assist assist){
-        return dutyDao.selectDuty(assist);
     }
     @Override
     public Duty selectDutyById(Integer id){
@@ -63,5 +62,13 @@ public class DutyServiceImpl implements DutyService{
     public void setDutyDao(DutyDao dutyDao) {
         this.dutyDao = dutyDao;
     }
+	@Override
+	public List<Duty> selectDutyByStoreNumber(String storeNumber) {
+		Integer store_id=storeDao.selectIdByStoreNumber(storeNumber);
+		Assist.and_eq("store_id",store_id.toString());
+		List<Duty> duties=dutyDao.selectDuty(new Assist());
+		// TODO Auto-generated method stub
+		return duties;
+	}
 
 }

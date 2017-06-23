@@ -2,6 +2,8 @@ package com.changjiang.entity;
 
 import java.util.List;
 
+import com.changjiang.model.UserInformationModel;
+
 /**
  * 
  * 用户信息表
@@ -10,10 +12,8 @@ import java.util.List;
 public class UserInformation {
     private Integer id;
     private String realname;
-    private String nickname;
     private String idNumber;
     private String phone;
-    private String password;
     private String dbDesc;
     private String sex;
     private String icon;
@@ -30,14 +30,12 @@ public class UserInformation {
     public UserInformation() {
         super();
     }
-    public UserInformation(Integer id,String realname,String nickname,String idNumber,String phone,String password,String dbDesc,String sex,String icon,String address,String qq,String wechat,String email,Integer dutyId,Integer departmentId,String state,Integer storeId) {
+    public UserInformation(Integer id,String realname,String idNumber,String phone,String dbDesc,String sex,String icon,String address,String qq,String wechat,String email,Integer dutyId,Integer departmentId,String state,Integer storeId) {
         super();
         this.id = id;
         this.realname = realname;
-        this.nickname = nickname;
         this.idNumber = idNumber;
         this.phone = phone;
-        this.password = password;
         this.dbDesc = dbDesc;
         this.sex = sex;
         this.icon = icon;
@@ -65,15 +63,6 @@ public class UserInformation {
     public void setRealname(String realname) {
         this.realname = realname;
     }
-
-    public String getNickname() {
-        return this.nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getIdNumber() {
         return this.idNumber;
     }
@@ -89,15 +78,6 @@ public class UserInformation {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getDbDesc() {
         return this.dbDesc;
     }
@@ -191,5 +171,18 @@ public class UserInformation {
 	public void setUserEvaluations(List<UserEvaluation> userEvaluations) {
 		this.userEvaluations = userEvaluations;
 	}
-
+	public void setUserInformaton(UserInformationModel model){
+		this.address=model.getAddress();
+		this.dbDesc=model.getDbDesc();
+		this.departmentId=model.getDepartmentId();
+		this.dutyId=model.getDutyId();
+		this.email=model.getEmail();
+		this.icon=model.getIcon();
+		this.idNumber=model.getIdNumber();
+		this.phone=model.getPhone();
+		this.qq=model.getQq();
+		this.realname=model.getRealname();
+		this.sex=model.getSex();
+		this.storeId=model.getStoreId();
+	}
 }

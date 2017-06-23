@@ -9,7 +9,7 @@ public interface UsersService{
     int insertUsers(Users value);
     int insertNonEmptyUsers(Users value);
     int deleteUsersById(Integer id);
-    int deleteUsers(Assist assist);
+    int deleteUsers(Integer[] users);
     int updateUsersById(Users enti);
     int updateUsers(Users value, Assist assist);
     int updateNonEmptyUsersById(Users enti);
@@ -22,4 +22,5 @@ public interface UsersService{
     List<Users> selectEnabledUsersByUserId(Integer id);
     //查出所有未启用的用户
     List<Users> selectDisabledUsersByUserId(Integer id);
+    boolean deleteManyUser(Integer[] users);
 }

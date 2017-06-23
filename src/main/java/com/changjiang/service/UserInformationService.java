@@ -1,6 +1,7 @@
 package com.changjiang.service;
 import java.util.List;
 import com.changjiang.entity.UserInformation;
+import com.changjiang.model.UserInformationModel;
 import com.changjiang.common.Assist;
 public interface UserInformationService{
     long getUserInformationRowCount(Assist assist);
@@ -18,4 +19,6 @@ public interface UserInformationService{
 	 * 查询用户信息和他的所有评价
 	 */
 	List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id);
+	//添加用户信息，并且返回这条information的id
+	Integer addUserInformation(UserInformationModel model);
 }
