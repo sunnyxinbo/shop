@@ -15,7 +15,7 @@ import com.changjiang.service.DutyService;
 public class DutyController {
 	@Autowired
 	private DutyService service;
-	@RequestMapping(value="duties",method=RequestMethod.POST,
+	@RequestMapping(value="/duties",method=RequestMethod.POST,
 			produces="application/json;charset=UTF-8")
 	public List<Duty> getAllDuty(@RequestParam("storeNumer") String storeNumber){
 		List<Duty> duties=service.selectDutyByStoreNumber(storeNumber);

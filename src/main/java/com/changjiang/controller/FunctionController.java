@@ -18,7 +18,7 @@ public class FunctionController {
 	private FunctionService service;
 	@RequestMapping(value="/functions",produces="application/json;charset=UTF-8",
 			method=RequestMethod.POST)
-	public List<Node> functions(@RequestParam Integer userId){
+	public List<Node> functions(@RequestParam("userId") Integer userId){
 		List<Node> result=new ArrayList<>();
 		result=service.getFunctionByUserId(userId);
 		return result;

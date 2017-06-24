@@ -27,4 +27,10 @@ public interface UserInformationDao{
     	@Result(id=true,column="id",property="id")
     })
     Integer selectUserInformationIdByIdNumber(String IdNumber);
+    /**
+	 * 通过id查询userinformation与其对应的workstation
+	 * @param id
+	 * @return
+	 */
+    List<UserInformation> findUserInformationAndWorkStation(Integer id);
 }

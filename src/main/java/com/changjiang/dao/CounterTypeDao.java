@@ -15,4 +15,8 @@ public interface CounterTypeDao{
     int updateCounterType(@Param("enti") CounterType value, @Param("assist") Assist assist);
     int updateNonEmptyCounterTypeById(CounterType enti);
     int updateNonEmptyCounterType(@Param("enti") CounterType value, @Param("assist") Assist assist);
+    /**
+     * 通过id查询柜台类别与其对应的柜台
+     */
+    List<CounterType> findCounterTypeAndCounter(Integer id);
 }

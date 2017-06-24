@@ -15,4 +15,8 @@ public interface DutyDao{
     int updateDuty(@Param("enti") Duty value, @Param("assist") Assist assist);
     int updateNonEmptyDutyById(Duty enti);
     int updateNonEmptyDuty(@Param("enti") Duty value, @Param("assist") Assist assist);
+    /**
+	 * 通过id查询duty以及其下的userinfomation
+	 */
+    List<Duty> findDutyAndUserInfo(Integer id);
 }

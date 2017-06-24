@@ -1,4 +1,7 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
 public class WorkStation {
     private Integer id;
     private String name;
@@ -6,6 +9,10 @@ public class WorkStation {
     private java.util.Date goWorkTime;
     private java.util.Date leaveWorkTime;
     private Integer departmentId;
+    //一个岗位对应多条记录
+    List<WorkstationRecord> workstationRecords;
+    //一个岗位对应多条counter_work_station_record
+    List<CounterWorkStationRecord> counterWorkStationRecords;
     public WorkStation() {
         super();
     }
@@ -65,5 +72,17 @@ public class WorkStation {
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
+	public List<WorkstationRecord> getWorkstationRecords() {
+		return workstationRecords;
+	}
+	public void setWorkstationRecords(List<WorkstationRecord> workstationRecords) {
+		this.workstationRecords = workstationRecords;
+	}
+	public List<CounterWorkStationRecord> getCounterWorkStationRecords() {
+		return counterWorkStationRecords;
+	}
+	public void setCounterWorkStationRecords(List<CounterWorkStationRecord> counterWorkStationRecords) {
+		this.counterWorkStationRecords = counterWorkStationRecords;
+	}
 
 }

@@ -1,9 +1,14 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
 public class CounterType {
     private Integer id;
     private String name;
     private String dbDesc;
     private String state;
+    //一个类型对应多个柜台
+    private List<Counter> counters;
     public CounterType() {
         super();
     }
@@ -45,5 +50,11 @@ public class CounterType {
     public void setState(String state) {
         this.state = state;
     }
+	public List<Counter> getCounters() {
+		return counters;
+	}
+	public void setCounters(List<Counter> counters) {
+		this.counters = counters;
+	}
 
 }

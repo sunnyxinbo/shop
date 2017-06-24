@@ -63,5 +63,15 @@ public class DepartmentServiceImpl implements DepartmentService{
     public void setDepartmentDao(DepartmentDao departmentDao) {
         this.departmentDao = departmentDao;
     }
+    /**
+	 * 通过id查询department与其对应的workstation岗位
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public List<Department> findDepartmentAndWorkStation(Integer id) {
+		// TODO Auto-generated method stub
+		return departmentDao.findDepartmentAndWorkStation(id);
+	}
 
 }

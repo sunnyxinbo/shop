@@ -14,4 +14,8 @@ public interface AreaService{
     int updateArea(Area value, Assist assist);
     int updateNonEmptyAreaById(Area enti);
     int updateNonEmptyArea(Area value, Assist assist);
+    /**
+	 * 查询区域以及区域下的柜台
+	 */
+    List<Area> findAreaAndCounter(Integer id);
 }

@@ -15,4 +15,8 @@ public interface AreaDao{
     int updateArea(@Param("enti") Area value, @Param("assist") Assist assist);
     int updateNonEmptyAreaById(Area enti);
     int updateNonEmptyArea(@Param("enti") Area value, @Param("assist") Assist assist);
+    /**
+	 * 查询区域以及区域下的柜台
+	 */
+    List<Area> findAreaAndCounter(Integer id);
 }

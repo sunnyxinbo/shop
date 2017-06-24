@@ -9,7 +9,7 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
     $rootScope.user_id=user_id;
     $rootScope.user_role=user_role;
     let nodes = [];
-    $http.post('functions',$.param({user_id:user_id}),{headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+    $http.post('functions',$.param({userId:user_id}),{headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
             angular.forEach(data,function (f,index) {
                 let node = {};
@@ -36,16 +36,16 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
     $http.post('storeNumber',$.param({user_id:user_id}),
         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
-            $rootScope.storeNumber=String(f);
+            $rootScope.storeNumber=String(data);
+            //获取店铺id
+            $http.post('storeId',$.param({storeNumber:$rootScope.storeNumber}),{headers:{'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    $rootScope.storeId=data;
+                }).error(function () {
+
+            });
         }).error(function () {
         // alert("服务端错误");
-    });
-    //获取店铺id
-    $http.post('storeId',$.param({storeNumber:$rootScope.storeNumber}),{headers:{'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
-        .success(function (data) {
-            $rootScope.storeId=data;
-        }).error(function () {
-
     });
 });
 app.controller('TopMessageController',function ($rootScope,$http,$scope) {

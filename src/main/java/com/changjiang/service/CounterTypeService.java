@@ -14,4 +14,10 @@ public interface CounterTypeService{
     int updateCounterType(CounterType value, Assist assist);
     int updateNonEmptyCounterTypeById(CounterType enti);
     int updateNonEmptyCounterType(CounterType value, Assist assist);
+	/**
+	 * 通过id查询柜台类别与其对应的柜台
+	 * @param id
+	 * @return
+	 */
+    List<CounterType> findCounterTypeAndCounter(Integer id);
 }

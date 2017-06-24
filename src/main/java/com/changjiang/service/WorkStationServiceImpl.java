@@ -69,5 +69,21 @@ public class WorkStationServiceImpl implements WorkStationService{
 		// TODO Auto-generated method stub
 		return workStations;
 	}
+    /**
+	 * 通过id查询岗位和岗位所对应的记录
+	 */
+	@Override
+	public List<WorkStation> findWorkStationAndRecord(Integer id) {
+		// TODO Auto-generated method stub
+		return workStationDao.findWorkStationAndRecord(id);
+	}
+	/**
+	 * 通过id查询岗位和counter_work_station_record
+	 */
+	@Override
+	public List<WorkStation> findWorkStationAndCounterStationRecord(Integer id) {
+		// TODO Auto-generated method stub
+		return workStationDao.findWorkStationAndCounterStationRecord(id);
+	}
 
 }

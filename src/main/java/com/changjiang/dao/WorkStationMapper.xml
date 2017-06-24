@@ -59,6 +59,43 @@
         from work_station
         where work_station.id = #{id}
     </select> 
+	<!-- 通过id查询岗位和岗位所对应的记录 -->
+	<select id="findWorkStationAndRecord" parameterType="int" resultMap="result_WorkStation_Map2">
+        select * from work_station where id=#{id}
+     </select>
+	<resultMap id="result_WorkStation_Map2" type="com.changjiang.entity.WorkStation">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="user_id" property="userId" />
+        <result column="go_work_time" property="goWorkTime" />
+        <result column="leave_work_time" property="leaveWorkTime" />
+        <result column="department_id" property="departmentId" />
+        <collection property="workstationRecords" ofType="com.changjiang.entity.WorkstationRecord" column="id" select="getWorkstationRecords">
+        </collection>
+    </resultMap>
+	<select id="getWorkstationRecords" parameterType="int" resultType="com.changjiang.entity.WorkstationRecord">
+        SELECT * FROM workstation_record WHERE work_station_id=#{id}
+     </select>
+	<!-- 通过id查询岗位和counter_work_station_record -->
+	 <select id="findWorkStationAndCounterStationRecord" parameterType="int" resultMap="result_WorkStation_Map3">
+        select * from work_station where id=#{id}
+     </select>
+	<resultMap id="result_WorkStation_Map3" type="com.changjiang.entity.WorkStation">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="user_id" property="userId" />
+        <result column="go_work_time" property="goWorkTime" />
+        <result column="leave_work_time" property="leaveWorkTime" />
+        <result column="department_id" property="departmentId" />
+        <collection property="counterWorkStationRecords" ofType="com.changjiang.entity.CounterWorkStationRecord" column="id" select="getCounterWorkStationRecords">
+        </collection>
+    </resultMap>
+	<select id="getCounterWorkStationRecords" parameterType="int" resultType="com.changjiang.entity.CounterWorkStationRecord">
+        SELECT * FROM counter_work_station_record WHERE work_station_id=#{id}
+     </select>
+
+
+
 
 
     <insert id="insertWorkStation" parameterType="com.changjiang.entity.WorkStation">

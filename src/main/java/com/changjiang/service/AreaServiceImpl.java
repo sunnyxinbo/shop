@@ -63,5 +63,13 @@ public class AreaServiceImpl implements AreaService{
     public void setAreaDao(AreaDao areaDao) {
         this.areaDao = areaDao;
     }
+    /**
+	 * 查询区域以及区域下的柜台
+	 */
+	@Override
+	public List<Area> findAreaAndCounter(Integer id) {
+		// TODO Auto-generated method stub
+		return areaDao.findAreaAndCounter(id);
+	}
 
 }

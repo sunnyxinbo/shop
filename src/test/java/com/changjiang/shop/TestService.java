@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.changjiang.config.MyMvcConfig;
 import com.changjiang.entity.Users;
+import com.changjiang.service.StoreService;
+import com.changjiang.service.UsersService;
 import com.changjiang.service.UsersServiceImpl;
 
 
@@ -24,6 +26,10 @@ public class TestService {
 	
 	@Autowired
 	private UsersServiceImpl service;
+	@Autowired 
+	private StoreService storeService;
+	@Autowired
+	private UsersService userService;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {	
 	}
@@ -42,14 +48,8 @@ public class TestService {
 
 	@Test
 	public void test() {
-//		List<Area> result=mapper.selectAreaByType(1);
-//		Assert.assertNotNull(result.get(0));
-//		Assert.assertNotNull(result.get(1));
-//		Store s=dao.selectStoreById(1);
-//		System.out.println(s.toString());
-//		s=dao.selectStoreById(1);
-		Users users=service.selectUsersHaveAll(1);
-		assertNotNull(users.getUser());
+		String storeNumber=userService.selectUsersHaveAll(1).getStore();
+		assertEquals(1,storeNumber);
 	}
 
 }

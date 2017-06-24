@@ -1,4 +1,7 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
 public class Counter {
     private Integer id;
     private String name;
@@ -7,6 +10,8 @@ public class Counter {
     private Integer store;
     private String state;
     private Integer area;
+    //一个柜台对应多个柜台岗位记录
+    List<CounterWorkStationRecord> counterWorkStationRecords;
     public Counter() {
         super();
     }
@@ -75,5 +80,11 @@ public class Counter {
     public void setArea(Integer area) {
         this.area = area;
     }
+	public List<CounterWorkStationRecord> getCounterWorkStationRecords() {
+		return counterWorkStationRecords;
+	}
+	public void setCounterWorkStationRecords(List<CounterWorkStationRecord> counterWorkStationRecords) {
+		this.counterWorkStationRecords = counterWorkStationRecords;
+	}
 
 }

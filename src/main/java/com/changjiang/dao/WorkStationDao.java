@@ -29,4 +29,14 @@ public interface WorkStationDao{
     	@Result(column="department_id",property="departmentId")
     })
     List<WorkStation> selectWorkStationByStoreId(Integer id);
+	/**
+	 * 通过id查询岗位和岗位所对应的记录
+	 * @param id
+	 * @return
+	 */
+    List<WorkStation> findWorkStationAndRecord(Integer id);
+    /**
+	 * 通过id查询岗位和counter_work_station_record
+	 */
+    List<WorkStation> findWorkStationAndCounterStationRecord(Integer id);
 }

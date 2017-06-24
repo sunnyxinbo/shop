@@ -63,5 +63,13 @@ public class CounterTypeServiceImpl implements CounterTypeService{
     public void setCounterTypeDao(CounterTypeDao counterTypeDao) {
         this.counterTypeDao = counterTypeDao;
     }
+    /**
+     * 通过id查询柜台类别与其对应的柜台
+     */
+	@Override
+	public List<CounterType> findCounterTypeAndCounter(Integer id) {
+		// TODO Auto-generated method stub
+		return counterTypeDao.findCounterTypeAndCounter(id);
+	}
 
 }

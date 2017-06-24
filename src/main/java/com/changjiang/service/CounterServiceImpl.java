@@ -63,5 +63,13 @@ public class CounterServiceImpl implements CounterService{
     public void setCounterDao(CounterDao counterDao) {
         this.counterDao = counterDao;
     }
+    /**
+	 * 通过id查询柜台及其对应的柜台岗位记录
+	 */
+	@Override
+	public List<Counter> findfindCounterAndWorkStationRecord(Integer id) {
+		// TODO Auto-generated method stub
+		return counterDao.findfindCounterAndWorkStationRecord(id);
+	}
 
 }

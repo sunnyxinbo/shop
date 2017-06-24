@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class StoreController {
     }
     @RequestMapping(value="/storeId",produces="text/plain;charset=UTF-8",
     		method=RequestMethod.POST)
+    @ResponseBody
     public String getStoreIdByStoreNumber(@RequestParam("storeNumber") String storeNumber){
     	return service.selectStoreIdByStoreNumber(storeNumber).toString();
     }
