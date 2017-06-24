@@ -60,6 +60,26 @@
         where duty.id = #{id}
     </select> 
 
+	<!-- 通过id查询duty以及其下的userinfomation -->
+	<select id="findDutyAndUserInfo" parameterType="int" resultMap="result_Duty_Map2">
+        select * from duty where id=#{id}
+     </select>
+	<resultMap id="result_Duty_Map2" type="com.changjiang.entity.Duty">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="db_desc" property="dbDesc" />
+        <result column="grade_id" property="gradeId" />
+        <result column="store_id" property="storeId" />
+        <result column="state" property="state" />
+        <collection property="userInformations" ofType="
+com.changjiang.entity.UserInformation" column="id" select="getUserInfo">
+        </collection>
+    </resultMap>
+	<select id="getUserInfo" parameterType="int" resultType="com.changjiang.entity.UserInformation">
+        SELECT * FROM user_information WHERE duty_id=#{id}
+     </select>
+
+
 
     <insert id="insertDuty" parameterType="com.changjiang.entity.Duty">
         insert into duty(id,name,db_desc,grade_id,store_id,state) 
