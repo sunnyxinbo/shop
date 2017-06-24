@@ -31,4 +31,18 @@ public interface StoreDao{
      * @return
      */
     Store queryStoreProducteByStoreId(Integer storeid);
+    @Select("SELECT * FROM store WHERE store.organization_id=#{id} AND store.state=0")
+    @Results({
+    	@Result(id=true,column="id",property="id"),
+    	@Result(column="name",property="name"),
+    	@Result(column="store_type_id",property="storeTypeId"),
+    	@Result(column="address",property="address"),
+    	@Result(column="phone",property="phone"),
+    	@Result(column="legal_name",property="legalName"),
+    	@Result(column="legal_name_phone",property="legalNamePhone"),
+    	@Result(column="state",property="state"),
+    	@Result(column="db_desc",property="dbDesc"),
+    	@Result(column="number",property="number")
+    })
+    List<Store> selectEnabledStoreByOrganizationId(Integer id);
 }

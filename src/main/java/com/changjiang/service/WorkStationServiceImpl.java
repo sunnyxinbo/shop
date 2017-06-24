@@ -63,5 +63,11 @@ public class WorkStationServiceImpl implements WorkStationService{
     public void setWorkStationDao(WorkStationDao workStationDao) {
         this.workStationDao = workStationDao;
     }
+	@Override
+	public List<WorkStation> selectWorkStationByStoreId(Integer id) {
+		List<WorkStation> workStations=workStationDao.selectWorkStationByStoreId(id);
+		// TODO Auto-generated method stub
+		return workStations;
+	}
 
 }

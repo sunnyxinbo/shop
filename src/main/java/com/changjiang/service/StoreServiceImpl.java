@@ -75,5 +75,17 @@ public class StoreServiceImpl implements StoreService{
 		List<StoreProducte> storeProductes = store.getStoreProducte();
 		return storeProductes;
 	}
+	@Override
+	public Integer selectStoreIdByStoreNumber(String storeNumber) {
+		Integer id=storeDao.selectIdByStoreNumber(storeNumber);
+		// TODO Auto-generated method stub
+		return id;
+	}
+	@Override
+	public List<Store> selectEnabledStoreByOrganizationId(Integer id) {
+		List<Store> stores=storeDao.selectEnabledStoreByOrganizationId(id);
+		// TODO Auto-generated method stub
+		return stores;
+	}
 
 }

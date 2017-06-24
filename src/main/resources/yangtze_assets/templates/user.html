@@ -25,7 +25,9 @@
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
                             <a href="#/add_user" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
-                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                            <button type="button" class="am-btn am-btn-default am-btn-danger" ng-click="deleteManyUser()">
+                                <span class="am-icon-trash-o"></span> 删除
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -45,7 +47,9 @@
                         <table class="am-table am-table-striped am-table-hover table-main">
                             <thead>
                             <tr>
-                                <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                <th class="table-check">
+                                    <input type="checkbox" class="tpl-table-fz-check" ng-model="checkAll" ng-change="checkBoxAllChanged()">
+                                </th>
                                 <th class="table-id">序号</th>
                                 <th class="table-type">用户名</th>
                                 <th class="table-type">密码</th>
@@ -56,7 +60,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="user in users">
-                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox" ng-model="user.check" ng-change="checkBoxChanged()"></td>
                                 <td>{{$index+1}}</td>
                                 <td>{{user.username}}</td>
                                 <td>{{user.password}}</td>
@@ -68,7 +72,7 @@
                                             <a href="#/userDetails/{{user.id}}" class="am-btn am-btn-default am-btn-xs am-text-secondary">
                                                 <span class="am-icon-pencil-square-o"></span>编辑
                                             </a>
-                                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" >
+                                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" ng-click="deleteSingleUser(user.id)">
                                                 <span class="am-icon-trash-o"></span>删除
                                             </button>
                                         </div>

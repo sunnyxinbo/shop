@@ -49,7 +49,7 @@ public interface UsersDao{
     	one=@One(select="com.changjiang.dao.UserInformationDao."
     			+ "selectUserInformationById",fetchType=FetchType.EAGER))
     })
-    List<Users> selectAllUsersByUserId(String number);
+    List<Users> selectAllUsersHaveAllByStoreNumber(String number);
     //根据店铺的编号查出启用的user
     @Select("SELECT * FROM users WHERE store=#{number},enabled=0")
     @Results({
@@ -62,7 +62,7 @@ public interface UsersDao{
     	@Result(column="store",property="store"),
     	@Result(column="user_information",property="userInformation")
     })
-    List<Users> selectEnabledUsersByUserId(String number);
+    List<Users> selectEnabledUsersHaveAllByStoreNumber(String number);
     //根据店铺的编号查出未启用的user
     @Select("SELECT * FROM users WHERE store=#{number},enabled=1")
     @Results({
@@ -75,5 +75,5 @@ public interface UsersDao{
     	@Result(column="store",property="store"),
     	@Result(column="user_information",property="userInformation")
     })
-    List<Users> selectDisabledUsersByUserId(String number);
+    List<Users> selectDisabledUsersHaveAllByStoreNumber(String number);
 }

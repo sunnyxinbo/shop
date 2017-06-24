@@ -14,4 +14,5 @@ public interface WorkStationService{
     int updateWorkStation(WorkStation value, Assist assist);
     int updateNonEmptyWorkStationById(WorkStation enti);
     int updateNonEmptyWorkStation(WorkStation value, Assist assist);
+    List<WorkStation> selectWorkStationByStoreId(Integer id);
 }

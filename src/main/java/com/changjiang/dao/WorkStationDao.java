@@ -3,6 +3,9 @@ import com.changjiang.entity.WorkStation;
 import java.util.List;
 import com.changjiang.common.Assist;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 public interface WorkStationDao{
     long getWorkStationRowCount(Assist assist);
     List<WorkStation> selectWorkStation(Assist assist);
@@ -15,4 +18,15 @@ public interface WorkStationDao{
     int updateWorkStation(@Param("enti") WorkStation value, @Param("assist") Assist assist);
     int updateNonEmptyWorkStationById(WorkStation enti);
     int updateNonEmptyWorkStation(@Param("enti") WorkStation value, @Param("assist") Assist assist);
+    @Select("SELECT * FROM work_station WHERE work_station.department_id=department.id AND "
+    		+ "department.store_id=#{id}")
+    @Results({
+    	@Result(id=true,column="id",property="id"),
+    	@Result(column="name",property="name"),
+    	@Result(id=true,column="user_id",property="userId"),
+    	@Result(column="go_work_time",property="goWorkTime"),
+    	@Result(column="leave_work_time",property="leaveWorkTime"),
+    	@Result(column="department_id",property="departmentId")
+    })
+    List<WorkStation> selectWorkStationByStoreId(Integer id);
 }

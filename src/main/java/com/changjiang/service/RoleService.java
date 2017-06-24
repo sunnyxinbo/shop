@@ -4,7 +4,7 @@ import com.changjiang.entity.Role;
 import com.changjiang.common.Assist;
 public interface RoleService{
     long getRoleRowCount(Assist assist);
-    List<Role> selectRole(Assist assist);
+    List<Role> selectRole(String id);
     Role selectRoleById(Integer id);
     int insertRole(Role value);
     int insertNonEmptyRole(Role value);

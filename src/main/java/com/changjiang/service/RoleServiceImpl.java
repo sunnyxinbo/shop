@@ -16,8 +16,9 @@ public class RoleServiceImpl implements RoleService{
         return roleDao.getRoleRowCount(assist);
     }
     @Override
-    public List<Role> selectRole(Assist assist){
-        return roleDao.selectRole(assist);
+    public List<Role> selectRole(String id){
+    	List<Role> roles=roleDao.selectRole(new Assist(Assist.and_eq("store_id",id)));
+        return roles;
     }
     @Override
     public Role selectRoleById(Integer id){

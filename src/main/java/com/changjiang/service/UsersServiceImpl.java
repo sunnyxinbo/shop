@@ -87,7 +87,7 @@ public class UsersServiceImpl implements UsersService{
 	public List<Users> selectAllUsersByUserId(Integer id) {
 		Users user=usersDao.selectUsersById(id);
 		//根据user的id来查店铺编号
-		List<Users> users=usersDao.selectAllUsersByUserId(user.getStore());
+		List<Users> users=usersDao.selectAllUsersHaveAllByStoreNumber(user.getStore());
 		// TODO Auto-generated method stub
 		return users;
 	}
@@ -96,7 +96,7 @@ public class UsersServiceImpl implements UsersService{
 	public List<Users> selectEnabledUsersByUserId(Integer id) {
 		Users user=usersDao.selectUsersById(id);
 		//根据user的id来查店铺编号
-		List<Users> users=usersDao.selectEnabledUsersByUserId(user.getStore());
+		List<Users> users=usersDao.selectEnabledUsersHaveAllByStoreNumber(user.getStore());
 		// TODO Auto-generated method stub
 		return users;
 	}
@@ -105,7 +105,7 @@ public class UsersServiceImpl implements UsersService{
 	public List<Users> selectDisabledUsersByUserId(Integer id) {
 		Users user=usersDao.selectUsersById(id);
 		//根据user的id来查店铺编号
-		List<Users> users=usersDao.selectDisabledUsersByUserId(user.getStore());
+		List<Users> users=usersDao.selectDisabledUsersHaveAllByStoreNumber(user.getStore());
 		// TODO Auto-generated method stub
 		return users;
 	}

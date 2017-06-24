@@ -32,27 +32,22 @@
                         <div class="am-form-group">
                             <label for="user-role" class="am-u-sm-3 am-form-label">角色 <span class="tpl-form-line-small-title">Role</span></label>
                             <div class="am-u-sm-9">
-                                <select data-am-selected="{searchBox: 1}" id="user-role">
-                                    <option value="a">-The.CC</option>
-                                    <option value="b">夕风色</option>
-                                    <option value="o">Orange</option>
+                                <select data-am-selected="{searchBox: 1}" id="user-role" ng-options="x.name for x in roles" ng-model="user.role">
                                 </select>
                             </div>
                         </div>
-                        <div class="am-form-group">
+                        <div class="am-form-group" ng-show="showStore">
                             <label for="store" class="am-u-sm-3 am-form-label">店铺<span class="tpl-form-line-small-title">Store</span></label>
                             <div class="am-u-sm-9">
                                 <select data-am-selected="{searchBox: 1}" id="store">
                                     <option value="a">-The.CC</option>
-                                    <option value="b">夕风色</option>
-                                    <option value="o">Orange</option>
                                 </select>
                             </div>
                         </div>
                         <div class="am-form-group">
                             <div class="am-u-sm-9 am-u-sm-push-3">
                                 <button type="button" class="am-btn am-btn-success">保存</button>
-                                <button type="button" class="am-btn am-btn-secondary">取消</button>
+                                <a href="#/user" class="am-btn am-btn-secondary">取消</a>
                             </div>
                         </div>
                     </form>

@@ -21,4 +21,6 @@ public interface StoreService{
      * @return
      */
 	List<StoreProducte> queryStoreProducteByStoreId(Integer storeid);
+	Integer selectStoreIdByStoreNumber(String storeNumber);
+	List<Store> selectEnabledStoreByOrganizationId(Integer id);
 }
