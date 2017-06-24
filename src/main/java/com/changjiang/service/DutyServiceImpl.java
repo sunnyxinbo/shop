@@ -19,6 +19,10 @@ public class DutyServiceImpl implements DutyService{
         return dutyDao.getDutyRowCount(assist);
     }
     @Override
+    public List<Duty> selectDuty(Assist assist){
+        return dutyDao.selectDuty(assist);
+    }
+    @Override
     public Duty selectDutyById(Integer id){
         return dutyDao.selectDutyById(id);
     }
@@ -62,6 +66,14 @@ public class DutyServiceImpl implements DutyService{
     public void setDutyDao(DutyDao dutyDao) {
         this.dutyDao = dutyDao;
     }
+    /**
+	 * 通过id查询duty以及其下的userinfomation
+	 */
+	@Override
+	public List<Duty> findDutyAndUserInfo(Integer id) {
+		// TODO Auto-generated method stub
+		return dutyDao.findDutyAndUserInfo(id);
+	}
 	@Override
 	public List<Duty> selectDutyByStoreNumber(String storeNumber) {
 		Integer store_id=storeDao.selectIdByStoreNumber(storeNumber);
@@ -70,5 +82,4 @@ public class DutyServiceImpl implements DutyService{
 		// TODO Auto-generated method stub
 		return duties;
 	}
-
 }

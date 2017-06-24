@@ -14,12 +14,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;  
@@ -88,7 +82,8 @@ public class MybatisRedisCache implements Cache {
     	/**
     	 * 用于部署环境下
     	 */
-        JedisPool pool = new JedisPool(new JedisPoolConfig(),"localhost");
+        @SuppressWarnings("resource")
+		JedisPool pool = new JedisPool(new JedisPoolConfig(),"192.168.1.102");
         return pool.getResource();  
     }  
 }

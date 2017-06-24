@@ -15,4 +15,8 @@ public interface CounterDao{
     int updateCounter(@Param("enti") Counter value, @Param("assist") Assist assist);
     int updateNonEmptyCounterById(Counter enti);
     int updateNonEmptyCounter(@Param("enti") Counter value, @Param("assist") Assist assist);
+    /**
+	 * 通过id查询柜台及其对应的柜台岗位记录
+	 */
+    List<Counter> findfindCounterAndWorkStationRecord(Integer id);
 }

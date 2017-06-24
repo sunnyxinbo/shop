@@ -1,4 +1,7 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
 public class Department {
     private Integer id;
     private String number;
@@ -6,6 +9,8 @@ public class Department {
     private String dbDesc;
     private Integer storeId;
     private String departmentGrade;
+    //对应多个工作岗位
+    List<WorkStation> workStations;
     public Department() {
         super();
     }
@@ -65,5 +70,11 @@ public class Department {
     public void setDepartmentGrade(String departmentGrade) {
         this.departmentGrade = departmentGrade;
     }
+	public List<WorkStation> getWorkStations() {
+		return workStations;
+	}
+	public void setWorkStations(List<WorkStation> workStations) {
+		this.workStations = workStations;
+	}
 
 }

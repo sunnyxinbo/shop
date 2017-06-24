@@ -1,4 +1,11 @@
 package com.changjiang.entity;
+
+import java.util.List;
+
+/**
+ * 
+ * 职责
+ */
 public class Duty {
     private Integer id;
     private String name;
@@ -6,6 +13,7 @@ public class Duty {
     private Integer gradeId;
     private Integer storeId;
     private String state;
+    private List userInformations;
     public Duty() {
         super();
     }
@@ -65,5 +73,11 @@ public class Duty {
     public void setState(String state) {
         this.state = state;
     }
+	public List getUserInformation() {
+		return userInformations;
+	}
+	public void setUserInformation(List userInformations) {
+		this.userInformations = userInformations;
+	}
 
 }

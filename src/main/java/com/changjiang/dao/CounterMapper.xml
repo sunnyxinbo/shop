@@ -61,6 +61,31 @@
         from counter
         where counter.id = #{id}
     </select> 
+	<!-- 通过id查询柜台及其对应的柜台岗位记录 -->
+	<select id="findfindCounterAndWorkStationRecord" parameterType="int" resultMap="result_Counter_Map2">
+        select * from counter where id=#{id}
+     </select>
+	<resultMap id="result_Counter_Map2" type="com.changjiang.entity.Counter">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="db_desc" property="dbDesc" />
+        <result column="type" property="type" />
+        <result column="store" property="store" />
+        <result column="state" property="state" />
+        <result column="area" property="area" />
+        <collection property="counterWorkStationRecords" ofType="com.changjiang.entity.CounterWorkStationRecord" column="id" select="getCounterWorkStationRecords"></collection>
+    </resultMap>
+	<select id="getCounterWorkStationRecords" parameterType="int" resultType="com.changjiang.entity.CounterWorkStationRecord">
+        SELECT * FROM counter_work_station_record WHERE counter_id=#{id}
+     </select>
+
+
+
+
+
+
+
+
 
 
     <insert id="insertCounter" parameterType="com.changjiang.entity.Counter">

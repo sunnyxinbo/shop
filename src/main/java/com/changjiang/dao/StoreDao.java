@@ -20,11 +20,11 @@ public interface StoreDao{
     int updateStore(@Param("enti") Store value, @Param("assist") Assist assist);
     int updateNonEmptyStoreById(Store enti);
     int updateNonEmptyStore(@Param("enti") Store value, @Param("assist") Assist assist);
-    @Select("SELECT id FROM store WHERE storeNumber=#{storeNumber}")
+    @Select("SELECT id FROM store WHERE number=#{number}")
     @Results({
     	@Result(id=true,column="id",property="id")
     })
-    Integer selectIdByStoreNumber(String storeNumber);
+    Integer selectIdByStoreNumber(String number);
     /**
      * 通过店面id查询店面具有的所有产品
      * @param storeid

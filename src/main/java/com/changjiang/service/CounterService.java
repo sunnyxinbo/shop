@@ -14,4 +14,8 @@ public interface CounterService{
     int updateCounter(Counter value, Assist assist);
     int updateNonEmptyCounterById(Counter enti);
     int updateNonEmptyCounter(Counter value, Assist assist);
+    /**
+	 * 通过id查询柜台及其对应的柜台岗位记录
+	 */
+    List<Counter> findfindCounterAndWorkStationRecord(Integer id);
 }

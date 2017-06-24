@@ -59,6 +59,24 @@
         from department
         where department.id = #{id}
     </select> 
+	<!-- 通过id查询department与其对应的workstation岗位 -->
+	<select id="findDepartmentAndWorkStation" parameterType="int" resultMap="result_Department_Map2">
+        select * from department where id=#{id}
+     </select>
+	<resultMap id="result_Department_Map2" type="com.changjiang.entity.Department">
+        <id column="id" property="id" />
+        <result column="number" property="number" />
+        <result column="name" property="name" />
+        <result column="db_desc" property="dbDesc" />
+        <result column="store_id" property="storeId" />
+        <result column="department_grade" property="departmentGrade" />
+        <collection property="workStations" ofType="com.changjiang.entity.WorkStation" column="id" select="getWorkStations">
+        </collection>
+    </resultMap>
+<select id="getWorkStations" parameterType="int" resultType="com.changjiang.entity.WorkStation">
+        SELECT * FROM work_station WHERE department_id=#{id}
+     </select>
+
 
 
     <insert id="insertDepartment" parameterType="com.changjiang.entity.Department">

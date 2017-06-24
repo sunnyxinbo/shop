@@ -15,4 +15,10 @@ public interface DepartmentDao{
     int updateDepartment(@Param("enti") Department value, @Param("assist") Assist assist);
     int updateNonEmptyDepartmentById(Department enti);
     int updateNonEmptyDepartment(@Param("enti") Department value, @Param("assist") Assist assist);
+    /**
+	 * 通过id查询department与其对应的workstation岗位
+	 * @param id
+	 * @return
+	 */
+    List<Department> findDepartmentAndWorkStation(Integer id);
 }

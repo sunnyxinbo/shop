@@ -61,6 +61,28 @@
         from area
         where area.id = #{id}
     </select> 
+	<!-- 查询区域以及区域下的柜台 -->
+	<select id="findAreaAndCounter" parameterType="int" resultMap="result_Area_Map2">
+        select * from area where id=#{id}
+     </select>
+	<resultMap id="result_Area_Map2" type="com.changjiang.entity.Area">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="store" property="store" />
+        <result column="state" property="state" />
+        <result column="db_desc" property="dbDesc" />
+        <result column="upper_level_id" property="upperLevelId" />
+        <result column="current_level" property="currentLevel" />
+        <collection property="counters" ofType="com.changjiang.entity.Counter" column="id" select="getCounters"></collection>
+    </resultMap>
+	<select id="getCounters" parameterType="int" resultType="com.changjiang.entity.Counter">
+        SELECT * FROM counter WHERE area=#{id}
+     </select>
+
+
+
+
+
 
 
     <insert id="insertArea" parameterType="com.changjiang.entity.Area">

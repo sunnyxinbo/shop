@@ -19,4 +19,10 @@ public interface OrderService{
      * @return
      */
 	List<Order> selectAllOrder();
+	/**
+	 * 该方法用来产生流水号
+	 * @return
+	 */
+	public String createGlideNumber(SysCodeRuleService sysCodeRuleService);
+	
 }

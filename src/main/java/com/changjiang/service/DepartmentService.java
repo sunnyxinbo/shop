@@ -14,4 +14,10 @@ public interface DepartmentService{
     int updateDepartment(Department value, Assist assist);
     int updateNonEmptyDepartmentById(Department enti);
     int updateNonEmptyDepartment(Department value, Assist assist);
+	/**
+	 * 通过id查询department与其对应的workstation岗位
+	 * @param id
+	 * @return
+	 */
+    List<Department> findDepartmentAndWorkStation(Integer id);
 }
