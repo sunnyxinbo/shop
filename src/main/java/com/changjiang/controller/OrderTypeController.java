@@ -19,7 +19,6 @@ import com.changjiang.service.OrderTypeService;
  * 订单类型控制层
  */
 @Controller
-@RequestMapping("/ordertype")
 public class OrderTypeController {
 	@Autowired
 	private OrderTypeService ordertypeservice;

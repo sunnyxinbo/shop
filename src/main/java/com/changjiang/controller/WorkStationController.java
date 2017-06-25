@@ -15,7 +15,7 @@ import com.changjiang.service.WorkStationService;
 public class WorkStationController {
 	@Autowired
 	private WorkStationService service;
-	@RequestMapping(value="/workStations",produces="application/json;charst=UTF-8",method=
+	@RequestMapping(value="/workstations",produces="application/json;charst=UTF-8",method=
 		RequestMethod.POST)
 	public List<WorkStation> getWorkStationsBySoreId(@RequestParam("storeId") String id){
 		List<WorkStation> workStations=service.selectWorkStationByStoreId(Integer.valueOf(id));

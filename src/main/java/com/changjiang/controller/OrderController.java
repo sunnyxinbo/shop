@@ -17,7 +17,6 @@ import com.changjiang.service.OrderService;
  *
  */
 @Controller
-@RequestMapping("/order")
 public class OrderController {
 	@Autowired
 	private OrderService orderService;

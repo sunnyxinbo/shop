@@ -14,6 +14,13 @@ public class UserInformationModel {
     private Integer dutyId;
     private Integer departmentId;
     private Integer storeId;
+    private Integer workstationId;
+	public Integer getWorkstationId() {
+		return workstationId;
+	}
+	public void setWorkstationId(Integer workstationId) {
+		this.workstationId = workstationId;
+	}
 	public String getRealname() {
 		return realname;
 	}

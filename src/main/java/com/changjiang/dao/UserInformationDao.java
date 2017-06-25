@@ -22,13 +22,13 @@ public interface UserInformationDao{
 	 * 查询用户信息和他的所有评价
 	 */
     List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id);
-    @Select("SELECT id from userInformation WHERE idNumber=#{IdNumber}")
+    @Select("SELECT id from user_information WHERE idNumber=#{IdNumber}")
     @Results({
     	@Result(id=true,column="id",property="id")
     })
     Integer selectUserInformationIdByIdNumber(String IdNumber);
     /**
-	 * 通过id查询userinformation与其对应的workstation
+	 * 通过id查询userInformation与其对应的workstation
 	 * @param id
 	 * @return
 	 */

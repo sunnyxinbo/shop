@@ -37,13 +37,13 @@
                                     <div class="am-form-group">
                                         <label for="password" class="am-u-sm-3 am-form-label">密码 / Password</label>
                                         <div class="am-u-sm-9">
-                                            <input type="password" id="password" placeholder="输入你的密码 / Password" required minlength="6" maxlength="16"
+                                            <input type="text" id="password" placeholder="输入你的密码 / Password" required minlength="6" maxlength="16"
                                                    ng-model="user.password">
                                             <small>6到16位任意字符与数字</small>
                                         </div>
                                     </div>
                                     <div class="am-form-group">
-                                        <label for="user-role" class="am-u-sm-3 am-form-label">角色 <span class="tpl-form-line-small-title">Role</span></label>
+                                        <label for="user-role" class="am-u-sm-3 am-form-label">角色 / Role</label>
                                         <div class="am-u-sm-9">
                                             <select data-am-selected="{searchBox: 1}" id="user-role" ng-model="user.role" ng-options="x.name for x in roles">
                                                 <option value="">请选择一个角色</option>
@@ -73,12 +73,12 @@
                     <div class="tpl-block ">
                         <div class="am-g tpl-amazeui-form">
                             <div class="am-u-sm-12 am-u-md-9">
-                                <form class="am-form am-form-horizontal">
+                                <form class="am-form am-form-horizontal" id="form2">
                                     <div class="am-form-group">
                                         <label for="real-name" class="am-u-sm-3 am-form-label">真实姓名 / Name</label>
                                         <div class="am-u-sm-9">
                                             <input type="text" id="real-name" placeholder="真实姓名 / Name" required minlength="2" maxlength="10"
-                                                   ng-model="userInformation.realName">
+                                                   ng-model="userInformation.realname">
                                             <small>输入你的真实名字，让我们记住你。</small>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                     <div class="am-form-group">
                                         <label for="user-phone" class="am-u-sm-3 am-form-label">电话 / Telephone</label>
                                         <div class="am-u-sm-9">
-                                            <input type="tel" id="user-phone" placeholder="输入你的电话号码 / Telephone" ng-model="userInformation.telephone">
+                                            <input type="tel" id="user-phone" placeholder="输入你的电话号码 / Telephone" ng-model="userInformation.phone">
                                         </div>
                                     </div>
                                     <div class="am-form-group">
@@ -129,7 +129,7 @@
                                     <div class="am-form-group">
                                         <label for="duty" class="am-u-sm-3 am-form-label">职务</label>
                                         <div class="am-u-sm-9">
-                                            <select id="duty" required ng-model="userInformation.duty" ng-options="x.name for x in duties" class="am-u-sm-9">
+                                            <select id="duty" required ng-model="duty" ng-options="x.name for x in duties" class="am-u-sm-9">
                                                 <option value="">-=请选择一项=-</option>
                                             </select>
                                             <span class="am-form-caret"></span>
@@ -138,7 +138,7 @@
                                     <div class="am-form-group">
                                         <label for="workstation" class="am-u-sm-3 am-form-label">岗位</label>
                                         <div class="am-u-sm-9">
-                                            <select id="workstation" required ng-model="userInformation.workstation" ng-options="x.name for x in workstations"
+                                            <select id="workstation" required ng-model="workstation" ng-options="x.name for x in workstations"
                                                     class="am-u-sm-9">
                                                 <option value="">-=请选择一项=-</option>
                                             </select>
@@ -153,10 +153,10 @@
                                         </div>
                                     </div>
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Introduction</label>
                                         <div class="am-u-sm-9">
                                             <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介" maxlength="500"
-                                                      ng-model="userInformation.intro"></textarea>
+                                                      ng-model="userInformation.dbDesc"></textarea>
                                             <small>250字以内写出你的一生...</small>
                                         </div>
                                     </div>
@@ -179,6 +179,23 @@
 <script type="text/javascript">
     $(function() {
         $('#doc-vld-msg').validator({
+            onValid: function(validity) {
+                $(validity.field).closest('.am-form-group').find('.am-alert').hide();
+            },
+            onInValid: function(validity) {
+                let $field = $(validity.field);
+                let $group = $field.closest('.am-form-group');
+                let $alert = $group.find('.am-alert');
+                // 使用自定义的提示信息 或 插件内置的提示信息
+                let msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+                if (!$alert.length) {
+                    $alert = $('<div class="am-alert am-alert-danger"></div>').hide().
+                    appendTo($group);
+                }
+                $alert.html(msg).show();
+            }
+        });
+        $('#form2').validator({
             onValid: function(validity) {
                 $(validity.field).closest('.am-form-group').find('.am-alert').hide();
             },

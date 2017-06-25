@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.UserInformationDao;
+import com.changjiang.dao.WorkStationDao;
 import com.changjiang.entity.UserInformation;
+import com.changjiang.entity.WorkStation;
 import com.changjiang.model.UserInformationModel;
 import com.changjiang.common.Assist;
 @Service
 public class UserInformationServiceImpl implements UserInformationService{
     @Autowired
 	private UserInformationDao userInformationDao;
+    @Autowired
+    private WorkStationDao workstationDao;
     @Override
     public long getUserInformationRowCount(Assist assist){
         return userInformationDao.getUserInformationRowCount(assist);
@@ -72,12 +76,17 @@ public class UserInformationServiceImpl implements UserInformationService{
 		List<UserInformation> userInformations = userInformationDao.queryUserInformationAndEvaluations(user_information_id);
 		return userInformations;
 	}
+	//首先向UserInformation表下添加数据，之后对WorkStation进行更改，设置它的user_id为新加的UserInformation
 	@Override
 	public Integer addUserInformation(UserInformationModel model) {
 		UserInformation userInformation=new UserInformation();
 		userInformation.setUserInformaton(model);
 		userInformationDao.insertNonEmptyUserInformation(userInformation);
 		Integer id=userInformationDao.selectUserInformationIdByIdNumber(model.getIdNumber());
+		WorkStation workStation=new WorkStation();
+		workStation.setId(model.getWorkstationId());
+		workStation.setUserId(id);
+		workstationDao.updateNonEmptyWorkStationById(workStation);
 		// TODO Auto-generated method stub
 		return id;
 	}

@@ -90,6 +90,7 @@ public class UsersController {
 	}
 	@RequestMapping(value="deleteSingleUser",method=RequestMethod.POST,
 			produces="text/plain;charset=UTF-8")
+	@ResponseBody
 	public String deleteSingleUser(@RequestParam("user_id") Integer id){
 		int result=service.deleteUsersById(id);
 		if(result==1){
@@ -100,6 +101,7 @@ public class UsersController {
 	}
 	@RequestMapping(value="deleteManyUser",method=RequestMethod.POST,
 			produces="text/plain;charset=UTF-8")
+	@ResponseBody
 	public String deleteManyUser(@RequestParam("deleteUsers") Integer[] users){
 		boolean sign=service.deleteManyUser(users);
 		if(sign){
@@ -111,6 +113,7 @@ public class UsersController {
 	//添加用户
 	@RequestMapping(value="addUser",method=RequestMethod.POST,
 			produces="text/plain;charset=UTF-8")
+	@ResponseBody
 	public String addUser(@RequestParam("username") String username,@RequestParam("passowrd")
 	String password,@RequestParam("role") Integer role,@RequestParam("store") String store,
 	@RequestParam("userInformation") Integer userInformation){
@@ -127,5 +130,17 @@ public class UsersController {
 			return "defeat";
 		}
 		return "success";
+	}
+	//更改User
+	@RequestMapping(value="changeUser",method=RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String changeUserById(Users user){
+		int result=service.updateNonEmptyUsersById(user);
+		if(result==1){
+			return "success";
+		}else{
+			return "defeat";
+		}
 	}
 }
