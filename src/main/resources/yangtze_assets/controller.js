@@ -74,6 +74,9 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
     });
     //当选则不同类别时，显示的数据不同
     $scope.changeData=function (style) {
+    	if(style=="option1"){
+    		return;
+    	}
         let parameter=Number(style);
         //获取启用的数据
         if (parameter==0){

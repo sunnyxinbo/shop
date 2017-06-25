@@ -4,10 +4,10 @@ package com.changjiang.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.changjiang.entity.UserEvaluation;
 import com.changjiang.entity.UserInformation;
@@ -18,7 +18,7 @@ import com.changjiang.service.UserInformationService;
  * 
  * 用户信息控制层
  */
-@Controller
+@RestController
 public class UserInformationController {
 	@Autowired
 	private UserInformationService service;

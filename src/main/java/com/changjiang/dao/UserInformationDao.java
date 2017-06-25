@@ -22,7 +22,7 @@ public interface UserInformationDao{
 	 * 查询用户信息和他的所有评价
 	 */
     List<UserInformation> queryUserInformationAndEvaluations(Integer user_information_id);
-    @Select("SELECT id from user_information WHERE idNumber=#{IdNumber}")
+    @Select("SELECT id from user_information WHERE id_number=#{IdNumber}")
     @Results({
     	@Result(id=true,column="id",property="id")
     })

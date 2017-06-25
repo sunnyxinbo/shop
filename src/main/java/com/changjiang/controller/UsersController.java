@@ -114,7 +114,7 @@ public class UsersController {
 	@RequestMapping(value="addUser",method=RequestMethod.POST,
 			produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String addUser(@RequestParam("username") String username,@RequestParam("passowrd")
+	public String addUser(@RequestParam("username") String username,@RequestParam("password")
 	String password,@RequestParam("role") Integer role,@RequestParam("store") String store,
 	@RequestParam("userInformation") Integer userInformation){
 		Users user=new Users();
