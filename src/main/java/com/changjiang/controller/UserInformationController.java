@@ -19,7 +19,6 @@ import com.changjiang.service.UserInformationService;
  * 用户信息控制层
  */
 @Controller
-@RequestMapping("/userinformation")
 public class UserInformationController {
 	@Autowired
 	private UserInformationService service;

@@ -18,7 +18,7 @@ public interface WorkStationDao{
     int updateWorkStation(@Param("enti") WorkStation value, @Param("assist") Assist assist);
     int updateNonEmptyWorkStationById(WorkStation enti);
     int updateNonEmptyWorkStation(@Param("enti") WorkStation value, @Param("assist") Assist assist);
-    @Select("SELECT * FROM work_station WHERE work_station.department_id=department.id AND "
+    @Select("SELECT * FROM work_station,department WHERE work_station.department_id=department.id AND "
     		+ "department.store_id=#{id}")
     @Results({
     	@Result(id=true,column="id",property="id"),

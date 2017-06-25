@@ -17,7 +17,6 @@ import com.changjiang.service.VipService;
  *
  */
 @Controller
-@RequestMapping("/vip")
 public class VipController {
 	@Autowired
 	private VipService vipService;

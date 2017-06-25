@@ -61,9 +61,9 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
         .success(function (data){
             angular.forEach(data,function (f,index) {
                 if(f.enabled==0){
-                    f.enabled=String("启用");
+                    f.style=String("启用");
                 }else {
-                    f.enabled=String("未启用");
+                    f.style=String("未启用");
                 }
                 f.check=false;//初始化所有用户没有被选定
             });
@@ -104,7 +104,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
     $scope.checkAll=false;
     $scope.checkBoxAllChanged=function () {
         angular.forEach($scope.users,function (f,index) {
-            f.check=checkAll;
+            f.check=$scope.checkAll;
         })
     };
     $scope.checkBoxChanged=function () {
@@ -176,7 +176,15 @@ app.controller('AddUserController',function ($scope,$rootScope,$http,$state) {
     $http.post('workstations',$.param({storeId:$rootScope.storeId}),
         {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data) {
-            $scope.duties=data;
+            $scope.workstations=data;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //获取这个店铺所有的role
+    $http.post('getRoles',$.param({id:$rootScope.storeId}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            $scope.roles=data;
         }).error(function () {
         alert("服务端错误");
     });
@@ -190,17 +198,23 @@ app.controller('AddUserController',function ($scope,$rootScope,$http,$state) {
     $scope.cancel=function () {
         $state.go("user");
     };
+    $scope.duty={};
+    $scope.workstation={};
     //点击提交
     $scope.addUserAndInformation=function () {
         if (!$scope.showStore){
-            user.store.number=$rootScope.storeNumber;
+            $scope.user.store=$rootScope.storeNumber;
         }
+        $scope.userInformation.dutyId=$scope.duty.id;
+        $scope.userInformation.departmentId=$scope.workstation.departmentId;
+        $scope.userInformation.workstationId=$scope.workstation.id;
+        $scope.userInformation.storeId=$rootScope.storeId;
         $http.post('addUserInformation',$.param($scope.userInformation),
             {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
             .success(function (data){
                 if(data!="defeat"){
-                    $http.post('addUser',$.param({username:user.username,password:user.password,role:user.role.id,store:user.store.number,userInformation:
-                    data}),
+                    $http.post('addUser',$.param({username:$scope.user.username,password:$scope.user.password,role:$scope.user.role.id,
+                            store:$scope.user.store,userInformation: data}),
                         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                         .success(function (data){
                             if (data=="success"){
@@ -218,34 +232,65 @@ app.controller('AddUserController',function ($scope,$rootScope,$http,$state) {
         });
     }
 });
-app.controller('UserDetailsController',function ($stateParams,$http,$scope,$rootScope) {
+app.controller('UserDetailsController',function ($stateParams,$http,$scope,$rootScope,$state) {
     let showStore=false;//将决定是否显示店铺的选项
     let id=Number($stateParams.id);
     let users=$rootScope.users;
     for (let i=0;i<users.length;i++){
         if(users[i].id==id){
-            $scope.user=user[i];
+            $scope.user=users[i];
             break;
         }
     }
     $scope.roles=[];
-    $scope.roles.push(user.role);
+    $scope.roles.push($scope.user.role);
     //获取这个店铺所有的role
-    $http.post('roles',$.param({storeId:$rootScope.storeId}),
-        {headesrs:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+    $http.post('getRoles',$.param({id:$rootScope.storeId}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data) {
             $scope.roles.concat(data);
         }).error(function () {
         alert("服务端错误");
     });
     if(showStore){
-        $http.post('enabledStoresByOraganization',$.param({organization:$rootScope.organizationId}),
-            {headesrs:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        $http.post('enabledStoresByOrganization',$.param({organization:$rootScope.organizationId}),
+            {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
             .success(function (data) {
                 $scope.stores=data;
             }).error(function () {
             alert("服务端错误");
         });
+    }
+    //点击选择 触发函数
+    $scope.checked=function (id) {
+        $scope.user.enabled=Number(id);
+    };
+    $scope.changeUser=function () {
+        if (showStore){//若显示店铺，则为店铺之上的管理者
+            $http.post('changeUser',$.param({id:$scope.user.id,username:$scope.user.username,password:$scope.user.password,roleId:$scope.user.role.id,
+                    store:$scope.user.store,userInformation:$scope.user.user.id,enabled:$scope.user.enabled}),
+                {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    if(data=="success"){
+                        $state.go('user');
+                        alert("修改成功")
+                    }else{
+                        alert("更改失败");
+                    }
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }else{
+            $http.post('changeUser',$.param({id:$scope.user.id,username:$scope.user.username,password:$scope.user.password,roleId:$scope.user.role.id,
+                 userInformation:$scope.user.user.id,enabled:$scope.user.enabled}),
+                {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    $scope.stores=data;
+                    $state.go('user');
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
     }
 });
 app.controller('RoleController',function ($scope,$rootScope,$http) {

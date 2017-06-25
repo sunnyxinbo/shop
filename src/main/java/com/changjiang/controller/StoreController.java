@@ -59,8 +59,9 @@ public class StoreController {
     public String getStoreIdByStoreNumber(@RequestParam("storeNumber") String storeNumber){
     	return service.selectStoreIdByStoreNumber(storeNumber).toString();
     }
-    @RequestMapping(value="/enabledStoresByOraganization",produces="text/plain;charset=UTF-8",
+    @RequestMapping(value="/enabledStoresByOraganization",produces="application/json;charset=UTF-8",
     		method=RequestMethod.POST)
+    @ResponseBody
     public List<Store> getEnabledStoreByOraganization(@RequestParam("oraganization") Integer
     		id){
     	return service.selectEnabledStoreByOrganizationId(id);

@@ -15,9 +15,9 @@ import com.changjiang.service.RoleService;
 public class RoleController {
 	@Autowired
 	private RoleService service;
-	@RequestMapping(value="roles",method=RequestMethod.POST,
+	@RequestMapping(value="/getRoles",method=RequestMethod.POST,
 			produces="application/json;charset=UTF-8")
-	public List<Role> getRoleByStoreId(@RequestParam("storeId") String id){
+	public List<Role> getRoleByStoreId(@RequestParam("id") String id){
 		return service.selectRole(id);
 	}
 }
