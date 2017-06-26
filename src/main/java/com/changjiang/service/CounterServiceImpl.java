@@ -2,12 +2,11 @@ package com.changjiang.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.changjiang.common.Assist;
 import com.changjiang.dao.CounterDao;
 import com.changjiang.entity.Counter;
-import com.changjiang.common.Assist;
-@Service
+
 public class CounterServiceImpl implements CounterService{
     @Autowired
 	private CounterDao counterDao;

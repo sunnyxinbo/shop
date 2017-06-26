@@ -70,7 +70,7 @@ public class UsersController {
 	@ResponseBody
 	public List<Users> getEnabledUsersByUserId(@RequestParam("user_id") Integer 
 			userId){
-		List<Users> users=service.selectAllUsersByUserId(userId);
+		List<Users> users=service.selectEnabledUsersByUserId(userId);
 		return users;
 	}
 	@RequestMapping(value="/DisabledUsers",method=RequestMethod.POST,
@@ -78,7 +78,7 @@ public class UsersController {
 	@ResponseBody
 	public List<Users> getDisabledUsersByUserId(@RequestParam("user_id") Integer 
 			userId){
-		List<Users> users=service.selectAllUsersByUserId(userId);
+		List<Users> users=service.selectDisabledUsersByUserId(userId);
 		return users;
 	}
 	//根据用户id

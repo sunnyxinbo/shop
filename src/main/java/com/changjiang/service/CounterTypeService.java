@@ -1,7 +1,11 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.changjiang.entity.CounterType;
 import com.changjiang.common.Assist;
+@Service
 public interface CounterTypeService{
     long getCounterTypeRowCount(Assist assist);
     List<CounterType> selectCounterType(Assist assist);

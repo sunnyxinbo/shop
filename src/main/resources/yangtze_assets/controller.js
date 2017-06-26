@@ -74,9 +74,9 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
     });
     //当选则不同类别时，显示的数据不同
     $scope.changeData=function (style) {
-    	if(style=="option1"){
-    		return;
-    	}
+        if(style=="option1"){
+            return;
+        }
         let parameter=Number(style);
         //获取启用的数据
         if (parameter==0){
@@ -84,7 +84,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                 .success(function (data) {
                     angular.forEach(data,function (f,index) {
-                        f.enabled=String("启用");
+                        f.style=String("启用");
                     });
                     $scope.users=data;
                 }).error(function () {
@@ -95,7 +95,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                 .success(function (data) {
                     angular.forEach(data,function (f,index) {
-                        f.enabled=String("未启用");
+                        f.style=String("未启用");
                     });
                     $scope.users=data;
                 }).error(function () {
@@ -166,7 +166,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
         });
     }
 });
-app.controller('AddUserController',function ($scope,$rootScope,$http,$state) {
+app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
     //获取店的所有职务
     $http.post('duties',$.param({storeNumber:$rootScope.storeNumber}),
         {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
@@ -296,7 +296,122 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
         }
     }
 });
-app.controller('RoleController',function ($scope,$rootScope,$http) {
+app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
+    let user_id = $rootScope.user_id;
+    let storeId=$rootScope.storeId;
+    $http.post('getRoles',$.param({id:storeId}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data){
+            angular.forEach(data,function (f,index) {
+                if(f.enabled==0){
+                    f.style=String("启用");
+                }else {
+                    f.style=String("未启用");
+                }
+                f.check=false;//初始化所有用户没有被选定
+            });
+            $scope.roles=data;
+            $rootScope.roles=$scope.roles;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //当选则不同类别时，显示的数据不同
+    $scope.changeData=function (style) {
+        if(style=="option1"){
+            return;
+        }
+        let parameter=Number(style);
+        //获取启用的数据
+        if (parameter==0){
+            $http.post('EnabledRoles',$.param({storeId:storeId}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.style=String("启用");
+                    });
+                    $scope.roles=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }else{
+            $http.post('DisabledRoles',$.param({storeId:storeId}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.style=String("未启用");
+                    });
+                    $scope.users=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+    //批量操作
+    $scope.checkAll=false;
+    $scope.checkBoxAllChanged=function () {
+        angular.forEach($scope.users,function (f,index) {
+            f.check=$scope.checkAll;
+        })
+    };
+    $scope.checkBoxChanged=function () {
+        $scope.checkAll=false;
+    };
+    //批量删除
+    $scope.deleteManyRole=function () {
+        let deleteRoles=[];
+        angular.forEach($scope.roles,function (f,index) {
+            if (f.check){
+                deleteRoles.push(f.id);
+            }
+        });
+        if (deleteRoles.length==0){
+            alert("至少选择一项删除");
+        }else {
+            $http.post('deleteManyRole',$.param({deleteRoles:deleteRoles}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    if (data == "success") {
+                        for (let i = 0; i < deleteRoles.length; i++) {
+                            for (let y=0;y<$scope.roles.length;y++){
+                                if ($scope.roles[y].id==deleteRoles[i]){
+                                    $scope.roles.splice(y,1);
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        alert("删除角色失败");
+                    }
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+    //删除单个user
+    $scope.deleteSingleRole=function (paramId) {
+        let id=Number(paramId);
+        $http.post('deleteSingleRole',$.param({id:id}),
+            {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data) {
+                if (data == "success") {
+                    for (let i = 0; i < $scope.roles.length; i++) {
+                        if ($scope.roles[i].id == id) {
+                            $scope.roles.splice(i, 1);
+                            break;
+                        }
+                    }
+                } else {
+                    alert("删除角色失败");
+                }
+            }).error(function () {
+            alert("服务端错误");
+        });
+    }
+});
+app.controller('RoleDetailsController',function ($scope,$rootScope,$http,$state,$stateParams) {
+
+});
+app.controller('RoleAddController',function ($scope,$rootScope,$http,$state) {
 
 });
 app.controller('MenuController',function ($scope,$rootScope,$http) {
