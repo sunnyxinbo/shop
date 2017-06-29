@@ -17,12 +17,11 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
                 node.name=f.name;
                 node.icon=f.icon;
                 node.url=f.urls;
-                node.child=String();
-                node.child=f.child;
-                let child = Number(f.child);
+                node.child=Number(f.child);
+                $scope.class=String("tpl-left-nav-item");
+                node.show=false;
                 //有子节点将url改为#
-                if (child==1){
-                    node.url="#";
+                if (node.child==1){
                     node.sons=f.nodes;
                 }else{
                 }
@@ -32,8 +31,22 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
             $scope.nodes=nodes;
             console.log($scope.nodes);
         }).error(function () {
-        // alert("服务端错误");
+        alert("服务端错误");
     });
+    $scope.displayUL=function (param) {
+        let ul=document.getElementById(param);
+        for (let i=0;i<$scope.nodes.length;i++){
+            if ($scope.nodes[i].id==param){
+                if ($scope.nodes[i].show){
+                    ul.setAttribute("style","display:none;");
+                }else {
+                    ul.setAttribute("style","display:block;");
+                }
+                $scope.nodes[i].show=!$scope.nodes[i].show;
+                break;
+            }
+        }
+    };
     $http.post('storeNumber',$.param({user_id:user_id}),
         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){

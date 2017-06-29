@@ -12,6 +12,13 @@ public class Node {
 	private String icon;
 	private String name;
 	private Integer child;//0无1有
+	private String urls;
+	public String getUrls() {
+		return urls;
+	}
+	public void setUrls(String urls) {
+		this.urls = urls;
+	}
 	private List<Node> nodes;
 	public Integer getId() {
 		return id;

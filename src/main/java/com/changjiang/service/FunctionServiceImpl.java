@@ -140,6 +140,7 @@ public class FunctionServiceImpl implements FunctionService{
 					childNode.setIcon(functions.get(i).getIcon());
 					childNode.setName(functions.get(i).getFunctionName());
 					childNode.setChild(0);
+					childNode.setUrls(functions.get(i).getUrls());
 					childNodes.add(childNode);
 				}
 				//得到这个节点的子节点属性
@@ -148,12 +149,14 @@ public class FunctionServiceImpl implements FunctionService{
 				node.setIcon(function.getIcon());
 				node.setName(function.getFunctionName());
 				node.setId(function.getId());
+				node.setUrls(function.getUrls());
 				nodes.add(node);
 			}else{
 				node.setChild(0);
 				node.setIcon(function.getIcon());
 				node.setName(function.getFunctionName());
 				node.setId(function.getId());
+				node.setUrls(function.getUrls());
 				nodes.add(node);
 			}
 		}
