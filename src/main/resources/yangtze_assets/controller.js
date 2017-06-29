@@ -23,13 +23,14 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
                 //有子节点将url改为#
                 if (child==1){
                     node.url="#";
-                    node.sons=f.sons;
+                    node.sons=f.nodes;
                 }else{
                 }
                 nodes.push(node);
             });
             $rootScope.nodes=nodes;
             $scope.nodes=nodes;
+            console.log($scope.nodes);
         }).error(function () {
         // alert("服务端错误");
     });
@@ -303,7 +304,7 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
             angular.forEach(data,function (f,index) {
-                if(f.enabled==0){
+                if(f.state==0){
                     f.style=String("启用");
                 }else {
                     f.style=String("未启用");
@@ -340,7 +341,7 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
                     angular.forEach(data,function (f,index) {
                         f.style=String("未启用");
                     });
-                    $scope.users=data;
+                    $scope.roles=data;
                 }).error(function () {
                 alert("服务端错误");
             });
@@ -441,7 +442,6 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
             onRename: onRename
         }
     };
-
     let zNodes = [
         {id: 1, pId: 0, name: "父节点 1", open: true},
         {id: 11, pId: 1, name: "叶子节点 1-1"},
@@ -527,7 +527,7 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
         var sObj = $("#" + treeNode.tId + "_span");
         if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-            + "' title='add node' onfocus='this.blur();'></span>";
+            + "' title='添加菜单' onfocus='this.blur();'></span>";
         sObj.after(addStr);
         var btn = $("#addBtn_"+treeNode.tId);
         if (btn) btn.bind("click", function(){
@@ -538,8 +538,6 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
     }
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
-    };
-    function selectAll() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
     }

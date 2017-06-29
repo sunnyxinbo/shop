@@ -80,14 +80,14 @@ public class RoleServiceImpl implements RoleService{
 	public List<Role> selectEnabledRole(String storeId) {
 		//选择storeId相同，启用的
 		List<Role> enabledRoles=roleDao.selectRole(new Assist(Assist.and_eq("store_id",storeId),
-				Assist.and_eq("enabled","0")));		
+				Assist.and_eq("state","0")));		
 		// TODO Auto-generated method stub
 		return enabledRoles;
 	}
 	@Override
 	public List<Role> selectDisabledRole(String storeId) {
 		List<Role> disabledRoles=roleDao.selectRole(new Assist(Assist.and_eq("store_id",storeId),
-				Assist.and_eq("enabled","1")));
+				Assist.and_eq("state","1")));
 		// TODO Auto-generated method stub
 		return disabledRoles;
 	}

@@ -18,7 +18,7 @@ import com.changjiang.entity.Users;
 import com.changjiang.model.Node;
 
 import com.changjiang.common.Assist;
-@Service("functionService")
+@Service()
 public class FunctionServiceImpl implements FunctionService{
     @Autowired
 	private FunctionDao functionDao;
@@ -83,36 +83,35 @@ public class FunctionServiceImpl implements FunctionService{
 	public List<Node> getFunctionByUserId(Integer id) {
 		List<RolePower> rolePowers=new ArrayList<>();
 		Users user=usersDao.selectUsersById(id);
-		System.out.println(user.getUsername());
 		rolePowers=rolePowerDao.selectRolePowerByRoleId(user.getRoleId());
 		List<Function> functionsOnFirst=new ArrayList<>();
 		List<Function> functionsOnSecond=new ArrayList<>();
-		//一个集合存所有，有子节点的Function的id
+		//所有子节点的父节点的Functionid
 		Set<Integer> parents=new HashSet<>();
 		for(RolePower rolePower:rolePowers){
 			//将功能分为一级和二级
 			if(rolePower.getFunction().getCurrentLevel().equals(1)){
 				//根据索引对其进行排序
 				functionsOnFirst.add(rolePower.getFunction());
-				Collections.sort(functionsOnFirst,new Comparator<Function>(){
-					@Override
-					public int compare(Function o1, Function o2) {
-						//根据order进行排序
-						return o1.getOrderId()-o2.getOrderId();
-					}
-				});
 			}else{
 				functionsOnSecond.add(rolePower.getFunction());
 				parents.add(rolePower.getFunction().getUpperLevelId());
-				Collections.sort(functionsOnSecond,new Comparator<Function>(){
-					@Override
-					public int compare(Function o1, Function o2) {
-						// TODO Auto-generated method stub
-						return o1.getOrderId()-o2.getOrderId();
-					}
-				});
 			}
 		}
+		Collections.sort(functionsOnFirst,new Comparator<Function>(){
+			@Override
+			public int compare(Function o1, Function o2) {
+				//根据order进行排序
+				return o1.getOrderId()-o2.getOrderId();
+			}
+		});
+		Collections.sort(functionsOnSecond,new Comparator<Function>(){
+			@Override
+			public int compare(Function o1, Function o2) {
+				// TODO Auto-generated method stub
+				return o1.getOrderId()-o2.getOrderId();
+			}
+		});
 		List<Node> nodes=new ArrayList<>(functionsOnFirst.size());
 		for(Function function:functionsOnFirst){
 			Node node=new Node();
@@ -158,7 +157,6 @@ public class FunctionServiceImpl implements FunctionService{
 				nodes.add(node);
 			}
 		}
-		// TODO Auto-generated method stub
 		return nodes;
 	}
 

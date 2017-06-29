@@ -1,7 +1,6 @@
 package com.changjiang.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +42,7 @@ public class UsersController {
 	}
 	//要求在session中可以找到user，才可以登录到index首页
 	@RequestMapping(value="/indexManage",method=RequestMethod.GET)
-	public String index(Model model){
+	public String index(Model model,RedirectAttributes sessionModel){
 		if(!model.containsAttribute("user")){
 			return "redirect:/login";
 		}
