@@ -52,4 +52,10 @@ public class FunctionController {
 			return "defeat";
 		}
 	}
+	@RequestMapping(value="/addFunction",produces="text/plain;charset=UTF-8",
+			method=RequestMethod.POST)
+	public String addFunction(@RequestParam("name") String functionName,@RequestParam("pId") Integer parentId){
+		int id=service.insertNonEmptyFunction(functionName, parentId);
+		return Integer.toString(id);
+	}
 }

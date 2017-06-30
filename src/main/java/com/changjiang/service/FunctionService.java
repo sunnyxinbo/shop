@@ -9,7 +9,7 @@ public interface FunctionService{
     List<Function> selectFunction(Assist assist);
     Function selectFunctionById(Integer id);
     int insertFunction(Function value);
-    int insertNonEmptyFunction(Function value);
+    int insertNonEmptyFunction(String name,Integer pId);
     int deleteFunctionById(Integer id);
     int deleteFunction(Assist assist);
     int updateFunctionById(Function enti);
