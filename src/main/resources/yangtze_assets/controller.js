@@ -17,22 +17,36 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
                 node.name=f.name;
                 node.icon=f.icon;
                 node.url=f.urls;
-                node.child=String();
-                node.child=f.child;
-                let child = Number(f.child);
+                node.child=Number(f.child);
+                $scope.class=String("tpl-left-nav-item");
+                node.show=false;
                 //有子节点将url改为#
-                if (child==1){
-                    node.url="#";
-                    node.sons=f.sons;
+                if (node.child==1){
+                    node.sons=f.nodes;
                 }else{
                 }
                 nodes.push(node);
             });
             $rootScope.nodes=nodes;
             $scope.nodes=nodes;
+            console.log($scope.nodes);
         }).error(function () {
-        // alert("服务端错误");
+        alert("服务端错误");
     });
+    $scope.displayUL=function (param) {
+        let ul=document.getElementById(param);
+        for (let i=0;i<$scope.nodes.length;i++){
+            if ($scope.nodes[i].id==param){
+                if ($scope.nodes[i].show){
+                    ul.setAttribute("style","display:none;");
+                }else {
+                    ul.setAttribute("style","display:block;");
+                }
+                $scope.nodes[i].show=!$scope.nodes[i].show;
+                break;
+            }
+        }
+    };
     $http.post('storeNumber',$.param({user_id:user_id}),
         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data){
@@ -74,6 +88,9 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
     });
     //当选则不同类别时，显示的数据不同
     $scope.changeData=function (style) {
+        if(style=="option1"){
+            return;
+        }
         let parameter=Number(style);
         //获取启用的数据
         if (parameter==0){
@@ -81,7 +98,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                 .success(function (data) {
                     angular.forEach(data,function (f,index) {
-                        f.enabled=String("启用");
+                        f.style=String("启用");
                     });
                     $scope.users=data;
                 }).error(function () {
@@ -92,7 +109,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                 .success(function (data) {
                     angular.forEach(data,function (f,index) {
-                        f.enabled=String("未启用");
+                        f.style=String("未启用");
                     });
                     $scope.users=data;
                 }).error(function () {
@@ -163,7 +180,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
         });
     }
 });
-app.controller('AddUserController',function ($scope,$rootScope,$http,$state) {
+app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
     //获取店的所有职务
     $http.post('duties',$.param({storeNumber:$rootScope.storeNumber}),
         {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
@@ -293,10 +310,150 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
         }
     }
 });
-app.controller('RoleController',function ($scope,$rootScope,$http) {
+app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
+    let user_id = $rootScope.user_id;
+    let storeId=$rootScope.storeId;
+    $http.post('getRoles',$.param({id:storeId}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data){
+            angular.forEach(data,function (f,index) {
+                if(f.state==0){
+                    f.style=String("启用");
+                }else {
+                    f.style=String("未启用");
+                }
+                f.check=false;//初始化所有用户没有被选定
+            });
+            $scope.roles=data;
+            $rootScope.roles=$scope.roles;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //当选则不同类别时，显示的数据不同
+    $scope.changeData=function (style) {
+        if(style=="option1"){
+            return;
+        }
+        let parameter=Number(style);
+        //获取启用的数据
+        if (parameter==0){
+            $http.post('EnabledRoles',$.param({storeId:storeId}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.style=String("启用");
+                    });
+                    $scope.roles=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }else{
+            $http.post('DisabledRoles',$.param({storeId:storeId}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.style=String("未启用");
+                    });
+                    $scope.roles=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+    //批量操作
+    $scope.checkAll=false;
+    $scope.checkBoxAllChanged=function () {
+        angular.forEach($scope.users,function (f,index) {
+            f.check=$scope.checkAll;
+        })
+    };
+    $scope.checkBoxChanged=function () {
+        $scope.checkAll=false;
+    };
+    //批量删除
+    $scope.deleteManyRole=function () {
+        let deleteRoles=[];
+        angular.forEach($scope.roles,function (f,index) {
+            if (f.check){
+                deleteRoles.push(f.id);
+            }
+        });
+        if (deleteRoles.length==0){
+            alert("至少选择一项删除");
+        }else {
+            $http.post('deleteManyRole',$.param({deleteRoles:deleteRoles}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    if (data == "success") {
+                        for (let i = 0; i < deleteRoles.length; i++) {
+                            for (let y=0;y<$scope.roles.length;y++){
+                                if ($scope.roles[y].id==deleteRoles[i]){
+                                    $scope.roles.splice(y,1);
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        alert("删除角色失败");
+                    }
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+    //删除单个user
+    $scope.deleteSingleRole=function (paramId) {
+        let id=Number(paramId);
+        $http.post('deleteSingleRole',$.param({id:id}),
+            {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data) {
+                if (data == "success") {
+                    for (let i = 0; i < $scope.roles.length; i++) {
+                        if ($scope.roles[i].id == id) {
+                            $scope.roles.splice(i, 1);
+                            break;
+                        }
+                    }
+                } else {
+                    alert("删除角色失败");
+                }
+            }).error(function () {
+            alert("服务端错误");
+        });
+    }
+});
+app.controller('RoleDetailsController',function ($scope,$rootScope,$http,$state,$stateParams) {
+
+});
+app.controller('RoleAddController',function ($scope,$rootScope,$http,$state) {
 
 });
 app.controller('MenuController',function ($scope,$rootScope,$http) {
+    let zNodes = [
+        {id: 1, pId: 0, name: "父节点 1", open: true},
+        {id: 11, pId: 1, name: "叶子节点 1-1"},
+        {id: 12, pId: 1, name: "叶子节点 1-2"},
+        {id: 13, pId: 1, name: "叶子节点 1-3"},
+        {id: 2, pId: 0, name: "父节点 2", open: true},
+        {id: 21, pId: 2, name: "叶子节点 2-1"},
+        {id: 22, pId: 2, name: "叶子节点 2-2"},
+        {id: 23, pId: 2, name: "叶子节点 2-3"},
+        {id: 3, pId: 0, name: "父节点 3", open: true},
+        {id: 31, pId: 3, name: "叶子节点 3-1"},
+        {id: 32, pId: 3, name: "叶子节点 3-2"},
+        {id: 33, pId: 3, name: "叶子节点 3-3"}
+    ];
+    $http.post('noNestFunctions',$.param({storeNumber:$rootScope.storeNumber}),{headers:{'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            zNodes=data;
+            angular.forEach(zNodes,function (f,index) {
+                if (f.pId==0){
+                    f.open=true;
+                }
+            });
+        }).error(function () {
+            alert("");
+    });
     let setting = {
         view: {
             addHoverDom: addHoverDom,
@@ -323,21 +480,6 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
             onRename: onRename
         }
     };
-
-    let zNodes = [
-        {id: 1, pId: 0, name: "父节点 1", open: true},
-        {id: 11, pId: 1, name: "叶子节点 1-1"},
-        {id: 12, pId: 1, name: "叶子节点 1-2"},
-        {id: 13, pId: 1, name: "叶子节点 1-3"},
-        {id: 2, pId: 0, name: "父节点 2", open: true},
-        {id: 21, pId: 2, name: "叶子节点 2-1"},
-        {id: 22, pId: 2, name: "叶子节点 2-2"},
-        {id: 23, pId: 2, name: "叶子节点 2-3"},
-        {id: 3, pId: 0, name: "父节点 3", open: true},
-        {id: 31, pId: 3, name: "叶子节点 3-1"},
-        {id: 32, pId: 3, name: "叶子节点 3-2"},
-        {id: 33, pId: 3, name: "叶子节点 3-3"}
-    ];
     var log, className = "dark";
     function beforeDrag(treeId, treeNodes) {
         return false;
@@ -356,15 +498,35 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
         }, 0);
         return false;
     }
+    //返回true执行删除，false不执行
     function beforeRemove(treeId, treeNode) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.selectNode(treeNode);
-        return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+        if(confirm("确认删除 节点 -- " + treeNode.name + " 吗？")){
+            $http.post('deleteSingleFunction',$.param({"function_id":treeNode.id}),{headers:
+                {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    if (data=="success"){
+                        return true;
+                    }else{
+                        alert("删除失败");
+                        return false;
+                    }
+                }).error(function () {
+                alert("失败，服务器端错误");
+                return false;
+            });
+        }else{
+            return false;
+        }
     }
     function onRemove(e, treeId, treeNode) {
         showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes = treeObj.getNodes();
+        console.log(nodes);
     }
     function beforeRename(treeId, treeNode, newName, isCancel) {
         className = (className === "dark" ? "":"dark");
@@ -377,7 +539,19 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
             }, 0);
             return false;
         }
-        return true;
+        $http.post('changeFunctionName',$.param({"function_id":treeNode.id,"newName":newName}),{headers:
+            {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data) {
+                if (data=="success"){
+                    return true;
+                }else{
+                    alert("修改失败");
+                    return false;
+                }
+            }).error(function () {
+            alert("失败，服务器端错误");
+            return false;
+        });
     }
     function onRename(e, treeId, treeNode, isCancel) {
         showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
@@ -409,7 +583,7 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
         var sObj = $("#" + treeNode.tId + "_span");
         if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-            + "' title='add node' onfocus='this.blur();'></span>";
+            + "' title='添加菜单' onfocus='this.blur();'></span>";
         sObj.after(addStr);
         var btn = $("#addBtn_"+treeNode.tId);
         if (btn) btn.bind("click", function(){
@@ -420,8 +594,6 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
     }
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
-    };
-    function selectAll() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
     }

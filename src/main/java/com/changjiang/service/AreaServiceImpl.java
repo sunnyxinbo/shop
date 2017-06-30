@@ -2,12 +2,11 @@ package com.changjiang.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.changjiang.common.Assist;
 import com.changjiang.dao.AreaDao;
 import com.changjiang.entity.Area;
-import com.changjiang.common.Assist;
-@Service
+
 public class AreaServiceImpl implements AreaService{
     @Autowired
 	private AreaDao areaDao;

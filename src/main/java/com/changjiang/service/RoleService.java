@@ -14,4 +14,7 @@ public interface RoleService{
     int updateRole(Role value, Assist assist);
     int updateNonEmptyRoleById(Role enti);
     int updateNonEmptyRole(Role value, Assist assist);
+    List<Role> selectEnabledRole(String storeId);
+    List<Role> selectDisabledRole(String storeId);
+    boolean deleteManyRole(Integer[] roles);
 }

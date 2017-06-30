@@ -7,12 +7,19 @@ import java.util.List;
  * @author Administrator
  *
  */
-public class Node {
+public class FunctionNestNode {
 	private Integer id;
 	private String icon;
 	private String name;
 	private Integer child;//0无1有
-	private List<Node> nodes;
+	private String urls;
+	private List<FunctionNestNode> nodes;
+	public String getUrls() {
+		return urls;
+	}
+	public void setUrls(String urls) {
+		this.urls = urls;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -37,10 +44,10 @@ public class Node {
 	public void setChild(Integer child) {
 		this.child = child;
 	}
-	public List<Node> getNodes() {
+	public List<FunctionNestNode> getNodes() {
 		return nodes;
 	}
-	public void setNodes(List<Node> nodes) {
+	public void setNodes(List<FunctionNestNode> nodes) {
 		this.nodes = nodes;
 	}
 	

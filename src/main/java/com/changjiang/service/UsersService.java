@@ -9,7 +9,6 @@ public interface UsersService{
     int insertUsers(Users value);
     int insertNonEmptyUsers(Users value);
     int deleteUsersById(Integer id);
-    int deleteUsers(Integer[] users);
     int updateUsersById(Users enti);
     int updateUsers(Users value, Assist assist);
     int updateNonEmptyUsersById(Users enti);

@@ -12,13 +12,8 @@ app.config(['$stateProvider', function ($stateProvider, $urlRouterProvider) {
             controllerAs: 'user',
             url: '/user',
             templateUrl: "yangtze_assets/templates/user.html"})
-        .state('role', {//用户管理
-            controller: 'RoleController',
-            controllerAs: 'role',
-            url: '/role',
-            templateUrl: "yangtze_assets/templates/role.html"})
         .state('user_add', {//添加用户
-            controller: 'AddUserController',
+            controller: 'UserAddController',
             controllerAs: 'user_add',
             url: '/add_user',
             templateUrl: "yangtze_assets/templates/user_add.html"})
@@ -27,6 +22,21 @@ app.config(['$stateProvider', function ($stateProvider, $urlRouterProvider) {
             controllerAs: 'user_details',
             url: '/user_details/:id',
             templateUrl: "yangtze_assets/templates/user_details.html"})
+        .state('role_details', {//角色编辑
+            controller: 'RoleDetailsController',
+            controllerAs: 'role_details',
+            url: '/role_details/:id',
+            templateUrl: "yangtze_assets/templates/role_details.html"})
+        .state('role_add', {//添加角色
+            controller: 'RoleAddController',
+            controllerAs: 'role_add',
+            url: '/role_add',
+            templateUrl: "yangtze_assets/templates/role_add.html"})
+        .state('role', {//角色管理
+            controller: 'RoleController',
+            controllerAs: 'role',
+            url: '/role',
+            templateUrl: "yangtze_assets/templates/role.html"})
         .state('menu', {//菜单管理
             controller: 'MenuController',
             controllerAs: 'menu',

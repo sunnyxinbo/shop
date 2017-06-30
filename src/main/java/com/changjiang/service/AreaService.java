@@ -1,7 +1,11 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.changjiang.entity.Area;
 import com.changjiang.common.Assist;
+@Service
 public interface AreaService{
     long getAreaRowCount(Assist assist);
     List<Area> selectArea(Assist assist);

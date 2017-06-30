@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.changjiang.dao.UserInformationDao;
 import com.changjiang.dao.UsersDao;
 import com.changjiang.entity.Users;
 import com.changjiang.common.Assist;
@@ -11,6 +12,8 @@ import com.changjiang.common.Assist;
 public class UsersServiceImpl implements UsersService{
     @Autowired
 	private UsersDao usersDao;
+    @Autowired
+    private UserInformationDao userInformationDao;
     @Override
     public long getUsersRowCount(Assist assist){
         return usersDao.getUsersRowCount(assist);
@@ -33,12 +36,9 @@ public class UsersServiceImpl implements UsersService{
     }
     @Override
     public int deleteUsersById(Integer id){
+    	Users user=selectUsersById(id);
+    	userInformationDao.deleteUserInformationById(user.getUserInformation());
         return usersDao.deleteUsersById(id);
-    }
-    @Override
-    public int deleteUsers(Integer[] users){
-    	Assist assist=new Assist();
-        return usersDao.deleteUsers(assist);
     }
     @Override
     public int updateUsersById(Users enti){
@@ -72,7 +72,7 @@ public class UsersServiceImpl implements UsersService{
 	//如果登录成功，返回这个成功登录的user对象
 	@Override
 	public Users login(String username, String password) {
-		List<Users> users=usersDao.selectUsers(new Assist());
+		List<Users> users=usersDao.selectUsers(new Assist(Assist.and_eq("enabled","0")));
 		for(Users u:users){
 			if(username!=null&&password!=null&&u.getUsername().equals(username)&&
 					u.getPassword().equals(password)){

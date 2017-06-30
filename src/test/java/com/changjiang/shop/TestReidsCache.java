@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.changjiang.config.MyMvcConfig;
-import com.changjiang.model.Node;
+import com.changjiang.model.FunctionNestNode;
 import com.changjiang.service.FunctionService;
 
 
@@ -44,7 +44,7 @@ public class TestReidsCache {
 
 	@Test
 	public void test() {
-		List<Node> nodes=service.getFunctionByUserId(1);
+		List<FunctionNestNode> nodes=service.getFunctionByUserId(1);
 		System.out.println(nodes.get(0).getName());
 		System.out.println(nodes.get(0).getNodes().get(0).getName());
 	}

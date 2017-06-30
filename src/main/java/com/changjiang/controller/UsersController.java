@@ -1,7 +1,6 @@
 package com.changjiang.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +42,7 @@ public class UsersController {
 	}
 	//要求在session中可以找到user，才可以登录到index首页
 	@RequestMapping(value="/indexManage",method=RequestMethod.GET)
-	public String index(Model model){
+	public String index(Model model,RedirectAttributes sessionModel){
 		if(!model.containsAttribute("user")){
 			return "redirect:/login";
 		}
@@ -70,7 +69,7 @@ public class UsersController {
 	@ResponseBody
 	public List<Users> getEnabledUsersByUserId(@RequestParam("user_id") Integer 
 			userId){
-		List<Users> users=service.selectAllUsersByUserId(userId);
+		List<Users> users=service.selectEnabledUsersByUserId(userId);
 		return users;
 	}
 	@RequestMapping(value="/DisabledUsers",method=RequestMethod.POST,
@@ -78,7 +77,7 @@ public class UsersController {
 	@ResponseBody
 	public List<Users> getDisabledUsersByUserId(@RequestParam("user_id") Integer 
 			userId){
-		List<Users> users=service.selectAllUsersByUserId(userId);
+		List<Users> users=service.selectDisabledUsersByUserId(userId);
 		return users;
 	}
 	//根据用户id
@@ -114,7 +113,7 @@ public class UsersController {
 	@RequestMapping(value="addUser",method=RequestMethod.POST,
 			produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String addUser(@RequestParam("username") String username,@RequestParam("passowrd")
+	public String addUser(@RequestParam("username") String username,@RequestParam("password")
 	String password,@RequestParam("role") Integer role,@RequestParam("store") String store,
 	@RequestParam("userInformation") Integer userInformation){
 		Users user=new Users();

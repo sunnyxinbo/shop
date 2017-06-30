@@ -1,7 +1,11 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.changjiang.entity.WorkStation;
 import com.changjiang.common.Assist;
+@Service
 public interface WorkStationService{
     long getWorkStationRowCount(Assist assist);
     List<WorkStation> selectWorkStation(Assist assist);

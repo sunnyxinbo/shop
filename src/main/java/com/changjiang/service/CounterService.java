@@ -1,7 +1,11 @@
 package com.changjiang.service;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.changjiang.entity.Counter;
 import com.changjiang.common.Assist;
+@Service
 public interface CounterService{
     long getCounterRowCount(Assist assist);
     List<Counter> selectCounter(Assist assist);

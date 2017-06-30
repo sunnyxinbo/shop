@@ -51,7 +51,7 @@ public interface UsersDao{
     })
     List<Users> selectAllUsersHaveAllByStoreNumber(String number);
     //根据店铺的编号查出启用的user
-    @Select("SELECT * FROM users WHERE store=#{number},enabled=0")
+    @Select("SELECT * FROM users WHERE store=#{number} AND enabled=0")
     @Results({
     	@Result(id=true,column="id",property="id"),
     	@Result(column="username",property="username"),
@@ -64,7 +64,7 @@ public interface UsersDao{
     })
     List<Users> selectEnabledUsersHaveAllByStoreNumber(String number);
     //根据店铺的编号查出未启用的user
-    @Select("SELECT * FROM users WHERE store=#{number},enabled=1")
+    @Select("SELECT * FROM users WHERE store=#{number} AND enabled=1")
     @Results({
     	@Result(id=true,column="id",property="id"),
     	@Result(column="username",property="username"),

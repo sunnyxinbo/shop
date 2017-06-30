@@ -2,6 +2,8 @@ package com.changjiang.shop;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,10 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.changjiang.config.MyMvcConfig;
-import com.changjiang.entity.Users;
-import com.changjiang.service.StoreService;
-import com.changjiang.service.UsersService;
-import com.changjiang.service.UsersServiceImpl;
+import com.changjiang.model.FunctionNode;
+import com.changjiang.service.FunctionService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,11 +25,7 @@ import com.changjiang.service.UsersServiceImpl;
 public class TestService {
 	
 	@Autowired
-	private UsersServiceImpl service;
-	@Autowired 
-	private StoreService storeService;
-	@Autowired
-	private UsersService userService;
+	private FunctionService functionService;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {	
 	}
@@ -48,8 +44,8 @@ public class TestService {
 
 	@Test
 	public void test() {
-		String storeNumber=userService.selectUsersHaveAll(1).getStore();
-		assertEquals(1,storeNumber);
+		List<FunctionNode> result=functionService.getAllFunctionNoNest();
+		assertEquals("店面管理",result.get(0).getName());
 	}
 
 }
