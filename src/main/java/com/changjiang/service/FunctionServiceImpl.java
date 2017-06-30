@@ -15,8 +15,8 @@ import com.changjiang.dao.UsersDao;
 import com.changjiang.entity.Function;
 import com.changjiang.entity.RolePower;
 import com.changjiang.entity.Users;
-import com.changjiang.model.Node;
-
+import com.changjiang.model.FunctionNestNode;
+import com.changjiang.model.FunctionNode;
 import com.changjiang.common.Assist;
 @Service()
 public class FunctionServiceImpl implements FunctionService{
@@ -46,8 +46,14 @@ public class FunctionServiceImpl implements FunctionService{
     public int insertNonEmptyFunction(Function value){
         return functionDao.insertNonEmptyFunction(value);
     }
+    //有无子节点进行不同的处理
     @Override
     public int deleteFunctionById(Integer id){
+    	List<Function> functions=functionDao.selectFunction(new Assist(Assist.and_eq("upper_level_id",id.toString())));
+    	if(functions==null||functions.size()==0){
+    		return functionDao.deleteFunctionById(id);
+    	}
+    	functionDao.deleteFunction(new Assist(Assist.and_eq("upper_level_id",id.toString())));
         return functionDao.deleteFunctionById(id);
     }
     @Override
@@ -63,8 +69,11 @@ public class FunctionServiceImpl implements FunctionService{
         return functionDao.updateFunction(value,assist);
     }
     @Override
-    public int updateNonEmptyFunctionById(Function enti){
-        return functionDao.updateNonEmptyFunctionById(enti);
+    public int updateNonEmptyFunctionById(Integer id,String newName){
+    	Function function=new Function();
+    	function.setId(id);
+    	function.setFunctionName(newName);
+        return functionDao.updateNonEmptyFunctionById(function);
     }
     @Override
     public int updateNonEmptyFunction(Function value, Assist assist){
@@ -80,7 +89,7 @@ public class FunctionServiceImpl implements FunctionService{
     }
     //这个获得排序后节点的方法基于表中数据是有序的形式
 	@Override
-	public List<Node> getFunctionByUserId(Integer id) {
+	public List<FunctionNestNode> getFunctionByUserId(Integer id) {
 		List<RolePower> rolePowers=new ArrayList<>();
 		Users user=usersDao.selectUsersById(id);
 		rolePowers=rolePowerDao.selectRolePowerByRoleId(user.getRoleId());
@@ -112,9 +121,9 @@ public class FunctionServiceImpl implements FunctionService{
 				return o1.getOrderId()-o2.getOrderId();
 			}
 		});
-		List<Node> nodes=new ArrayList<>(functionsOnFirst.size());
+		List<FunctionNestNode> nodes=new ArrayList<>(functionsOnFirst.size());
 		for(Function function:functionsOnFirst){
-			Node node=new Node();
+			FunctionNestNode node=new FunctionNestNode();
 			//说明有子节点
 			if(parents.contains(function.getId())){
 				//查出这个节点的所有子节点
@@ -133,9 +142,9 @@ public class FunctionServiceImpl implements FunctionService{
 					}
 				});
 				//得到这个节点的所有子节点
-				List<Node> childNodes=new ArrayList<>(functions.size());
+				List<FunctionNestNode> childNodes=new ArrayList<>(functions.size());
 				for(int i=0;i<functions.size();i++){
-					Node childNode=new Node();
+					FunctionNestNode childNode=new FunctionNestNode();
 					childNode.setId(functions.get(i).getId());
 					childNode.setIcon(functions.get(i).getIcon());
 					childNode.setName(functions.get(i).getFunctionName());
@@ -161,6 +170,60 @@ public class FunctionServiceImpl implements FunctionService{
 			}
 		}
 		return nodes;
+	}
+	@Override
+	public List<FunctionNode> getAllFunctionNoNest() {
+		List<Function> functionAll=functionDao.selectFunction(new Assist(Assist.and_neq("urls","0")));
+		List<Function> functionsFirst=new ArrayList<>();
+		List<Function> functionsOther=new ArrayList<>();
+		for(Function singleFunction:functionAll){
+			if(singleFunction.getCurrentLevel()==1){
+				functionsFirst.add(singleFunction);
+			}else{
+				functionsOther.add(singleFunction);
+			}
+		}
+		Collections.sort(functionsFirst,new Comparator<Function>(){
+			@Override
+			public int compare(Function o1, Function o2) {
+				//根据order进行排序
+				return o1.getOrderId()-o2.getOrderId();
+			}
+		});
+		List<FunctionNode> result=new ArrayList<>();
+		//根据第一级，按顺序加入到结果集
+		for(Function f:functionsFirst){
+			FunctionNode functionNode=new FunctionNode();
+			functionNode.setId(f.getId());
+			functionNode.setName(f.getFunctionName());
+			functionNode.setpId("0");
+			result.add(functionNode);
+			//找到所有子节点
+			List<Function> sonFunctions=new ArrayList<>();
+			for(Function fSon:functionsOther){
+				if(fSon.getUpperLevelId()==f.getId()){
+					sonFunctions.add(fSon);
+				}
+			}
+			functionsOther.removeAll(sonFunctions);
+			//对子节点集进行排序
+			Collections.sort(sonFunctions,new Comparator<Function>(){
+				@Override
+				public int compare(Function o1, Function o2) {
+					//根据order进行排序
+					return o1.getOrderId()-o2.getOrderId();
+				}
+			});
+			//将子节点集放在结果集中
+			for(Function f1:sonFunctions){
+				FunctionNode sonFunctionNode=new FunctionNode();
+				sonFunctionNode.setId(f1.getId());
+				sonFunctionNode.setName(f1.getFunctionName());
+				sonFunctionNode.setpId(f.getId().toString());
+				result.add(sonFunctionNode);
+			}
+		}
+		return result;
 	}
 
 }

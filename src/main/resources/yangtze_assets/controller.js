@@ -429,6 +429,31 @@ app.controller('RoleAddController',function ($scope,$rootScope,$http,$state) {
 
 });
 app.controller('MenuController',function ($scope,$rootScope,$http) {
+    let zNodes = [
+        {id: 1, pId: 0, name: "父节点 1", open: true},
+        {id: 11, pId: 1, name: "叶子节点 1-1"},
+        {id: 12, pId: 1, name: "叶子节点 1-2"},
+        {id: 13, pId: 1, name: "叶子节点 1-3"},
+        {id: 2, pId: 0, name: "父节点 2", open: true},
+        {id: 21, pId: 2, name: "叶子节点 2-1"},
+        {id: 22, pId: 2, name: "叶子节点 2-2"},
+        {id: 23, pId: 2, name: "叶子节点 2-3"},
+        {id: 3, pId: 0, name: "父节点 3", open: true},
+        {id: 31, pId: 3, name: "叶子节点 3-1"},
+        {id: 32, pId: 3, name: "叶子节点 3-2"},
+        {id: 33, pId: 3, name: "叶子节点 3-3"}
+    ];
+    $http.post('noNestFunctions',$.param({storeNumber:$rootScope.storeNumber}),{headers:{'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            zNodes=data;
+            angular.forEach(zNodes,function (f,index) {
+                if (f.pId==0){
+                    f.open=true;
+                }
+            });
+        }).error(function () {
+            alert("");
+    });
     let setting = {
         view: {
             addHoverDom: addHoverDom,
@@ -455,20 +480,6 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
             onRename: onRename
         }
     };
-    let zNodes = [
-        {id: 1, pId: 0, name: "父节点 1", open: true},
-        {id: 11, pId: 1, name: "叶子节点 1-1"},
-        {id: 12, pId: 1, name: "叶子节点 1-2"},
-        {id: 13, pId: 1, name: "叶子节点 1-3"},
-        {id: 2, pId: 0, name: "父节点 2", open: true},
-        {id: 21, pId: 2, name: "叶子节点 2-1"},
-        {id: 22, pId: 2, name: "叶子节点 2-2"},
-        {id: 23, pId: 2, name: "叶子节点 2-3"},
-        {id: 3, pId: 0, name: "父节点 3", open: true},
-        {id: 31, pId: 3, name: "叶子节点 3-1"},
-        {id: 32, pId: 3, name: "叶子节点 3-2"},
-        {id: 33, pId: 3, name: "叶子节点 3-3"}
-    ];
     var log, className = "dark";
     function beforeDrag(treeId, treeNodes) {
         return false;
@@ -487,15 +498,35 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
         }, 0);
         return false;
     }
+    //返回true执行删除，false不执行
     function beforeRemove(treeId, treeNode) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.selectNode(treeNode);
-        return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+        if(confirm("确认删除 节点 -- " + treeNode.name + " 吗？")){
+            $http.post('deleteSingleFunction',$.param({"function_id":treeNode.id}),{headers:
+                {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    if (data=="success"){
+                        return true;
+                    }else{
+                        alert("删除失败");
+                        return false;
+                    }
+                }).error(function () {
+                alert("失败，服务器端错误");
+                return false;
+            });
+        }else{
+            return false;
+        }
     }
     function onRemove(e, treeId, treeNode) {
         showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes = treeObj.getNodes();
+        console.log(nodes);
     }
     function beforeRename(treeId, treeNode, newName, isCancel) {
         className = (className === "dark" ? "":"dark");
@@ -508,7 +539,19 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
             }, 0);
             return false;
         }
-        return true;
+        $http.post('changeFunctionName',$.param({"function_id":treeNode.id,"newName":newName}),{headers:
+            {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data) {
+                if (data=="success"){
+                    return true;
+                }else{
+                    alert("修改失败");
+                    return false;
+                }
+            }).error(function () {
+            alert("失败，服务器端错误");
+            return false;
+        });
     }
     function onRename(e, treeId, treeNode, isCancel) {
         showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
