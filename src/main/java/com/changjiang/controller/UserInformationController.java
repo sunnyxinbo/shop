@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.changjiang.entity.UserEvaluation;
 import com.changjiang.entity.UserInformation;
-import com.changjiang.model.UserInformationModel;
 import com.changjiang.service.UserInformationService;
+import com.changjiang.viewModel.UserInformationModel;
 
 /**
  * 

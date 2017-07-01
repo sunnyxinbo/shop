@@ -15,8 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.changjiang.config.MyMvcConfig;
-import com.changjiang.model.FunctionNode;
 import com.changjiang.service.FunctionService;
+import com.changjiang.viewModel.FunctionNode;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

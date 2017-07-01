@@ -2,7 +2,7 @@ package com.changjiang.entity;
 
 import java.util.List;
 
-import com.changjiang.model.UserInformationModel;
+import com.changjiang.viewModel.UserInformationModel;
 
 /**
  * 

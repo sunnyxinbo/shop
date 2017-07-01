@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.changjiang.model.FunctionNestNode;
-import com.changjiang.model.FunctionNode;
 import com.changjiang.service.FunctionService;
+import com.changjiang.viewModel.FunctionNestNode;
+import com.changjiang.viewModel.FunctionNode;
 
 @RestController
 public class FunctionController {
@@ -42,6 +42,7 @@ public class FunctionController {
 			return "defeat";
 		}
 	}
+	//重命名功能
 	@RequestMapping(value="/changeFunctionName",produces="text/plain;charset=UTF-8",
 			method=RequestMethod.POST)
 	public String renameFunction(@RequestParam("function_id") Integer id,@RequestParam("newName") String newName){
@@ -52,6 +53,7 @@ public class FunctionController {
 			return "defeat";
 		}
 	}
+	//添加功能
 	@RequestMapping(value="/addFunction",produces="text/plain;charset=UTF-8",
 			method=RequestMethod.POST)
 	public String addFunction(@RequestParam("name") String functionName,@RequestParam("pId") Integer parentId){

@@ -451,8 +451,11 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
                     f.open=true;
                 }
             });
+            $(document).ready(function(){
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            });
         }).error(function () {
-            alert("");
+            alert("错误");
     });
     let setting = {
         view: {
@@ -588,18 +591,18 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
         var btn = $("#addBtn_"+treeNode.tId);
         if (btn) btn.bind("click", function(){
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            $http.post('addFunction',$.param({"name":"新功能"+ (newCount++),"pId":treeNode.id}),{headers:
+                {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    zTree.addNodes(treeNode, {id:data, pId:treeNode.id, name:"新功能" + newCount});
+                }).error(function () {
+                alert("失败，服务器端错误");
+            });
             return false;
         });
     }
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
     }
-
-    $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        $("#selectAll").bind("click", selectAll);
-    });
 });

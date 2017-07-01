@@ -1,4 +1,4 @@
-package com.changjiang.model;
+package com.changjiang.viewModel;
 
 public class FunctionNode {
 	private Integer id;

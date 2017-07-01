@@ -15,8 +15,8 @@ import com.changjiang.dao.UsersDao;
 import com.changjiang.entity.Function;
 import com.changjiang.entity.RolePower;
 import com.changjiang.entity.Users;
-import com.changjiang.model.FunctionNestNode;
-import com.changjiang.model.FunctionNode;
+import com.changjiang.viewModel.FunctionNestNode;
+import com.changjiang.viewModel.FunctionNode;
 import com.changjiang.common.Assist;
 @Service()
 public class FunctionServiceImpl implements FunctionService{

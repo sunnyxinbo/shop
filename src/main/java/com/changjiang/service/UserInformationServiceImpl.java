@@ -8,7 +8,7 @@ import com.changjiang.dao.UserInformationDao;
 import com.changjiang.dao.WorkStationDao;
 import com.changjiang.entity.UserInformation;
 import com.changjiang.entity.WorkStation;
-import com.changjiang.model.UserInformationModel;
+import com.changjiang.viewModel.UserInformationModel;
 import com.changjiang.common.Assist;
 @Service
 public class UserInformationServiceImpl implements UserInformationService{

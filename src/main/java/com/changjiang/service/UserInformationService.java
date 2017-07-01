@@ -1,7 +1,7 @@
 package com.changjiang.service;
 import java.util.List;
 import com.changjiang.entity.UserInformation;
-import com.changjiang.model.UserInformationModel;
+import com.changjiang.viewModel.UserInformationModel;
 import com.changjiang.common.Assist;
 public interface UserInformationService{
     long getUserInformationRowCount(Assist assist);
