@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.changjiang.config.MyMvcConfig;
 import com.changjiang.service.FunctionService;
+import com.changjiang.service.OrganizationService;
 import com.changjiang.viewModel.FunctionNode;
 
 
@@ -26,6 +27,8 @@ public class TestService {
 	
 	@Autowired
 	private FunctionService functionService;
+	@Autowired
+	private OrganizationService organizationService;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {	
 	}
@@ -44,8 +47,8 @@ public class TestService {
 
 	@Test
 	public void test() {
-		List<FunctionNode> result=functionService.getAllFunctionNoNest();
-		assertEquals("店面管理",result.get(0).getName());
+		List<FunctionNode> result=organizationService.getAllOrganization();
+		assertEquals(2,result.size());
 	}
 
 }

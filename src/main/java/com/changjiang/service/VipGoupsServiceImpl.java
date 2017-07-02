@@ -82,7 +82,7 @@ public class VipGoupsServiceImpl implements VipGoupsService{
 	public List<Vip> queryAllVipsByVipGoupid(String vipgoupsid) {
 		Integer id = Integer.parseInt(vipgoupsid);
 		VipGoups vipGoups = vipGoupsDao.selectVipGoupsByGoupId(id);
-		List vips = vipGoups.getVips();
+		List<Vip> vips = vipGoups.getVips();
 		return vips;
 	}
 

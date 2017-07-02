@@ -1,4 +1,5 @@
 package com.changjiang.service;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.changjiang.dao.OrganizationDao;
 import com.changjiang.entity.Organization;
+import com.changjiang.util.TreeUtil;
+import com.changjiang.viewModel.FunctionNode;
 import com.changjiang.common.Assist;
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
@@ -25,11 +28,18 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
     @Override
     public int insertOrganization(Organization value){
+    	
         return organizationDao.insertOrganization(value);
     }
     @Override
-    public int insertNonEmptyOrganization(Organization value){
-        return organizationDao.insertNonEmptyOrganization(value);
+    public int insertNonEmptyOrganization(String name,Integer pId){
+    	Organization organization=new Organization();
+    	organization.setName(name);
+    	organization.setUpperLevelId(pId);;
+    	organizationDao.insertNonEmptyOrganization(organization);
+    	List<Organization> organizations=organizationDao.selectOrganization(new Assist(Assist.and_eq("name",name),
+    			Assist.and_eq("upper_level_id",pId.toString())));
+        return organizations.get(0).getId();
     }
     @Override
     public int deleteOrganizationById(Integer id){
@@ -69,4 +79,30 @@ public class OrganizationServiceImpl implements OrganizationService{
     public List<Organization> selectOrganizationByCurrentLevelId(Integer currentLevelId){
         return organizationDao.selectOrganizationByCurrentLevelId(currentLevelId);
     }
+	@Override
+	public List<FunctionNode> getAllOrganization() {
+		List<Organization> organizationsFirst=organizationDao.selectOrganization(new Assist(
+				Assist.and_eq("current_level","1")));
+		List<FunctionNode> organizationNodes=new ArrayList<>();
+		for(Organization o:organizationsFirst){
+			List<Organization> organizationSon=organizationDao.selectOrganization(
+					new Assist(Assist.and_eq("upper_level_id",o.getId().toString())));
+			//没有子节点
+			if(organizationSon==null||organizationSon.size()==0){
+				FunctionNode node=new FunctionNode();
+				node.setId(o.getId());
+				node.setName(o.getName());
+				node.setpId(o.getUpperLevelId().toString());
+				organizationNodes.add(node);
+			}else{
+				organizationNodes.addAll(TreeUtil.getOrganizationTree(organizationSon, organizationDao));
+				FunctionNode f=new FunctionNode();
+				f.setId(o.getId());
+				f.setName(o.getName());
+				f.setpId(o.getUpperLevelId().toString());
+				organizationNodes.add(f);
+			}
+		}
+		return organizationNodes;
+	}
 }

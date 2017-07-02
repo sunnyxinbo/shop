@@ -37,6 +37,11 @@ app.config(['$stateProvider', function ($stateProvider, $urlRouterProvider) {
             controllerAs: 'role',
             url: '/role',
             templateUrl: "yangtze_assets/templates/role.html"})
+        .state('organization', {//组织管理
+            controller: 'OrganizationController',
+            controllerAs: 'organization',
+            url: '/organization',
+            templateUrl: "yangtze_assets/templates/organization.html"})
         .state('menu', {//菜单管理
             controller: 'MenuController',
             controllerAs: 'menu',
