@@ -422,12 +422,6 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
         });
     }
 });
-app.controller('RoleDetailsController',function ($scope,$rootScope,$http,$state,$stateParams) {
-
-});
-app.controller('RoleAddController',function ($scope,$rootScope,$http,$state) {
-
-});
 app.controller('MenuController',function ($scope,$rootScope,$http) {
     let zNodes = [
         {id: 1, pId: 0, name: "父节点 1", open: true},
@@ -783,5 +777,172 @@ app.controller('OrganizationController',function ($scope,$rootScope,$http,$state
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    }
+});
+app.controller('UserInformationController',function ($scope,$rootScope,$http,$state) {
+    let store_id = $rootScope.storeId;
+    $http.post('AllUserInformation',$.param({store_id:store_id}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data){
+            angular.forEach(data,function (f,index) {
+                if(f.enabled==0){
+                    f.style=String("启用");
+                }else {
+                    f.style=String("未启用");
+                }
+                f.check=false;//初始化所有用户没有被选定
+            });
+            $scope.userInformation=data;
+            $rootScope.userInformation=$scope.userInformation;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //当选则不同类别时，显示的数据不同
+    $scope.changeData=function (style) {
+        if(style=="option1"){
+            return;
+        }
+        let parameter=Number(style);
+        //获取启用的数据
+        if (parameter==0){
+            $http.post('EnabledUserInformation',$.param({store_id:$rootScope.storeId,state:0}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.style=String("启用");
+                    });
+                    $scope.users=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }else{
+            $http.post('DisabledUserInformation',$.param({store_id:$rootScope.storeId,state:1}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    angular.forEach(data,function (f,index) {
+                        f.style=String("未启用");
+                    });
+                    $scope.users=data;
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+    //批量操作
+    $scope.checkAll=false;
+    $scope.checkBoxAllChanged=function () {
+        angular.forEach($scope.userInformation,function (f,index) {
+            f.check=$scope.checkAll;
+        })
+    };
+    $scope.checkBoxChanged=function () {
+        $scope.checkAll=false;
+    };
+    //批量删除
+    $scope.deleteManyUserInformation=function () {
+        let deleteUserInformation=[];
+        angular.forEach($scope.userInformation,function (f,index) {
+            if (f.check){
+                deleteUserInformation.push(f.id);
+            }
+        });
+        if (deleteUserInformation.length==0){
+            alert("至少选择一项删除");
+        }else {
+            $http.post('deleteManyUserInformation',$.param({deleteUsers:deleteUserInformation}),
+                {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+                .success(function (data) {
+                    if (data == "success") {
+                        for (let i = 0; i < deleteUserInformation.length; i++) {
+                            for (let y=0;y<$scope.userInformation.length;y++){
+                                if ($scope.userInformation[y].id==deletUsers[i]){
+                                    $scope.userInformation.splice(y,1);
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        alert("删除用户失败");
+                    }
+                }).error(function () {
+                alert("服务端错误");
+            });
+        }
+    };
+    //删除单个user_information
+    $scope.deleteSingleUserInformation=function (paramId) {
+        let id=Number(paramId);
+        $http.post('deleteSingleUserInformation',$.param({userInformationId:id}),
+            {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data) {
+                if (data == "success") {
+                    for (let i = 0; i < $scope.userInformation.length; i++) {
+                        if ($scope.userInformation[i].id == id) {
+                            $scope.userInformation.splice(i, 1);
+                            break;
+                        }
+                    }
+                } else {
+                    alert("删除用户失败");
+                }
+            }).error(function () {
+            alert("服务端错误");
+        });
+    }
+});
+app.controller('UserInformationAddController',function ($scope,$rootScope,$http,$state) {
+    //获取店的所有职务
+    $http.post('duties',$.param({storeNumber:$rootScope.storeNumber}),
+        {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            $scope.duties=data;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //获取店的所有岗位
+    $http.post('workstations',$.param({storeId:$rootScope.storeId}),
+        {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            $scope.workstations=data;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //获取这个店铺所有的role
+    $http.post('getRoles',$.param({id:$rootScope.storeId}),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+        .success(function (data) {
+            $scope.roles=data;
+        }).error(function () {
+        alert("服务端错误");
+    });
+    //跳转到下一步
+    $scope.save=function () {
+        $("#tabs").tabs('open',1);
+    };
+    $scope.userInformation={};
+    $scope.showStore=false;
+    $scope.cancel=function () {
+        $state.go("user_information");
+    };
+    $scope.duty={};
+    $scope.workstation={};
+    //点击提交
+    $scope.addUserAndInformation=function () {
+        $scope.userInformation.dutyId=$scope.duty.id;
+        $scope.userInformation.departmentId=$scope.workstation.departmentId;
+        $scope.userInformation.workstationId=$scope.workstation.id;
+        $scope.userInformation.storeId=$rootScope.storeId;
+        $http.post('addUserInformation',$.param($scope.userInformation),
+            {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data){
+                if(data!="defeat"){
+                    alert("添加用户信息成功");
+                    $state.go("user_information_add");
+                }else{
+                    alert("添加UserInformation失败");
+                }
+            }).error(function () {
+            alert("服务端错误");
+        });
     }
 });

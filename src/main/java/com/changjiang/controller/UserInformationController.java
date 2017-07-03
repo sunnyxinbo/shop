@@ -51,4 +51,29 @@ public class UserInformationController {
 			return "defeat";
 		}
 	}
+	//根据状态获取员工信息
+	@RequestMapping(value="/stateUserInformation",method=RequestMethod.POST,produces
+			="application/json;charset=UTF-8")
+	public List<UserInformation> getUserInformationByState(Integer storeId,Integer state){
+		List<UserInformation> result=service.selectUserInformationByStoreIdAndState(storeId, state);
+		return result;
+	}
+	@RequestMapping(value="/deleteManyUserInformation",method=RequestMethod.POST,produces
+			="text/plain;charset=UTF-8")
+	public String deleteUserInforamtion(Integer[] userInformationIds){
+		if(service.deleteManyUserInformation(userInformationIds)){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
+	@RequestMapping(value="/deleteManyUserInformation",method=RequestMethod.POST,produces
+			="text/plain;charset=UTF-8")
+	public String deleteSingleUserInformation(Integer userInformationId){
+		if(service.deleteSingleUserInformation(userInformationId)){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
 }

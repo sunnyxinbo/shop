@@ -7,6 +7,16 @@ app.run(function ($state) {
 });
 app.config(['$stateProvider', function ($stateProvider, $urlRouterProvider) {
     $stateProvider
+        .state('user_information_add', {//添加员工信息
+            controller: 'UserInformationAddController',
+            controllerAs: 'user_information_add',
+            url: '/add_user_information',
+            templateUrl: "yangtze_assets/templates/user_information_add.html"})
+        .state('user_information', {//员工信息管理
+            controller: 'UserInformationController',
+            controllerAs: 'user_information',
+            url: '/user_information',
+            templateUrl: "yangtze_assets/templates/user_information.html"})
         .state('user', {//用户管理
             controller: 'UserController',
             controllerAs: 'user',

@@ -19,10 +19,6 @@ public class UsersServiceImpl implements UsersService{
         return usersDao.getUsersRowCount(assist);
     }
     @Override
-    public List<Users> selectUsers(Assist assist){
-        return usersDao.selectUsers(assist);
-    }
-    @Override
     public Users selectUsersById(Integer id){
         return usersDao.selectUsersById(id);
     }
