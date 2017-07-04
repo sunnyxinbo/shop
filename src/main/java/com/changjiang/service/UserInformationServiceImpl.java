@@ -82,12 +82,12 @@ public class UserInformationServiceImpl implements UserInformationService{
 		UserInformation userInformation=new UserInformation();
 		userInformation.setUserInformaton(model);
 		userInformationDao.insertNonEmptyUserInformation(userInformation);
+		
 		Integer id=userInformationDao.selectUserInformationIdByIdNumber(model.getIdNumber());
 		WorkStation workStation=new WorkStation();
 		workStation.setId(model.getWorkstationId());
 		workStation.setUserId(id);
 		workstationDao.updateNonEmptyWorkStationById(workStation);
-		// TODO Auto-generated method stub
 		return id;
 	}
 	//根据状态返回不同的值

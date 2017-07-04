@@ -76,4 +76,14 @@ public class UserInformationController {
 			return "defeat";
 		}
 	}
+	@RequestMapping(value="/changeUserInformation",method=RequestMethod.POST,produces
+			="text/plain;charset=UTF-8")
+	public String changeUserInformation(UserInformation userInformation){
+		int sign=service.updateNonEmptyUserInformationById(userInformation);
+		if(sign==1){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
 }
