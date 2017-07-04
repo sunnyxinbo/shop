@@ -4,7 +4,6 @@ import com.changjiang.entity.Users;
 import com.changjiang.common.Assist;
 public interface UsersService{
     long getUsersRowCount(Assist assist);
-    List<Users> selectUsers(Assist assist);
     Users selectUsersById(Integer id);
     int insertUsers(Users value);
     int insertNonEmptyUsers(Users value);

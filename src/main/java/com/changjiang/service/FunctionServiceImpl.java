@@ -15,8 +15,8 @@ import com.changjiang.dao.UsersDao;
 import com.changjiang.entity.Function;
 import com.changjiang.entity.RolePower;
 import com.changjiang.entity.Users;
-import com.changjiang.model.FunctionNestNode;
-import com.changjiang.model.FunctionNode;
+import com.changjiang.viewModel.FunctionNestNode;
+import com.changjiang.viewModel.FunctionNode;
 import com.changjiang.common.Assist;
 @Service()
 public class FunctionServiceImpl implements FunctionService{
@@ -43,8 +43,13 @@ public class FunctionServiceImpl implements FunctionService{
         return functionDao.insertFunction(value);
     }
     @Override
-    public int insertNonEmptyFunction(Function value){
-        return functionDao.insertNonEmptyFunction(value);
+    public int insertNonEmptyFunction(String name,Integer pId){
+    	Function function=new Function();
+    	function.setFunctionName(name);
+    	function.setUpperLevelId(pId);
+    	functionDao.insertNonEmptyFunction(function);
+    	List<Function> functions=functionDao.selectFunction(new Assist(Assist.and_eq("function_name",name)));
+        return functions.get(0).getId();
     }
     //有无子节点进行不同的处理
     @Override

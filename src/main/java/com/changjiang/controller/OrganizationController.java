@@ -2,13 +2,15 @@ package com.changjiang.controller;
 
 
 
-import com.changjiang.common.Assist;
 import com.changjiang.entity.Organization;
 import com.changjiang.service.OrganizationService;
+import com.changjiang.viewModel.FunctionNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,44 +19,46 @@ import java.util.List;
  * 组织控制层
  */
 @Controller
-@RequestMapping("/organization")
 public class OrganizationController {
     @Autowired
-    private OrganizationService organizationService;
+    private OrganizationService service;
     /**
      * 查询所有的组织
      * @return
      */
-    @RequestMapping(value = "/queryAll")
-    public String queryAll(){
-    	Assist assist = new Assist();
-        List<Organization> organizations = organizationService.selectOrganization(assist);
-        if(organizations != null && organizations.size() > 0){
-            for (Organization organization:organizations){
-                System.out.println(organization.getName());
-            }
-        }
-        return "index";
+    @RequestMapping(value = "/Organizations",produces="application/json;charset=UTF-8",method=RequestMethod.POST)
+    public List<FunctionNode> queryAll(){
+    	List<FunctionNode> organization=service.getAllOrganization();
+    	return organization;
     }
-    /**
-     * 查询id为1的组织以及它下所有的组织
-     */
-    @RequestMapping(value = "/queryByIdBelow")
-    public String queryByIdAndBelow(){
-        int id=1;
-        Organization organization = organizationService.selectOrganizationById(id);
-        if (organization != null){
-            System.out.println(organization.getName()+"的当前层是: " + organization.getCurrentLevel());
-            //查询某组织下的所有组织
-            if(organization!=null && organization.getCurrentLevel()!=0){
-                List<Organization> organizationList = organizationService.selectOrganizationByCurrentLevelId(organization.getCurrentLevel());
-                if(organizationList!=null&&organizationList.size()>0){
-                    for(Organization organization1:organizationList){
-                        System.out.println(organization1.getName());
-                    }
-                }
-            }
-        }
-        return "index";
-    }
+	@RequestMapping(value="/deleteSingleOrganization",produces="text/plain;charset=UTF-8",
+			method=RequestMethod.POST)
+	public String deleteSingleOrganization(@RequestParam("organization_id") Integer id){
+		int sign=service.deleteOrganizationById(id);
+		if(sign==1){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
+	@RequestMapping(value="/changeOrganizationName",produces="text/plain;charset=UTF-8",
+			method=RequestMethod.POST)
+	public String changeOrganizationName(@RequestParam("organization_id") Integer id,@RequestParam("newName") 
+	String newName){
+		Organization o=new Organization();
+		o.setId(id);
+		o.setName(newName);
+		int sign=service.updateNonEmptyOrganizationById(o);
+		if(sign==1){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
+	@RequestMapping(value="/addOrganization",produces="text/plain;charset=UTF-8",
+			method=RequestMethod.POST)
+	public String addOrganization(@RequestParam("name") String name,@RequestParam("pId") Integer pId){
+		Integer id=service.insertNonEmptyOrganization(name, pId);
+		return id.toString();
+	}
 }

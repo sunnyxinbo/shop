@@ -14,4 +14,5 @@ public interface OfficialTradeService{
     int updateOfficialTrade(OfficialTrade value, Assist assist);
     int updateNonEmptyOfficialTradeById(OfficialTrade enti);
     int updateNonEmptyOfficialTrade(OfficialTrade value, Assist assist);
+    
 }

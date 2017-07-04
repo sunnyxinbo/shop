@@ -2,7 +2,7 @@ package com.changjiang.entity;
 
 import java.util.List;
 
-import com.changjiang.model.UserInformationModel;
+import com.changjiang.viewModel.UserInformationModel;
 
 /**
  * 
@@ -22,8 +22,10 @@ public class UserInformation {
     private String wechat;
     private String email;
     private Integer dutyId;
+    private Duty duty;
+    private Department department;
     private Integer departmentId;
-    private String state;
+	private String state;
     private Integer storeId;
     //一个用户对应多个评价
     List<UserEvaluation> userEvaluations;
@@ -32,6 +34,18 @@ public class UserInformation {
     public UserInformation() {
         super();
     }
+    public Duty getDuty() {
+		return duty;
+	}
+	public void setDuty(Duty duty) {
+		this.duty = duty;
+	}
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
     public UserInformation(Integer id,String realname,String idNumber,String phone,String dbDesc,String sex,String icon,String address,String qq,String wechat,String email,Integer dutyId,Integer departmentId,String state,Integer storeId) {
         super();
         this.id = id;

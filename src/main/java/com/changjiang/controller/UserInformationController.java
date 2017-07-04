@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.changjiang.entity.UserEvaluation;
 import com.changjiang.entity.UserInformation;
-import com.changjiang.model.UserInformationModel;
 import com.changjiang.service.UserInformationService;
+import com.changjiang.viewModel.UserInformationModel;
 
 /**
  * 
@@ -47,6 +47,41 @@ public class UserInformationController {
 		Integer id=service.addUserInformation(userInformation);
 		if(id!=null){
 			return id.toString();
+		}else{
+			return "defeat";
+		}
+	}
+	//根据状态获取员工信息
+	@RequestMapping(value="/stateUserInformation",method=RequestMethod.POST,produces
+			="application/json;charset=UTF-8")
+	public List<UserInformation> getUserInformationByState(Integer storeId,Integer state){
+		List<UserInformation> result=service.selectUserInformationByStoreIdAndState(storeId, state);
+		return result;
+	}
+	@RequestMapping(value="/deleteManyUserInformation",method=RequestMethod.POST,produces
+			="text/plain;charset=UTF-8")
+	public String deleteUserInforamtion(Integer[] userInformationIds){
+		if(service.deleteManyUserInformation(userInformationIds)){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
+	@RequestMapping(value="/deleteManyUserInformation",method=RequestMethod.POST,produces
+			="text/plain;charset=UTF-8")
+	public String deleteSingleUserInformation(Integer userInformationId){
+		if(service.deleteSingleUserInformation(userInformationId)){
+			return "success";
+		}else{
+			return "defeat";
+		}
+	}
+	@RequestMapping(value="/changeUserInformation",method=RequestMethod.POST,produces
+			="text/plain;charset=UTF-8")
+	public String changeUserInformation(UserInformation userInformation){
+		int sign=service.updateNonEmptyUserInformationById(userInformation);
+		if(sign==1){
+			return "success";
 		}else{
 			return "defeat";
 		}

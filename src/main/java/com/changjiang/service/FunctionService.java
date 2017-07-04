@@ -1,15 +1,15 @@
 package com.changjiang.service;
 import java.util.List;
 import com.changjiang.entity.Function;
-import com.changjiang.model.FunctionNestNode;
-import com.changjiang.model.FunctionNode;
+import com.changjiang.viewModel.FunctionNestNode;
+import com.changjiang.viewModel.FunctionNode;
 import com.changjiang.common.Assist;
 public interface FunctionService{
     long getFunctionRowCount(Assist assist);
     List<Function> selectFunction(Assist assist);
     Function selectFunctionById(Integer id);
     int insertFunction(Function value);
-    int insertNonEmptyFunction(Function value);
+    int insertNonEmptyFunction(String name,Integer pId);
     int deleteFunctionById(Integer id);
     int deleteFunction(Assist assist);
     int updateFunctionById(Function enti);
