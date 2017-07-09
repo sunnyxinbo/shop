@@ -71,28 +71,27 @@
                 <div class="am-tab-panel" id="tab2">
                     <div class="tpl-block ">
                         <div class="am-g tpl-amazeui-form">
-                            <div class="am-u-sm-12 am-u-md-5 am-u-md-push-8">
+                            <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
                                 <div class="am-panel am-panel-default">
                                     <div class="am-panel-bd">
                                         <div class="am-g">
-                                            <div class="am-u-md-3">
+                                            <div class="am-u-md-4">
                                                 <img ngf-src="file || default" class="am-circle am-img-thumbnail" alt=""/>
                                             </div>
-                                            <div class="am-u-md-9">
+                                            <div class="am-u-md-8">
                                                 <form class="am-form">
                                                     <div class="am-form-group">
-                                                        <input type="file" id="user-pic" ngf-select="" ngf-multiple="false" ng-model="file"
+                                                        <input type="file" id="doc-form-file" ngf-multiple="false" ng-model="file"
                                                                ngf-max-size="20MB" name="file" accept="image/*">
-                                                        <p class="am-form-help">请选择要上传的文件...</p>
-                                                        <button type="button" class="am-btn am-btn-primary am-btn-xs" ng-click="submit(file)">保存</button>
                                                     </div>
                                                 </form>
+                                                <button type="button" class="am-btn am-btn-primary am-btn-xs" ng-click="submit(file)">保存</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="am-u-sm-12 am-u-md-7 am-u-md-pull-4">
+                            <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
                                 <form class="am-form am-form-horizontal" id="form2" name="form2">
                                     <div class="am-form-group">
                                         <label for="real-name" class="am-u-sm-3 am-form-label">真实姓名 / Name</label>
