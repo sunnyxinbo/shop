@@ -3,6 +3,8 @@ import com.changjiang.entity.ProducteType;
 import java.util.List;
 import com.changjiang.common.Assist;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+@Repository
 public interface ProducteTypeDao{
     long getProducteTypeRowCount(Assist assist);
     List<ProducteType> selectProducteType(Assist assist);

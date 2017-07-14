@@ -11,7 +11,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.changjiang.config.MyMvcConfig;
 
-
 public class WebInitializer implements WebApplicationInitializer{
 
 	@Override
@@ -27,7 +26,5 @@ public class WebInitializer implements WebApplicationInitializer{
 				("encodingFilter",CharacterEncodingFilter.class);
 		encodingFilter.addMappingForUrlPatterns(null, false, "/*");
 		encodingFilter.setInitParameter("encoding", "UTF-8");//解决中文乱码
-		// TODO Auto-generated method stub
-		
 	}
 }
