@@ -31,7 +31,7 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
             $scope.nodes=nodes;
             console.log($scope.nodes);
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     $scope.displayUL=function (param) {
         let ul=document.getElementById(param);
@@ -59,7 +59,7 @@ app.controller('SidebarController',function ($rootScope, $http, $scope) {
 
             });
         }).error(function () {
-        // alert("服务端错误");
+        console.log("服务端错误");
     });
 });
 app.controller('TopMessageController',function ($rootScope,$http,$scope) {
@@ -84,7 +84,7 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
             $scope.users=data;
             $rootScope.users=$scope.users;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //当选则不同类别时，显示的数据不同
     $scope.changeData=function (style) {
@@ -180,14 +180,14 @@ app.controller('UserController',function ($scope,$rootScope,$http) {
         });
     }
 });
-app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
+app.controller('UserAddController',function ($scope,$rootScope,$http,$state,Upload) {
     //获取店的所有职务
     $http.post('duties',$.param({storeNumber:$rootScope.storeNumber}),
         {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .success(function (data) {
             $scope.duties=data;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //获取店的所有岗位
     $http.post('workstations',$.param({storeId:$rootScope.storeId}),
@@ -195,7 +195,7 @@ app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
         .success(function (data) {
             $scope.workstations=data;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //获取这个店铺所有的role
     $http.post('getRoles',$.param({id:$rootScope.storeId}),
@@ -203,7 +203,7 @@ app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
         .success(function (data) {
             $scope.roles=data;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //跳转到下一步
     $scope.save=function () {
@@ -217,6 +217,15 @@ app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
     };
     $scope.duty={};
     $scope.workstation={};
+    $scope.default="assets/img/user06.png";
+    //文件上传
+    $scope.submit = function(file) {
+        file.upload = Upload.upload({
+            url: 'upload',
+            data: {idNumber:"test", file: file}});
+        file.upload.then(function (response) {
+        });
+    };
     //点击提交
     $scope.addUserAndInformation=function () {
         if (!$scope.showStore){
@@ -235,17 +244,16 @@ app.controller('UserAddController',function ($scope,$rootScope,$http,$state) {
                         {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
                         .success(function (data){
                             if (data=="success"){
-                                alert("添加用户信息成功");
-                                $state.go("user");
+                                $scope.submit();
                             }
                         }).error(function () {
-                        alert("服务端错误");
+                        console.log("服务端错误");
                     });
                 }else{
-                    alert("添加UserInformation失败");
+                    console.log("添加UserInformation失败");
                 }
             }).error(function () {
-            alert("服务端错误");
+            console.log("服务端错误");
         });
     }
 });
@@ -267,7 +275,7 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
         .success(function (data) {
             $scope.roles.concat(data);
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     if(showStore){
         $http.post('enabledStoresByOrganization',$.param({organization:$rootScope.organizationId}),
@@ -275,7 +283,7 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
             .success(function (data) {
                 $scope.stores=data;
             }).error(function () {
-            alert("服务端错误");
+            console.log("服务端错误");
         });
     }
     //点击选择 触发函数
@@ -290,12 +298,12 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
                 .success(function (data) {
                     if(data=="success"){
                         $state.go('user');
-                        alert("修改成功")
+                        console.log("修改成功")
                     }else{
-                        alert("更改失败");
+                        console.log("更改失败");
                     }
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }else{
             $http.post('changeUser',$.param({id:$scope.user.id,username:$scope.user.username,password:$scope.user.password,roleId:$scope.user.role.id,
@@ -305,7 +313,7 @@ app.controller('UserDetailsController',function ($stateParams,$http,$scope,$root
                     $scope.stores=data;
                     $state.go('user');
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }
     }
@@ -327,7 +335,7 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
             $scope.roles=data;
             $rootScope.roles=$scope.roles;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //当选则不同类别时，显示的数据不同
     $scope.changeData=function (style) {
@@ -345,7 +353,7 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
                     });
                     $scope.roles=data;
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }else{
             $http.post('DisabledRoles',$.param({storeId:storeId}),
@@ -356,7 +364,7 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
                     });
                     $scope.roles=data;
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }
     };
@@ -379,7 +387,7 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
             }
         });
         if (deleteRoles.length==0){
-            alert("至少选择一项删除");
+            console.log("至少选择一项删除");
         }else {
             $http.post('deleteManyRole',$.param({deleteRoles:deleteRoles}),
                 {headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
@@ -394,10 +402,10 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
                             }
                         }
                     } else {
-                        alert("删除角色失败");
+                        console.log("删除角色失败");
                     }
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }
     };
@@ -415,10 +423,10 @@ app.controller('RoleController',function ($scope,$rootScope,$http,$state) {
                         }
                     }
                 } else {
-                    alert("删除角色失败");
+                    console.log("删除角色失败");
                 }
             }).error(function () {
-            alert("服务端错误");
+            console.log("服务端错误");
         });
     }
 });
@@ -449,7 +457,7 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
                 $.fn.zTree.init($("#treeDemo"), setting, zNodes);
             });
         }).error(function () {
-            alert("错误");
+        console.log("错误");
     });
     let setting = {
         view: {
@@ -508,11 +516,11 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
                     if (data=="success"){
                         return true;
                     }else{
-                        alert("删除失败");
+                        console.log("删除失败");
                         return false;
                     }
                 }).error(function () {
-                alert("失败，服务器端错误");
+                console.log("失败，服务器端错误");
                 return false;
             });
         }else{
@@ -542,11 +550,11 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
                 if (data=="success"){
                     return true;
                 }else{
-                    alert("修改失败");
+                    console.log("修改失败");
                     return false;
                 }
             }).error(function () {
-            alert("失败，服务器端错误");
+            console.log("失败，服务器端错误");
             return false;
         });
     }
@@ -590,7 +598,7 @@ app.controller('MenuController',function ($scope,$rootScope,$http) {
                 .success(function (data) {
                     zTree.addNodes(treeNode, {id:data, pId:treeNode.id, name:"新功能" + newCount});
                 }).error(function () {
-                alert("失败，服务器端错误");
+                console.log("失败，服务器端错误");
             });
             return false;
         });
@@ -627,7 +635,7 @@ app.controller('OrganizationController',function ($scope,$rootScope,$http,$state
                 $.fn.zTree.init($("#treeDemo"), setting, zNodes);
             });
         }).error(function () {
-        alert("错误");
+        console.log("错误");
     });
     let setting = {
         view: {
@@ -686,11 +694,11 @@ app.controller('OrganizationController',function ($scope,$rootScope,$http,$state
                     if (data=="success"){
                         return true;
                     }else{
-                        alert("删除失败");
+                        console.log("删除失败");
                         return false;
                     }
                 }).error(function () {
-                alert("失败，服务器端错误");
+                console.log("失败，服务器端错误");
                 return false;
             });
         }else{
@@ -720,11 +728,11 @@ app.controller('OrganizationController',function ($scope,$rootScope,$http,$state
                 if (data=="success"){
                     return true;
                 }else{
-                    alert("修改失败");
+                    console.log("修改失败");
                     return false;
                 }
             }).error(function () {
-            alert("失败，服务器端错误");
+            console.log("失败，服务器端错误");
             return false;
         });
     }
@@ -769,7 +777,7 @@ app.controller('OrganizationController',function ($scope,$rootScope,$http,$state
                 .success(function (data) {
                     zTree.addNodes(treeNode, {id:data, pId:treeNode.id, name:"新功能" + newCount});
                 }).error(function () {
-                alert("失败，服务器端错误");
+                console.log("失败，服务器端错误");
             });
             return false;
         });
@@ -795,7 +803,7 @@ app.controller('UserInformationController',function ($scope,$rootScope,$http,$st
             $scope.userInformation=data;
             $rootScope.userInformation=$scope.userInformation;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //当选则不同类别时，显示的数据不同
     $scope.changeData=function (style) {
@@ -813,7 +821,7 @@ app.controller('UserInformationController',function ($scope,$rootScope,$http,$st
                     });
                     $scope.users=data;
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }else{
             $http.post('DisabledUserInformation',$.param({store_id:$rootScope.storeId,state:1}),
@@ -824,7 +832,7 @@ app.controller('UserInformationController',function ($scope,$rootScope,$http,$st
                     });
                     $scope.users=data;
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }
     };
@@ -862,10 +870,10 @@ app.controller('UserInformationController',function ($scope,$rootScope,$http,$st
                             }
                         }
                     } else {
-                        alert("删除用户失败");
+                        console.log("删除用户失败");
                     }
                 }).error(function () {
-                alert("服务端错误");
+                console.log("服务端错误");
             });
         }
     };
@@ -883,10 +891,10 @@ app.controller('UserInformationController',function ($scope,$rootScope,$http,$st
                         }
                     }
                 } else {
-                    alert("删除用户失败");
+                    console.log("删除用户失败");
                 }
             }).error(function () {
-            alert("服务端错误");
+            console.log("服务端错误");
         });
     }
 });
@@ -897,7 +905,7 @@ app.controller('UserInformationAddController',function ($scope,$rootScope,$http,
         .success(function (data) {
             $scope.duties=data;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //获取店的所有岗位
     $http.post('workstations',$.param({storeId:$rootScope.storeId}),
@@ -905,7 +913,7 @@ app.controller('UserInformationAddController',function ($scope,$rootScope,$http,
         .success(function (data) {
             $scope.workstations=data;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //获取这个店铺所有的role
     $http.post('getRoles',$.param({id:$rootScope.storeId}),
@@ -913,7 +921,7 @@ app.controller('UserInformationAddController',function ($scope,$rootScope,$http,
         .success(function (data) {
             $scope.roles=data;
         }).error(function () {
-        alert("服务端错误");
+        console.log("服务端错误");
     });
     //跳转到下一步
     $scope.save=function () {
@@ -939,10 +947,46 @@ app.controller('UserInformationAddController',function ($scope,$rootScope,$http,
                     alert("添加用户信息成功");
                     $state.go("user_information_add");
                 }else{
-                    alert("添加UserInformation失败");
+                    console.log("添加UserInformation失败");
                 }
             }).error(function () {
-            alert("服务端错误");
+            console.log("服务端错误");
+        });
+    }
+});
+app.controller('UserInformationDetailsController',function ($stateParams,$http,$scope,$rootScope,$state) {
+    let id=Number($stateParams.id);
+    let userInformation=$rootScope.userInformation;
+    for (let i=0;i<userInformation.length;i++){
+        if(userInformation[i].id==id){
+            $scope.userInformation=userInformation[i];
+            break;
+        }
+    }
+    //点击选择 触发函数
+    $scope.checked=function (id) {
+        $scope.userInformation.enabled=Number(id);
+    };
+    $scope.changeUser=function () {
+        $scope.userInformation.dutyId=$scope.duty.id;
+        $scope.userInformation.departmentId=$scope.workstation.departmentId;
+        $scope.userInformation.workstationId=$scope.workstation.id;
+        $scope.userInformation.storeId=$rootScope.storeId;
+        $http.post('changeUserInformation',$.param({id:$scope.userInformation.id,realname:$scope.userInformation.realname,idNumber:$scope.userInformation.
+                idNumber,phone:$scope.userInformation.phone,dbDesc:$scope.userInformation.dbDesc,sex:$scope.userInformation.sex,address:$scope.
+                userInformation.address,qq:$scope.userInformation.qq,wechat:$scope.userInformation.wechat,email:$scope.userInformation.email,dutyId:$scope
+                .userInformation.dutyId,departmentId:$scope.userInformation.departmentId,workstationId:$scope.userInformation.workstationId,storeId:$scope
+                .userInformation.storeId}),
+            {headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}})
+            .success(function (data) {
+                if(data=="success"){
+                    $state.go('user');
+                    alert("修改成功")
+                }else{
+                    alert("更改失败");
+                }
+            }).error(function () {
+            console.log("服务端错误");
         });
     }
 });

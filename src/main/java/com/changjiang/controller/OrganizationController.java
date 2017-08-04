@@ -26,7 +26,7 @@ public class OrganizationController {
      * 查询所有的组织
      * @return
      */
-    @RequestMapping(value = "/Organizations",produces="application/json;charset=UTF-8",method=RequestMethod.POST)
+    @RequestMapping(value = "/organizations",produces="application/json;charset=UTF-8",method=RequestMethod.POST)
     public List<FunctionNode> queryAll(){
     	List<FunctionNode> organization=service.getAllOrganization();
     	return organization;

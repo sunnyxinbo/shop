@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/6/2 0002.
  */
-var app = angular.module('app',['ui.router']);
+var app = angular.module('app',['ui.router','ngFileUpload']);
 app.run(function ($state) {
 
 });
@@ -12,6 +12,11 @@ app.config(['$stateProvider', function ($stateProvider, $urlRouterProvider) {
             controllerAs: 'user_information_add',
             url: '/add_user_information',
             templateUrl: "yangtze_assets/templates/user_information_add.html"})
+        .state('user_information_details', {//员工信息编辑
+            controller: 'UserInformationDetailsController',
+            controllerAs: 'user_information_details',
+            url: '/user_information_details/:id',
+            templateUrl: "yangtze_assets/templates/user_information_details.html"})
         .state('user_information', {//员工信息管理
             controller: 'UserInformationController',
             controllerAs: 'user_information',

@@ -67,7 +67,7 @@ public class UserInformationController {
 			return "defeat";
 		}
 	}
-	@RequestMapping(value="/deleteManyUserInformation",method=RequestMethod.POST,produces
+	@RequestMapping(value="/deleteSingleUserInformation",method=RequestMethod.POST,produces
 			="text/plain;charset=UTF-8")
 	public String deleteSingleUserInformation(Integer userInformationId){
 		if(service.deleteSingleUserInformation(userInformationId)){
