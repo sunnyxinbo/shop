@@ -13,16 +13,17 @@ import com.changjiang.config.MyMvcConfig;
 
 public class WebInitializer implements WebApplicationInitializer{
 
-	@Override
-	public void onStartup(ServletContext arg0) throws ServletException {
-		AnnotationConfigWebApplicationContext ctx=new AnnotationConfigWebApplicationContext();
-		ctx.register(MyMvcConfig.class);
+    @Override
+    public void onStartup (ServletContext arg0) throws ServletException {
+        
+        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+    	ctx.register(MyMvcConfig.class);
 		ctx.setServletContext(arg0);
-		Dynamic servlet=arg0.addServlet("dispatcher",new DispatcherServlet(ctx));
+		Dynamic servlet = arg0.addServlet("dispatcher",new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setLoadOnStartup(1);
 		servlet.setAsyncSupported(true);//开启Servlet异步方法的支持
-		javax.servlet.FilterRegistration.Dynamic encodingFilter=arg0.addFilter
+		javax.servlet.FilterRegistration.Dynamic encodingFilter = arg0.addFilter
 				("encodingFilter",CharacterEncodingFilter.class);
 		encodingFilter.addMappingForUrlPatterns(null, false, "/*");
 		encodingFilter.setInitParameter("encoding", "UTF-8");//解决中文乱码
