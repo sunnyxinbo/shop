@@ -22,10 +22,10 @@ public class WebInitializer implements WebApplicationInitializer{
 		Dynamic servlet = arg0.addServlet("dispatcher",new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setLoadOnStartup(1);
-		servlet.setAsyncSupported(true);//开启Servlet异步方法的支持
+		servlet.setAsyncSupported(true);
 		javax.servlet.FilterRegistration.Dynamic encodingFilter = arg0.addFilter
 				("encodingFilter",CharacterEncodingFilter.class);
 		encodingFilter.addMappingForUrlPatterns(null, false, "/*");
-		encodingFilter.setInitParameter("encoding", "UTF-8");//解决中文乱码
+		encodingFilter.setInitParameter("encoding", "UTF-8");
 	}
 }
